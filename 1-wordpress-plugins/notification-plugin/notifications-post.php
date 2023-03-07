@@ -16,9 +16,14 @@ class NotificationPost
     //add notification to post
     function random_post_notification($content)
     {
+
         $notifications = get_option('notifications');
-        $random_nr = rand(0, count($notifications) - 1);
-        return '<section class="notification">' . $notifications[$random_nr] . '</section>' . $content;
+        if ($notifications) {
+            $random_nr = rand(0, count($notifications) - 1);
+            return '<section class="notification">' . $notifications[$random_nr] . '</section>' . $content;
+        }
+        return $content;
+
     }
 
 }
