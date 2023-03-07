@@ -121,9 +121,9 @@ submit-btn:hover {
     transform: translateY(0);
     transition: 0.2s;
     padding: 20px;
-    width: 100%;
+    max-width: 90%;
+    overflow: scroll;
     font-size: 0.6em;
-    overflow-wrap: normal;
 }
 
 .notification-edit-view {
