@@ -1,0 +1,141 @@
+.wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.green-btn {
+    background-color: rgb(118, 192, 76);
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 3px 3px 10px rgb(167, 167, 167);
+    font-weight: bold;
+    border: 0.5px solid black;
+    transition: 0.2s;
+}
+
+.green-btn:hover {
+    background-color: rgb(178, 255, 133);
+}
+
+.page-section {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 3px 3px 10px rgb(167, 167, 167);
+    border-radius: 10px;
+}
+
+.new-notification-form {
+    height: 100%;
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0.2s;
+}
+
+.new-notification-form .name-input {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.submit-form {
+    float: right;
+    margin-top: 20px;
+    padding: 5px 10px;
+}
+
+textarea {
+    resize: none;
+    width: 100%;
+    height: 200px;
+}
+
+.add_new {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.add_new button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-left: 10px;
+
+}
+
+.notifications-list-item {
+    margin: 20px 0;
+    background-color: #fff;
+    padding: 20px 20px 40px 20px;
+}
+
+.notification {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.notification-actions {
+    float: right;
+    display: inline;
+}
+
+.notification-actions>button,
+.submit-btn {
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgb(89, 89, 230);
+}
+
+.delete-form {
+    display: inline;
+}
+
+.notification-actions>button:hover,
+submit-btn:hover {
+    background-color: none;
+    color: rgb(6, 6, 199);
+}
+
+.notification-view {
+    height: 100%;
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0.2s;
+    margin: 30px auto;
+    width: 80%;
+    padding: 20px;
+    box-shadow: 3px 3px 10px rgb(167, 167, 167);
+    border-radius: 10px;
+}
+
+.notification-code-view {
+    height: 100%;
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0.2s;
+    padding: 20px;
+    width: 100%;
+    font-size: 0.6em;
+    overflow-wrap: normal;
+}
+
+.notification-edit-view {
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.hide {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-10%);
+    transition: 0.2s;
+    margin: 0 auto;
+}

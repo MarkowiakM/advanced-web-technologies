@@ -1,0 +1,7 @@
+.notification {
+    margin: 30px auto;
+    width: 80%;
+    padding: 20px;
+    box-shadow: 3px 3px 10px rgb(167, 167, 167);
+    border-radius: 10px;
+}
