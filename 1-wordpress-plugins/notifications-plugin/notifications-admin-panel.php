@@ -67,7 +67,13 @@ class NotificationAdminPanel
                 <h2>Add new notification</h2>
                 <div>
                     <input class="name-input" type="text" name="notification_name" required placeholder="Notification name">
-                    <pre><textarea type="text" name="notification" required placeholder="Insert your html code here"></textarea></pre>
+                    <?php
+                    $settings = array(
+                        'media_buttons' => false,
+                        'quicktags' => false
+                    );
+                    wp_editor('', 'notification', $settings);
+                    ?>
                     <input type="submit" value="Submit" class="submit-form green-btn">
                 </div>
             </form>
@@ -90,7 +96,7 @@ class NotificationAdminPanel
             $html .= '<div class="notification">' . strval($key + 1) . '. ' . $names[$key];
             $html .=
                 '<div class="notification-view hide" id="notification-view-' . $key . '">'
-                . $value .
+                . htmlspecialchars_decode($value) .
                 '</div>';
             $html .= '<pre class="notification-code-view hide" id="notification-code-view-' . $key . '">'
                 . htmlspecialchars($value) .
@@ -125,4 +131,5 @@ class NotificationAdminPanel
         wp_register_script('admin-script', plugins_url('/js/admin-panel.js', __FILE__));
         wp_enqueue_script('admin-script');
     }
+
 }

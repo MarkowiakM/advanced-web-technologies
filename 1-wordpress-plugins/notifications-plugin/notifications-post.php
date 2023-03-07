@@ -23,5 +23,7 @@ class NotificationPost
             return '<section class="notification">' . $notifications[$random_nr] . '</section>' . $content;
         }
         return $content;
+
     }
+
 }
