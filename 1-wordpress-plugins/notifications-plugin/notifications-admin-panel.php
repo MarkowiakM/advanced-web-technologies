@@ -38,8 +38,8 @@ class NotificationAdminPanel
             array_push($notifications, str_replace('\"', '"', $_POST['notification']));
             array_push($notifications_names, $_POST['notification_name']);
             echo '<div class="notice notice-success isdismissible"><p>New notttification added.</p></div>';
-            //edit notification
 
+            //edit notification
         } else if (isset($_POST['notification-edit'])) {
             $notifications[$_POST['notification-nr']] = str_replace('\"', '"', $_POST['notification-edit']);
             echo '<div class="notice notice-success isdismissible"><p>Notification eddited.</p></div>';
@@ -51,6 +51,7 @@ class NotificationAdminPanel
             array_splice($notifications_names, $_POST['notification-del-nr'], 1);
             echo '<div class="notice notice-success isdismissible"><p>Deleted notification.</p></div>';
         }
+
         //update options
         update_option('notifications', $notifications);
         update_option('notifications_names', $notifications_names);
@@ -124,5 +125,4 @@ class NotificationAdminPanel
         wp_register_script('admin-script', plugins_url('/js/admin-panel.js', __FILE__));
         wp_enqueue_script('admin-script');
     }
-
 }
