@@ -35,15 +35,15 @@ class NotificationAdminPanel
         global $_POST;
         //add new notification
         if (isset($_POST['notification']) && isset($_POST['notification_name'])) {
-            // echo 'div' . htmlentities($_POST['notification']) . htmlentities(html_entity_decode($_POST['notification'])) . htmlspecialchars($_POST['notification']) . htmlspecialchars(htmlspecialchars_decode($_POST['notification'])) . '</div>';
-
-            array_push($notifications, str_replace('/\//', '', $_POST['notification']));
+            array_push($notifications, str_replace('\"', '"', $_POST['notification']));
             array_push($notifications_names, $_POST['notification_name']);
-            // echo '<div class="notice notice-success isdismissible"><p>New notttification added.</p></div>';
+            echo '<div class="notice notice-success isdismissible"><p>New notttification added.</p></div>';
             //edit notification
+
         } else if (isset($_POST['notification-edit'])) {
-            $notifications[$_POST['notification-nr']] = str_replace('/\//', '', $_POST['notification-edit']);
-            // echo 'div' . htmlentities($_POST['notification-edit']) . html_entity_decode($_POST['notification-edit']) . htmlspecialchars($_POST['notification-edit']) . htmlspecialchars_decode($_POST['notification-edit']) . 'hello</div>';
+            $notifications[$_POST['notification-nr']] = str_replace('\"', '"', $_POST['notification-edit']);
+            echo '<div class="notice notice-success isdismissible"><p>Notification eddited.</p></div>';
+
         }
         //delete notification
         else if (isset($_POST['notification-del-nr'])) {
