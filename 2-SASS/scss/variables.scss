@@ -1,10 +1,78 @@
-
 // Colors
 $lightBlueColor: cornflowerblue;
 $transparentBlack: rgba(0, 0, 0, 0.5);
+$transparentBlack07: rgba(0, 0, 0, 0.7);
+$transparentWhite08: rgba(255, 255, 255, 0.85);
 $footerColor: rgb(35, 53, 132);
+$darkBlueColor: darkblue;
+$whiteColor: white;
+$yellowColor: rgb(207, 147, 7);
+$lightGreenButton: rgb(163, 177, 114);
+$oliveGreenButton: rgb(146, 155, 102);
 
 
 
 // Fonts
-$fontFamily: Catamaran, Arial, Helvetica, sans-serif;
+$fontMain: Arial, Helvetica, sans-serif;
+$fontMainPlus: Catamaran, $fontMain;
+
+// Special values
+$mw: 640px;
+$lmw: 1440px;
+
+$attractionsFontSize: 2em;
+
+// Buttons
+@mixin default-btn() {
+
+    text-transform: uppercase;
+    color: $darkBlueColor;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    transition: 0.3s;
+    position: relative;
+    padding: 0 5px;
+
+    &:hover {
+        color: $lightBlueColor;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        height: 2px;
+        width: 0;
+        background-color: $darkBlueColor;
+        opacity: 0;
+        transition: 0.3s;
+    
+    }
+
+    &:hover:after {
+        opacity: 1;
+        background-color: $lightBlueColor;
+        width: 100%;
+        left: 0;
+    }
+}
+
+@mixin quote-btn($color, $colorHover){
+    display: block;
+    background-color: transparent;
+    border: 2px solid black;
+    padding: 20px 40px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px auto;
+    cursor: pointer;
+    transition: 0.2s;
+    background-color: $color;
+
+    &:hover {
+        background-color: $colorHover;
+    }
+}

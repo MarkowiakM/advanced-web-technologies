@@ -1,136 +1,3 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-blockquote,
-q {
-  quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
 * {
   font-family: Catamaran, Arial, Helvetica, sans-serif;
   box-sizing: border-box;
@@ -153,7 +20,7 @@ a {
 
 header {
   height: 100vh;
-  background: url("./Images/market-header.jpeg");
+  background: url("../Images/market-header.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -166,11 +33,26 @@ h1:only-child {
   top: 50%;
   left: 0;
   width: 100%;
-  line-height: 60px;
+  line-height: 30px;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   letter-spacing: 1.5px;
   padding-left: 2vw;
+}
+
+h2 {
+  width: 100%;
+  line-height: 100px;
+  background-color: rgb(207, 147, 7);
+  padding: 3%;
+  color: white;
+  font-size: 4em;
+  text-align: center;
+}
+
+h3 {
+  top: 50%;
+  font-size: 2em;
 }
 
 #logo,
@@ -201,18 +83,10 @@ nav li a {
   position: relative;
   padding: 0 5px;
 }
-
-a + ul {
-  flex-direction: column;
-  gap: 10px;
-  list-style: none;
-}
-
-nav > ul > li > a:hover {
+nav li a:hover {
   color: cornflowerblue;
 }
-
-nav > ul > li > a:after {
+nav li a:after {
   content: "";
   display: block;
   position: absolute;
@@ -224,94 +98,49 @@ nav > ul > li > a:after {
   opacity: 0;
   transition: 0.3s;
 }
-
-nav > ul > li > a:hover:after {
+nav li a:hover:after {
   opacity: 1;
   background-color: cornflowerblue;
   width: 100%;
   left: 0;
 }
 
-.main__descr {
-  background-color: rgb(207, 147, 7);
-  color: white;
-  padding: 80px 10vw;
-  font-size: 1.5em;
-  line-height: 1.7em;
-}
-
-.main__descr mark {
-  display: block;
-  width: max-content;
-  background-color: transparent;
-  margin-top: 80px;
-  padding: 10px;
-  float: right;
-  color: white;
-  font-size: 1.2em;
-  font-weight: bold;
-  font-style: italic;
-  font-variant: small-caps;
-  font-family: Catamaran, Arial, Helvetica, sans-serif;
-  letter-spacing: 1.5px;
+a + ul {
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
 }
 
 .main__section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 60px 10vw;
-  gap: 50px;
+  padding: 30px 10vw;
+  gap: 200px;
   flex-direction: column;
 }
-
-.main__section:nth-child(even) {
+.main__section:nth-child(odd) {
   background-color: cornflowerblue;
   color: white;
+}
+.main__section:nth-child(odd) a {
+  border: 1px solid white;
+}
+.main__section:nth-child(odd) a:hover {
+  background-color: white;
+  color: cornflowerblue;
+}
+.main__section:last-child {
+  margin-bottom: 50px;
+}
+.main__section:last-child img {
+  width: auto;
 }
 
 .main__section--img {
   width: 80vw;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
-}
-
-.main__section--descr {
-  display: flex;
-  flex-direction: column;
-}
-
-.main__section--descr a {
-  color: white;
-  background-color: cornflowerblue;
-  transition: 0.3s;
-  margin-top: 20px;
-  width: max-content;
-  padding: 10px 20px;
-  align-self: flex-end;
-  border: 1px solid cornflowerblue;
-}
-
-span ~ a:hover {
-  color: cornflowerblue;
-  background-color: white;
-}
-
-.main__section:nth-child(even) a {
-  border: 1px solid white;
-}
-
-.main__section:nth-child(even) a:hover {
-  background-color: white;
-  color: cornflowerblue;
-}
-
-.main__section:last-child {
-  margin-bottom: 50px;
-}
-
-.main__section:last-child img {
-  width: auto;
 }
 
 footer {

@@ -1,136 +1,3 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-blockquote,
-q {
-  quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
 * {
   font-family: Catamaran, Arial, Helvetica, sans-serif;
   box-sizing: border-box;
@@ -153,7 +20,7 @@ a {
 
 header {
   height: 100vh;
-  background: url("./Images/market-header.jpeg");
+  background: url("../Images/market-header.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -201,18 +68,10 @@ nav li a {
   position: relative;
   padding: 0 5px;
 }
-
-a + ul {
-  flex-direction: column;
-  gap: 10px;
-  list-style: none;
-}
-
-nav > ul > li > a:hover {
+nav li a:hover {
   color: cornflowerblue;
 }
-
-nav > ul > li > a:after {
+nav li a:after {
   content: "";
   display: block;
   position: absolute;
@@ -224,12 +83,43 @@ nav > ul > li > a:after {
   opacity: 0;
   transition: 0.3s;
 }
-
-nav > ul > li > a:hover:after {
+nav li a:hover:after {
   opacity: 1;
   background-color: cornflowerblue;
   width: 100%;
   left: 0;
+}
+
+a + ul {
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.main__section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 10vw;
+  gap: 50px;
+  flex-direction: column;
+}
+.main__section:nth-child(even) {
+  background-color: cornflowerblue;
+  color: white;
+}
+.main__section:nth-child(even) a {
+  border: 1px solid white;
+}
+.main__section:nth-child(even) a:hover {
+  background-color: white;
+  color: cornflowerblue;
+}
+.main__section:last-child {
+  margin-bottom: 50px;
+}
+.main__section:last-child img {
+  width: auto;
 }
 
 .main__descr {
@@ -239,7 +129,6 @@ nav > ul > li > a:hover:after {
   font-size: 1.5em;
   line-height: 1.7em;
 }
-
 .main__descr mark {
   display: block;
   width: max-content;
@@ -252,22 +141,8 @@ nav > ul > li > a:hover:after {
   font-weight: bold;
   font-style: italic;
   font-variant: small-caps;
-  font-family: Catamaran, Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 1.5px;
-}
-
-.main__section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 60px 10vw;
-  gap: 50px;
-  flex-direction: column;
-}
-
-.main__section:nth-child(even) {
-  background-color: cornflowerblue;
-  color: white;
 }
 
 .main__section--img {
@@ -280,7 +155,6 @@ nav > ul > li > a:hover:after {
   display: flex;
   flex-direction: column;
 }
-
 .main__section--descr a {
   color: white;
   background-color: cornflowerblue;
@@ -295,23 +169,6 @@ nav > ul > li > a:hover:after {
 span ~ a:hover {
   color: cornflowerblue;
   background-color: white;
-}
-
-.main__section:nth-child(even) a {
-  border: 1px solid white;
-}
-
-.main__section:nth-child(even) a:hover {
-  background-color: white;
-  color: cornflowerblue;
-}
-
-.main__section:last-child {
-  margin-bottom: 50px;
-}
-
-.main__section:last-child img {
-  width: auto;
 }
 
 footer {
