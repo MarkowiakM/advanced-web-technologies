@@ -126,7 +126,9 @@ header h1 {
   color: white;
 }
 .main__section:nth-child(even) a {
+  background-color: transparent;
   border: 1px solid white;
+  color: white;
 }
 .main__section:nth-child(even) a:hover {
   background-color: white;

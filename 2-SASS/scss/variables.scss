@@ -22,37 +22,62 @@ $attractionsFontSize: 2em;
 
 // Buttons
 @mixin default-link() {
+  text-transform: uppercase;
+  color: $darkBlueColor;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  transition: 0.3s;
+  position: relative;
+  padding: 0 5px;
 
-    text-transform: uppercase;
-    color: $darkBlueColor;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+  &:hover {
+    color: $lightBlueColor;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: $darkBlueColor;
+    opacity: 0;
     transition: 0.3s;
-    position: relative;
-    padding: 0 5px;
+  }
 
-    &:hover {
-        color: $lightBlueColor;
-    }
+  &:hover:after {
+    opacity: 1;
+    background-color: $lightBlueColor;
+    width: 100%;
+    left: 0;
+  }
+}
 
-    &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        height: 2px;
-        width: 0;
-        background-color: $darkBlueColor;
-        opacity: 0;
-        transition: 0.3s;
-    
-    }
+@mixin btn($fontColor, $bgcColor) {
+  color: $fontColor;
+  background-color: $bgcColor;
+  transition: 0.3s;
+  margin-top: 20px;
+  width: max-content;
+  padding: 10px 20px;
+  align-self: flex-end;
+  border: 1px solid $bgcColor;
 
-    &:hover:after {
-        opacity: 1;
-        background-color: $lightBlueColor;
-        width: 100%;
-        left: 0;
-    }
+  &:hover {
+    color: $bgcColor;
+    background-color: $fontColor;
+  }
+}
+
+@mixin btn-ghost($fontColor, $fontHoverColor) {
+  background-color: transparent;
+  border: 1px solid $fontColor;
+  color: $fontColor;
+
+  &:hover {
+    background-color: $fontColor;
+    color: $fontHoverColor;
+  }
 }

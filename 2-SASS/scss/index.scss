@@ -86,12 +86,7 @@ header {
       color: $whiteColor;
 
       a {
-        border: 1px solid $whiteColor;
-
-        &:hover {
-          background-color: $whiteColor;
-          color: $lightBlueColor;
-        }
+        @include btn-ghost($whiteColor, $lightBlueColor);
       }
     }
 
@@ -114,19 +109,7 @@ header {
       flex-direction: column;
 
       a {
-        color: $whiteColor;
-        background-color: $lightBlueColor;
-        transition: 0.3s;
-        margin-top: 20px;
-        width: max-content;
-        padding: 10px 20px;
-        align-self: flex-end;
-        border: 1px solid $lightBlueColor;
-
-        &:hover {
-          color: $lightBlueColor;
-          background-color: $whiteColor;
-        }
+       @include btn($whiteColor, $lightBlueColor);
       }
     }
   }
