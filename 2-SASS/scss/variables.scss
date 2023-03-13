@@ -10,20 +10,18 @@ $yellowColor: rgb(207, 147, 7);
 $lightGreenButton: rgb(163, 177, 114);
 $oliveGreenButton: rgb(146, 155, 102);
 
-
-
 // Fonts
 $fontMain: Arial, Helvetica, sans-serif;
 $fontMainPlus: Catamaran, $fontMain;
 
-// Special values
+// Media screen widths
 $mw: 640px;
 $lmw: 1440px;
 
 $attractionsFontSize: 2em;
 
 // Buttons
-@mixin default-btn() {
+@mixin default-link() {
 
     text-transform: uppercase;
     color: $darkBlueColor;
@@ -56,23 +54,5 @@ $attractionsFontSize: 2em;
         background-color: $lightBlueColor;
         width: 100%;
         left: 0;
-    }
-}
-
-@mixin quote-btn($color, $colorHover){
-    display: block;
-    background-color: transparent;
-    border: 2px solid black;
-    padding: 20px 40px;
-    border-radius: 16px;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 20px auto;
-    cursor: pointer;
-    transition: 0.2s;
-    background-color: $color;
-
-    &:hover {
-        background-color: $colorHover;
     }
 }

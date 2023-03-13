@@ -1,5 +1,6 @@
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 0;
 }
 
@@ -19,49 +20,6 @@ body {
   background-color: white;
 }
 
-.quote {
-  min-height: 220px;
-  padding: 40px;
-}
-
-.quote__btn:first-child {
-  display: block;
-  background-color: transparent;
-  border: 2px solid black;
-  padding: 20px 40px;
-  border-radius: 16px;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 20px auto;
-  cursor: pointer;
-  transition: 0.2s;
-  background-color: rgb(163, 177, 114);
-}
-.quote__btn:first-child:hover {
-  background-color: rgb(146, 155, 102);
-}
-.quote__btn:last-child {
-  display: block;
-  background-color: transparent;
-  border: 2px solid black;
-  padding: 20px 40px;
-  border-radius: 16px;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 20px auto;
-  cursor: pointer;
-  transition: 0.2s;
-  background-color: rgb(146, 155, 102);
-}
-.quote__btn:last-child:hover {
-  background-color: rgb(163, 177, 114);
-}
-
-.quote__p {
-  text-align: center;
-  font-size: 30px;
-}
-
 #logo,
 #logo > img {
   height: 100%;
@@ -69,12 +27,15 @@ body {
 
 nav,
 nav > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 nav {
   padding: 10px;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   position: sticky;
   z-index: 1;
   top: 0;
@@ -94,7 +55,10 @@ nav {
 
 .second-links,
 .third-links, .first-links {
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 10px;
   list-style: none;
 }
@@ -117,6 +81,7 @@ li a {
   color: darkblue;
   font-weight: 700;
   letter-spacing: 0.15em;
+  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 li:hover > ul {
@@ -125,7 +90,11 @@ li:hover > ul {
   top: 15px;
   right: 0;
   background-color: white;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
 }
 
@@ -160,17 +129,21 @@ h2 {
 }
 
 .person {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 5vw;
   margin-bottom: 50px;
-  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.7);
+          box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.85);
 }
 .person img {
   max-width: 30vw;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .person h3 {
   margin-bottom: 20px;
@@ -199,7 +172,8 @@ h2 {
   display: block;
   width: 70vw;
   max-height: 500px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   margin: 20px auto;
 }
 #stare-leszno img:not(.photo) {
@@ -246,7 +220,8 @@ section:target {
   height: 0;
   position: fixed;
   background-color: cornflowerblue;
-  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.7);
+          box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.7);
   border-radius: 20px;
   color: white;
   padding: auto;
@@ -258,6 +233,7 @@ section:target {
   font-size: 30px;
   letter-spacing: 5px;
   cursor: pointer;
+  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 #popup:hover {
@@ -280,12 +256,19 @@ section:target {
   nav {
     padding: 20px;
     height: 100px;
-    align-items: center;
-    justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
   .first-links {
     gap: 2vw;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
   }
 }
 @media only screen and (min-width: 1440px) {
@@ -307,6 +290,8 @@ section:target {
   width: 180px;
 }
 .user-changes .color {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 20px;
   margin: 20px;
@@ -316,6 +301,4 @@ section:target {
 select {
   height: 40px;
   width: 150px;
-}
-
-/*# sourceMappingURL=aboutcity.css.map */
+}/*# sourceMappingURL=aboutcity.css.map */

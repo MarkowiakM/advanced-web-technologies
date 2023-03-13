@@ -22,25 +22,6 @@ body {
     background-color: $whiteColor;
 }
 
-.quote {
-    min-height: 220px;
-    padding: 40px;
-}
-
-.quote__btn {
-    &:first-child {
-        @include quote-btn($lightGreenButton, $oliveGreenButton);
-    }
-    &:last-child {
-        @include quote-btn($oliveGreenButton, $lightGreenButton);
-    }
-}
-
-.quote__p {
-    text-align: center;
-    font-size: 30px;
-}
-
 #logo,
 #logo>img {
     height: 100%;

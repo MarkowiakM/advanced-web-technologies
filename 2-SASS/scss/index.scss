@@ -1,36 +1,35 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 * {
-    font-family: $fontMainPlus;
-    box-sizing: border-box;
-    margin: 0;
+  font-family: $fontMainPlus;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
 
 body {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 header {
-    height: 100vh;
-    background: url("../Images/market-header.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative;
-}
+  height: 100vh;
+  background: url("../Images/market-header.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
 
-h1:only-child {
+  h1 {
     position: absolute;
     top: 50%;
     left: 0;
@@ -40,40 +39,41 @@ h1:only-child {
     color: $whiteColor;
     letter-spacing: 1.5px;
     padding-left: 2vw;
+  }
 }
 
-#logo,
-#logo>img {
+.nav {
+  display: flex;
+  padding: 10px;
+  justify-content: space-around;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: $whiteColor;
+  box-shadow: 4px 0 20px $transparentBlack;
+
+  &__logo {
     height: 100%;
-}
 
-nav,
-nav>ul {
-    display: flex;
-}
-
-nav {
-    padding: 10px;
-    justify-content: space-around;
-    position: sticky;
-    top: 0;
-    left: 0;
-    background-color: $whiteColor;
-    box-shadow: 4px 0 20px $transparentBlack;
-
-    li a {
-        @include default-btn();
+    img {
+      height: 100%;
     }
-}
+  }
 
-a+ul {
+  &__ul {
+    display: flex;
     flex-direction: column;
     gap: 10px;
     list-style: none;
+
+    &--link {
+      @include default-link();
+    }
+  }
 }
 
-.main__section {
-
+.main {
+  &__section {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -82,64 +82,38 @@ a+ul {
     flex-direction: column;
 
     &:nth-child(even) {
-        background-color: $lightBlueColor;
-        color: $whiteColor;
+      background-color: $lightBlueColor;
+      color: $whiteColor;
 
-        a {
-            border: 1px solid $whiteColor;
+      a {
+        border: 1px solid $whiteColor;
 
-            &:hover {
-                background-color: $whiteColor;
-                color: $lightBlueColor
-            }
+        &:hover {
+          background-color: $whiteColor;
+          color: $lightBlueColor;
         }
+      }
     }
 
     &:last-child {
-        margin-bottom: 50px;
+      margin-bottom: 50px;
 
-        img {
-            width: auto;
-        }
+      img {
+        width: auto;
+      }
     }
-}
 
-.main__descr {
-    background-color: $yellowColor;
-    color: $whiteColor;
-    padding: 80px 10vw;
-    font-size: 1.5em;
-    line-height: 1.7em;
-
-    mark {
-        display: block;
-        width: max-content;
-        background-color: transparent;
-        margin-top: 80px;
-        padding: 10px;
-        float: right;
-        color: $whiteColor;
-        font-size: 1.2em;
-        font-weight: bold;
-        font-style: italic;
-        font-variant: small-caps;
-        font-family: $fontMain;
-        letter-spacing: 1.5px;
+    &--img {
+      width: 80vw;
+      height: 200px;
+      object-fit: cover;
     }
-}
 
+    &--descr {
+      display: flex;
+      flex-direction: column;
 
-.main__section--img {
-    width: 80vw;
-    height: 200px;
-    object-fit: cover;
-}
-
-.main__section--descr {
-    display: flex;
-    flex-direction: column;
-
-    a {
+      a {
         color: $whiteColor;
         background-color: $lightBlueColor;
         transition: 0.3s;
@@ -148,66 +122,92 @@ a+ul {
         padding: 10px 20px;
         align-self: flex-end;
         border: 1px solid $lightBlueColor;
+
+        &:hover {
+          color: $lightBlueColor;
+          background-color: $whiteColor;
+        }
+      }
     }
-}
+  }
 
+  &__descr {
+    background-color: $yellowColor;
+    color: $whiteColor;
+    padding: 80px 10vw;
+    font-size: 1.5em;
+    line-height: 1.7em;
 
-span~a:hover {
-    color: $lightBlueColor;
-    background-color: $whiteColor;
+    mark {
+      background-color: transparent;
+      margin-top: 80px;
+      padding: 10px;
+      float: right;
+      color: $whiteColor;
+      font-size: 1.2em;
+      font-weight: bold;
+      font-style: italic;
+      font-variant: small-caps;
+      font-family: $fontMain;
+      letter-spacing: 1.5px;
+    }
+  }
 }
 
 footer {
-    background-color: $footerColor;
-    color: $whiteColor;
-    padding: 10px;
-    text-align: center;
-    letter-spacing: 2px;
-    font-weight: bolder;
+  background-color: $footerColor;
+  color: $whiteColor;
+  padding: 10px;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: bolder;
 }
 
 @media only screen and (min-width: $mw) {
-
-    h1:only-child {
-        top: 70%;
-        line-height: 100px;
-        letter-spacing: 2.5px;
-        padding-left: 10vw;
+  header {
+    h1 {
+      top: 70%;
+      line-height: 100px;
+      letter-spacing: 2.5px;
+      padding-left: 10vw;
     }
+  }
 
-    nav {
-        padding: 20px;
-        height: 100px;
-        align-items: center;
-        justify-content: space-between;
+  .nav {
+    padding: 20px;
+    height: 100px;
+    align-items: center;
+    justify-content: space-between;
+
+    &__ul {
+      gap: 2vw;
+      flex-direction: row;
     }
+  }
 
-    nav>ul {
-        gap: 2vw;
-        flex-direction: row;
-    }
-
+  .main {
     .main__section {
-        flex-direction: row;
-        height: 350px;
+      flex-direction: row;
+      height: 350px;
 
-        &:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-    }
+      &:nth-child(even) {
+        flex-direction: row-reverse;
+      }
 
-    .main__section--img {
+      &--img {
         max-width: 30vw;
         height: 100%;
-    }
+      }
 
-    .main__section--descr {
+      &--descr {
         max-width: 40vw;
+      }
     }
+  }
 }
 
 @media only screen and (min-width: $lmw) {
-    nav {
-        padding: 10px 10vw;
-    }
+  .nav {
+    padding: 10px 10vw;
+  }
 }
