@@ -12,12 +12,19 @@
     <title>Leszno | Poznaj miasto</title>
     <link rel="stylesheet" href="css/aboutcity.css">
 </head>
-
+<!-- 
+    <nav class="nav">
+        <a href="#" class="nav__logo"><img src="./Images/logo.jpg" alt="logo"></a>
+        <ul class="nav__ul">
+            <li><a href="./attractions.html" class="nav__ul--link">Atrakcje</a></li>
+            <li><a href="./aboutcity.html" class="nav__ul--link">Poznaj miasto</a></li>
+        </ul>
+    </nav> -->
 <body>
-    <nav id="nav">
-        <a id="logo" href="./index.html"><img src="./Images/logo.jpg" alt="logo"></a>
-        <ul class="first-links">
-            <li><a href="./attractions.html">Atrakcje</a>
+    <nav class="nav">
+        <a href="#" class="nav__logo"><img src="./Images/logo.jpg" alt="logo"></a>
+        <ul class="nav__ul first-links">
+            <li class="nav__ul--link"><a href="./attractions.html">Atrakcje</a>
                 <ul class="second-links">
                     <li>
                         <a href="#roman-maciejewski">Znani ludzie</a>
@@ -35,7 +42,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="nav__ul--link">
                 <a href="#">Poznaj miasto</a>
                 <ul class="second-links">
                     <li>
@@ -286,7 +293,7 @@
         </main>
     </div>
     <footer>&copy;2022 MM PD</footer>
-    <script src="./aboutcity.js"></script>
+    <script src="./src/aboutcity.js"></script>
 </body>
 
 </html>

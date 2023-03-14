@@ -22,7 +22,7 @@ for (let i = 0; i < people.length; i += 1) {
 
 // window.scroll
 const handlePageScroll = () => {
-  const nav = document.getElementById("nav");
+  const nav = document.getElementsByClassName("nav")[0];
   if (window.scrollY > 200) {
     nav.classList.add("nav-scrolled");
   } else {

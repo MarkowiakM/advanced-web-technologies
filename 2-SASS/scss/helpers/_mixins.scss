@@ -1,28 +1,8 @@
-// Colors
-$lightBlueColor: cornflowerblue;
-$transparentBlack: rgba(0, 0, 0, 0.5);
-$transparentBlack07: rgba(0, 0, 0, 0.7);
-$transparentWhite08: rgba(255, 255, 255, 0.85);
-$footerColor: rgb(35, 53, 132);
-$darkBlueColor: darkblue;
-$whiteColor: white;
-$yellowColor: rgb(207, 147, 7);
-
-// Fonts
-$fontMain: Arial, Helvetica, sans-serif;
-$fontMainPlus: Catamaran, $fontMain;
-
-// Breakpoints
-$mw: 640px;
-$mmw: 992px;
-$lmw: 1440px;
-
-$attractionsFontSize: 2em;
 
 // Buttons
-@mixin default-link() {
+@mixin default-link($color, $hoverColor) {
   text-transform: uppercase;
-  color: $darkBlueColor;
+  color: $color;
   font-weight: 700;
   letter-spacing: 0.15em;
   transition: 0.3s;
@@ -30,7 +10,7 @@ $attractionsFontSize: 2em;
   padding: 0 5px;
 
   &:hover {
-    color: $lightBlueColor;
+    color: $hoverColor;
   }
 
   &:after {
@@ -41,14 +21,14 @@ $attractionsFontSize: 2em;
     bottom: 0;
     height: 2px;
     width: 0;
-    background-color: $darkBlueColor;
+    background-color: $color;
     opacity: 0;
     transition: 0.3s;
   }
 
   &:hover:after {
     opacity: 1;
-    background-color: $lightBlueColor;
+    background-color: $hoverColor;
     width: 100%;
     left: 0;
   }
@@ -75,13 +55,4 @@ $attractionsFontSize: 2em;
     background-color: $fontColor;
     color: $fontHoverColor;
   }
-}
-
-@mixin footer() {
-  background-color: $footerColor;
-  color: $whiteColor;
-  padding: 10px;
-  text-align: center;
-  letter-spacing: 2px;
-  font-weight: bolder;
 }
