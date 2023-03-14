@@ -125,12 +125,7 @@ a + ul {
 }
 
 footer {
-  background-color: $footerColor;
-  color: $whiteColor;
-  padding: 10px;
-  text-align: center;
-  letter-spacing: 2px;
-  font-weight: bolder;
+  @include footer();
 }
 
 @media only screen and (min-width: $mw) {

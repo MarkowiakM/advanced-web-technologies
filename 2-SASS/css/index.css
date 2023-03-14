@@ -109,7 +109,7 @@ header h1 {
 .main__section--descr {
   display: flex;
   flex-direction: column;
-  transition: 0.3s;
+  transition: 0.5s;
 }
 .main__section--descr a {
   color: white;
