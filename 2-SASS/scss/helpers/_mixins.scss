@@ -1,6 +1,5 @@
-
 // Buttons
-@mixin default-link($color, $hoverColor) {
+@mixin default-link($color: $darkBlueColor, $hoverColor: $lightBlueColor) {
   text-transform: uppercase;
   color: $color;
   font-weight: 700;
@@ -37,7 +36,6 @@
 @mixin btn($fontColor, $bgcColor) {
   color: $fontColor;
   background-color: $bgcColor;
-  transition: 0.3s;
   border: 1px solid $bgcColor;
 
   &:hover {
@@ -55,4 +53,10 @@
     background-color: $fontColor;
     color: $fontHoverColor;
   }
+}
+
+@mixin only-for-mobile {
+    @media (max-width: $sw) {
+        @content;
+    }
 }

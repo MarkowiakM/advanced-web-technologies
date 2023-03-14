@@ -2,6 +2,7 @@
   display: flex;
   padding: 10px;
   justify-content: space-around;
+  align-items: center;
   position: sticky;
   top: 0;
   left: 0;
@@ -27,9 +28,15 @@
       @include default-link($darkBlueColor, $lightBlueColor);
     }
   }
+
+  @include only-for-mobile {
+    .nav__logo {
+      height: 80px;
+    }
+  }
 }
 
-@media only screen and (min-width: $mw) {
+@media only screen and (min-width: $xsw) {
   .nav {
     padding: 20px;
     height: 100px;
@@ -43,7 +50,7 @@
   }
 }
 
-@media only screen and (min-width: $lmw) {
+@media only screen and (min-width: $lw) {
   .nav {
     padding: 10px 10vw;
   }

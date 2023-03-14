@@ -128,6 +128,61 @@ table {
   border-spacing: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* set base values */
+/* type scale */
+body {
+  font-size: 1em;
+  font-family: Arial, Helvetica;
+}
+
+/* text size */
+.text--xxxl {
+  font-size: 2.48832em;
+}
+
+h1,
+.text--xxl {
+  font-size: 2.0736em;
+}
+
+h2,
+.text--xl {
+  font-size: 1.728em;
+}
+
+h3,
+.text--lg {
+  font-size: 1.44em;
+}
+
+h4,
+.text--md {
+  font-size: 1.2em;
+}
+
+.text--sm,
+small {
+  font-size: 0.8333333333em;
+}
+
+.text--xs {
+  font-size: 0.6944444444em;
+}
+
 .nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -135,6 +190,9 @@ table {
   padding: 10px;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: sticky;
   top: 0;
   left: 0;
@@ -192,6 +250,11 @@ table {
   width: 100%;
   left: 0;
 }
+@media (max-width: 768px) {
+  .nav .nav__logo {
+    height: 80px;
+  }
+}
 
 @media only screen and (min-width: 640px) {
   .nav {
@@ -224,27 +287,6 @@ footer {
   text-align: center;
   letter-spacing: 2px;
   font-weight: bolder;
-}
-
-* {
-  font-family: Catamaran, Arial, Helvetica, sans-serif;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: 0;
-}
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-body {
-  font-size: 16px;
-}
-
-a {
-  text-decoration: none;
 }
 
 header {
@@ -301,12 +343,11 @@ header h1 {
           flex-direction: column;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  line-height: 150%;
 }
 .main__section--descr a {
   color: white;
   background-color: cornflowerblue;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
   border: 1px solid cornflowerblue;
   margin-top: 20px;
   width: -webkit-max-content;
@@ -359,7 +400,7 @@ header h1 {
   background-color: rgb(207, 147, 7);
   color: white;
   padding: 80px 10vw;
-  font-size: 1.5em;
+  font-size: 1.44em;
   line-height: 1.7em;
 }
 .main__descr mark {
@@ -381,7 +422,6 @@ header h1 {
   background-color: rgb(207, 147, 7);
 }
 .gallery__h2 {
-  font-size: 1.5em;
   letter-spacing: 1.5px;
   color: white;
   font-weight: bold;
@@ -459,7 +499,7 @@ header h1 {
     padding: 50px 10vw;
   }
   .gallery__h2 {
-    font-size: 2em;
+    font-size: 2.0736em;
   }
   .gallery__section {
     grid-template-columns: repeat(3, 1fr);

@@ -1,20 +1,5 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  font-family: $fontMain;
   background-color: $whiteColor;
-}
-
-#logo,
-#logo > img {
-  height: 100%;
 }
 
 %links-shared {
@@ -35,7 +20,7 @@ body {
 
   li {
     padding: 10px;
-    font-size: 0.8em;
+    font-size: $text-sm;
   }
 }
 
@@ -43,7 +28,6 @@ li {
   position: relative;
 
   a {
-    text-decoration: none;
     cursor: pointer;
     text-transform: uppercase;
     color: $darkBlueColor;
@@ -90,7 +74,7 @@ li {
       }
     }
   }
-  
+
   a {
     color: $whiteColor;
   }
@@ -102,7 +86,6 @@ article {
 
 h2 {
   margin-bottom: 40px;
-  width: 100%;
   background: $transparentWhite08;
   border-radius: 10px;
   line-height: 60px;
@@ -162,7 +145,7 @@ main > section {
   }
 }
 
-@media only screen and (min-width: $mw) {
+@media only screen and (min-width: $xsw) {
   header > h1 {
     top: 70%;
     line-height: 100px;
