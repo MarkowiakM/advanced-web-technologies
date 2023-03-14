@@ -7,15 +7,14 @@ $footerColor: rgb(35, 53, 132);
 $darkBlueColor: darkblue;
 $whiteColor: white;
 $yellowColor: rgb(207, 147, 7);
-$lightGreenButton: rgb(163, 177, 114);
-$oliveGreenButton: rgb(146, 155, 102);
 
 // Fonts
 $fontMain: Arial, Helvetica, sans-serif;
 $fontMainPlus: Catamaran, $fontMain;
 
-// Media screen widths
+// Breakpoints
 $mw: 640px;
+$mmw: 992px;
 $lmw: 1440px;
 
 $attractionsFontSize: 2em;
