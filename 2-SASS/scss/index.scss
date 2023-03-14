@@ -51,6 +51,7 @@ header {
   left: 0;
   background-color: $whiteColor;
   box-shadow: 4px 0 20px $transparentBlack;
+  z-index: 1;
 
   &__logo {
     height: 100%;
@@ -81,9 +82,45 @@ header {
     gap: 50px;
     flex-direction: column;
 
+    &--img {
+      width: 80vw;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    &--descr {
+      display: flex;
+      flex-direction: column;
+      transition: 0.3s;
+
+      a {
+        @include btn($whiteColor, $lightBlueColor);
+        margin-top: 20px;
+        width: max-content;
+        padding: 10px 20px;
+        align-self: flex-end;
+      }
+    }
+
+    &:nth-child(odd) {
+      div {
+        transform: translate(100vw);
+        &.active {
+          transform: translate(0);
+        }
+      }
+    }
+
     &:nth-child(even) {
       background-color: $lightBlueColor;
       color: $whiteColor;
+
+      div {
+        transform: translate(-100vw);
+        &.active {
+          transform: translate(0);
+        }
+      }
 
       a {
         @include btn-ghost($whiteColor, $lightBlueColor);
@@ -95,21 +132,6 @@ header {
 
       img {
         width: auto;
-      }
-    }
-
-    &--img {
-      width: 80vw;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    &--descr {
-      display: flex;
-      flex-direction: column;
-
-      a {
-       @include btn($whiteColor, $lightBlueColor);
       }
     }
   }
