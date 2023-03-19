@@ -1,0 +1,160 @@
+body {
+  background-color: $whiteColor;
+}
+
+%links-shared {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.first-links {
+  @extend %links-shared;
+}
+
+.second-links,
+.third-links {
+  @extend %links-shared;
+  display: none;
+
+  li {
+    padding: 10px;
+    font-size: $text-sm;
+  }
+}
+
+li {
+  position: relative;
+
+  a {
+    cursor: pointer;
+    text-transform: uppercase;
+    color: $darkBlueColor;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    transition: 0.3s;
+
+    &:hover {
+      color: $lightBlueColor;
+    }
+  }
+
+  &:hover > ul {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 0;
+    background-color: $whiteColor;
+    width: max-content;
+    height: max-content;
+  }
+}
+
+.first-links {
+  .second-links {
+    li {
+      &:hover {
+        .third-links {
+          top: 0;
+          right: 100%;
+        }
+      }
+    }
+  }
+}
+
+.nav.nav-scrolled {
+  background-color: rgb(35, 40, 62);
+
+  li {
+    &:hover {
+      ul {
+        background-color: rgb(35, 40, 62);
+      }
+    }
+  }
+
+  a {
+    color: $whiteColor;
+  }
+}
+
+article {
+  padding: 50px 10vw;
+}
+
+h2 {
+  margin-bottom: 40px;
+  background: $transparentWhite08;
+  border-radius: 10px;
+  line-height: 60px;
+  padding-left: 20px;
+}
+
+#znani-leszczynianie {
+  background-image: url("../Images/slowianska.jpg");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.person {
+  display: flex;
+  gap: 5vw;
+  margin-bottom: 50px;
+  box-shadow: 5px 10px 20px $transparentBlack07;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: $transparentWhite08;
+
+  img {
+    max-width: 30vw;
+    object-fit: cover;
+  }
+
+  h3 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    text-align: justify;
+    line-height: 120%;
+  }
+}
+
+#daty {
+  line-height: 150%;
+}
+
+#daty > ul > li:nth-last-child(-n + 5) {
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+ol li:first-child {
+  background-color: rgb(211, 201, 201);
+}
+
+main > section {
+  background-color: rgb(201, 214, 143);
+
+  &:last-of-type {
+    background-color: rgb(146, 155, 102);
+  }
+}
+
+@media only screen and (min-width: $xsw) {
+  header > h1 {
+    top: 70%;
+    line-height: 100px;
+    letter-spacing: 2.5px;
+    padding-left: 10vw;
+  }
+
+  .first-links {
+    gap: 2vw;
+    flex-direction: row;
+  }
+}
