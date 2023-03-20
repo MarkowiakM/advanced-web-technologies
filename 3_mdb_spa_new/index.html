@@ -8,7 +8,7 @@
   <title>Rzuć wszystko</title>
 
   <!-- MDB icon -->
-  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/icon.png" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Google Fonts Roboto -->
@@ -31,7 +31,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark primary-color fixed-top">
       <div class="container">
         <!-- Navbar brand -->
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Rzuć wszystko</a>
         <!-- Collapse button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data- target="#basicExampleNav"
           aria-controls="basicExampleNav" aria-expanded="false" aria- label="Toggle navigation">
@@ -41,33 +41,41 @@
         <div class="collapse navbar-collapse" id="basicExampleNav">
           <!-- Links -->
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
+            <li class="nav-item">
+              <a class="nav-link" href="#">Strona główna
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#lastTravels">Miejsca</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="#map-container-google-1">Mapa</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#quotes">Cytaty</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Kontakt</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#faq">FAQ</a>
+            </li>
+            <!-- #TODO Czemu nie działa? -->
             <!-- Dropdown -->
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data- toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                aria-haspopup="true" aria-expanded="false">Pytania</a>
               <div class="dropdown-menu dropdown-primary" aria- labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Formularz kontaktowy</a>
+                <a class="dropdown-item" href="#">FAQ</a>
               </div>
-            </li>
+            </li> -->
           </ul>
           <!-- Links -->
           <form class="form-inline">
             <div class="md-form my-0">
-              <input class="form-control mr-sm-
-    2" type="text" placeholder="Search" aria-label="Search">
+              <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" aria-label="Search">
             </div>
           </form>
         </div>
@@ -90,8 +98,9 @@
 
               <!-- Description -->
               <h4 class="white-text my-4">... i wyjedź w polskie góry</h4>
-              <button type="button" class="btn btn-outline-white">Dowiedz się więcej
-                <i class="fas fa-book ml-2"></i></button>
+              <a class="nav-link" href="#lastTravels">
+                <button type="button" class="btn btn-outline-white">Dowiedz się więcej</button>
+              </a>
             </div>
 
           </div>
@@ -233,66 +242,248 @@
       <hr class="my-5">
 
       <!-- Section: Quote-->
+      <section id="quotes">
 
-      <div class="container py-5 h-100">
-        <div class="row d-flex align-items-center h-100">
-          <div class="col col-lg-6 mb-4 mb-lg-0">
-            <figure class="bg-light p-4"
-              style="border-left: .35rem solid #fcdb5e; border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-              <i class="fas fa-quote-left fa-2x mb-4" style="color: #fcdb5e;"></i>
-              <blockquote class="blockquote pb-2">
-                <p>
-                  Świat wartości w górach jest prosty i przejrzysty dla każdego. Ale jest to absolut piękna i
-                  estetycznych doznań. Nie chcesz, nie jedziesz. Nie widzisz, nie przeżywasz. Wybór należy do Ciebie
-                </p>
-              </blockquote>
-              <figcaption class="blockquote-footer mb-0">
-                Piotr Pustelnik
-              </figcaption>
-            </figure>
+        <div class="container py-5 h-100">
+          <div class="row d-flex align-items-center h-100">
+            <div class="col col-lg-6 mb-4 mb-lg-0">
+              <figure class="bg-light p-4"
+                style="border-left: .35rem solid #fcdb5e; border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                <i class="fas fa-quote-left fa-2x mb-4" style="color: #fcdb5e;"></i>
+                <blockquote class="blockquote pb-2">
+                  <p>
+                    Świat wartości w górach jest prosty i przejrzysty dla każdego. Ale jest to absolut piękna i
+                    estetycznych doznań. Nie chcesz, nie jedziesz. Nie widzisz, nie przeżywasz. Wybór należy do Ciebie
+                  </p>
+                </blockquote>
+                <figcaption class="blockquote-footer mb-0">
+                  Piotr Pustelnik
+                </figcaption>
+              </figure>
 
+            </div>
+
+
+            <!-- <div class="row d-flex align-items-center h-100"> -->
+            <div class="col col-lg-6">
+              <figure class="bg-light p-4"
+                style="border-left: .35rem solid #fcdb5e; border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                <i class="fas fa-quote-left fa-2x mb-4" style="color: #fcdb5e;"></i>
+                <blockquote class="blockquote pb-2">
+                  <p>
+                    Kiedy jestem w górach nie istnieje świat zewnętrzny,
+                    zgiełk i pośpiech. Jest tylko natura i życie razem z jej rytmem. Ktoś może
+                    powiedzieć, że to tylko mój wymysł, bo przed życiem się nie ucieknie. Zależy kto
+                    co nazywa życiem.
+                  </p>
+                </blockquote>
+                <figcaption class="blockquote-footer mb-0">
+                  Piotr Morawski
+                </figcaption>
+              </figure>
+
+            </div>
           </div>
+        </div>
+      </section>
 
+      <!-- Section: Quote-->
 
-          <!-- <div class="row d-flex align-items-center h-100"> -->
-          <div class="col col-lg-6">
-            <figure class="bg-light p-4"
-              style="border-left: .35rem solid #fcdb5e; border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-              <i class="fas fa-quote-left fa-2x mb-4" style="color: #fcdb5e;"></i>
-              <blockquote class="blockquote pb-2">
-                <p>
-                  Kiedy jestem w górach nie istnieje świat zewnętrzny,
-                  zgiełk i pośpiech. Jest tylko natura i życie razem z jej rytmem. Ktoś może
-                  powiedzieć, że to tylko mój wymysł, bo przed życiem się nie ucieknie. Zależy kto
-                  co nazywa życiem.
-                </p>
-              </blockquote>
-              <figcaption class="blockquote-footer mb-0">
-                Piotr Morawski
-              </figcaption>
-            </figure>
+      <hr class="my-5">
+
+      <!--Section: Contact -->
+      <section id="contact">
+
+        <div class="container py-5 h-20">
+
+          <!--Section heading-->
+          <h2 class="h1-responsive font-weight-bold text-center my-4">Skontaktuj się z nami!</h2>
+          <!--Section description-->
+          <p class="text-center w-responsive mx-auto mb-5">Masz jakieś pytanie? Nie wahaj się i bezpośrednio skontaktuj
+            się z nami. Nasz zespół odezwie się do ciebie jak tylko rozpali w kominku i zaparzy herbatkę po zdobyciu
+            kolejnego szczytu </p>
+
+          <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-9 mb-md-0 mb-5">
+              <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+                <!--Grid row-->
+                <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <input type="text" id="name" name="name" class="form-control">
+                      <label for="name" class="">Twoje imię</label>
+                    </div>
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <input type="text" id="email" name="email" class="form-control">
+                      <label for="email" class="">Twój adres e-mail</label>
+                    </div>
+                  </div>
+                  <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="md-form mb-0">
+                      <input type="text" id="subject" name="subject" class="form-control">
+                      <label for="subject" class="">Temat</label>
+                    </div>
+                  </div>
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-12">
+
+                    <div class="md-form">
+                      <textarea type="text" id="message" name="message" rows="2"
+                        class="form-control md-textarea"></textarea>
+                      <label for="message">Twoja wiadomość</label>
+                    </div>
+
+                  </div>
+                </div>
+                <!--Grid row-->
+
+              </form>
+
+              <div class="text-center text-md-left">
+                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Wyślij</a>
+              </div>
+              <div class="status"></div>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-3 text-center">
+              <ul class="list-unstyled mb-0">
+                <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                  <p>Wrocław, Plac Grunwaldzki, POLSKA</p>
+                </li>
+
+                <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                  <p>+48 123 456 789</p>
+                </li>
+
+                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                  <p>info@listek.pl</p>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
 
           </div>
         </div>
-      </div>
-      <!-- </div> -->
-    </div>
 
-    <!-- Section: Quote-->
+      </section>
+      <!--Section: Contact -->
 
-    <hr class="my-5">
+      <hr class="my-3">
 
-    <!--Section: Gallery-->
-    <section id="gallery">
-    </section>
-    <!--Section: Gallery-->
+      <!--Section: FAQ -->
+      <section id="faq">
+        <div class="container py-5 h-100">
+          <h2 class="h1-responsive font-weight-bold text-center my-4">Znajdź odpowiedź na twoje pytanie</h2>
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne">
+                    Gdzie mozna nas spotkać?
+                  </button>
+                </h5>
+              </div>
 
-    <hr class="my-5">
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                  moon
+                  officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                  Brunch
+                  3
+                  wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                  et.
+                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad
+                  vegan
+                  excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                  nesciunt
+                  you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
+                    Jakie góry na początek?
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                  moon
+                  officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                  Brunch
+                  3
+                  wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                  et.
+                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad
+                  vegan
+                  excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                  nesciunt
+                  you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="false" aria-controls="collapseThree">
+                    Chcę zdobyć koronę gór polski - od czego zacząć?
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                  moon
+                  officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                  Brunch
+                  3
+                  wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                  et.
+                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad
+                  vegan
+                  excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                  nesciunt
+                  you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Section: FQA -->
 
-    <!--Section: Contact-->
-    <section id="contact">
-    </section>
-    <!--Section: Contact-->
     </div>
   </main>
 
