@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Rzuć wszystko</title>
+
+  <!-- MDB icon -->
+  <link rel="icon" href="img/icon.png" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+  <header>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color fixed-top">
+      <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">Rzuć wszystko</a>
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data- target="#basicExampleNav"
+          aria-controls="basicExampleNav" aria-expanded="false" aria- label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Strona główna
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#lastTravels">Miejsca</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#map-container-google-1">Mapa</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#quotes">Cytaty</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#carousel">Przewodnicy</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Kontakt</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#faq">FAQ</a>
+            </li>
+            <!-- #TODO Czemu nie działa? -->
+            <!-- Dropdown -->
+            <!-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data- toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Pytania</a>
+              <div class="dropdown-menu dropdown-primary" aria- labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Formularz kontaktowy</a>
+                <a class="dropdown-item" href="#">FAQ</a>
+              </div>
+            </li> -->
+          </ul>
+          <!-- Links -->
+          <form class="form-inline">
+            <div class="md-form my-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" aria-label="Search">
+            </div>
+          </form>
+        </div>
+        <!-- Collapsible content -->
+
+      </div>
+    </nav>
+
+    <div id="intro" class="view">
+      <div class="mask rgba-stylish-strong">
+        <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+          <div class="row d-flex justify-content-center text-center">
+
+            <div class="col-md-12">
+              <!-- Heading -->
+              <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Rzuć wszystko...</h2>
+
+              <!-- Divider -->
+              <hr class="hr-light">
+
+              <!-- Description -->
+              <h4 class="white-text my-4">... i wyjedź w polskie góry</h4>
+              <a class="nav-link" href="#lastTravels">
+                <button type="button" class="btn btn-outline-white">Dowiedz się więcej</button>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="popup" class="modal-dialog modal-dialog-centered">
+      <div class="mask d-flex flex-column modal-content align-self-stretch"
+        style="background-color: hsla(0, 0%, 0%, 0.6)">
+        <div class="modal-header">
+          <div class="p-2 d-inline-flex justify-content-between">
+            <h4 class="modal-title text-warning font-weight-bold p-2" id="myModalLabel">15% rabatu na pierwszą wspinaczkę!
+            </h4>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                class="white-text">&times;</span><span class="sr-only">Close</span></button>
+          </div>
+        </div>
+        <div class="p-2 modal-body">
+          <p class="white-text text-justify p-3 mt-5 lh-lg">Wspinasz się trochę? A może więcej niż trochę, ale brak Ci śmiałości, żeby zaatakować samemu
+            wymarzony cel? Dopiero zaczynasz się wspinać, działasz samodzielnie w skałach, ale nie wspinałaś/eś się jeszcze w górach ani na drogach wielowyciągowych? A może masz całkiem spore doświadczenie, ale potrzebujesz profesjonalnego partnera by osiągnąć poważniejszy cel – ta oferta jest dla Ciebie.
+            Wspinaczka z przewodnikiem… Jeśli wspinasz się latem w górach, ale potrzebujesz profesjonalnego wsparcia we wspinaczce zimowej – doskonale trafiłeś, zimowa wspinaczka w Tatrach to coś, co najbardziej lubię!</p>
+            <div class="row d-flex justify-content-center">
+              <button type="button" class="btn btn-outline-white" data-dismiss="modal">ale super</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="mt-5">
+    <div class="container">
+
+      <!--Section: LastTravels-->
+      <section id="lastTravels" class="text-center">
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="view overlay z-depth-1-half">
+              <img src="img/trip1.jpg" class="img-fluid" alt="">
+              <a href="#!">
+                <div class="mask rgba-grey-light"></div>
+              </a>
+              <h4 class="my-4 font-weight-bold">Rudawy Janowickie</h4>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores n am, aperiam minima
+                assumenda deleniti hic.
+              </p>
+            </div>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="view overlay z-depth-1-half">
+              <img src="img/trip2.jpg" class="img-fluid" alt="">
+              <a href="#!">
+                <div class="mask rgba-grey-light"></div>
+              </a>
+              <h4 class="my-4 font-weight-bold">Bieszczady</h4>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores n am, aperiam minima
+                assumenda deleniti hic.
+              </p>
+            </div>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="view overlay z-depth-1-half">
+              <img src="img/trip3.jpg" class="img-fluid" alt="">
+              <a href="#!">
+                <div class="mask rgba-grey-light"></div>
+              </a>
+              <h4 class="my-4 font-weight-bold">Bieszczady</h4>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores n am, aperiam minima
+                assumenda deleniti hic.
+              </p>
+            </div>
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="view overlay z-depth-1-half">
+              <img src="img/trip4.jpg" class="img-fluid" alt="">
+              <a href="#!">
+                <div class="mask rgba-grey-light"></div>
+              </a>
+              <h4 class="my-4 font-weight-bold">Pieniny</h4>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores n am, aperiam minima
+                assumenda deleniti hic.
+              </p>
+            </div>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="view overlay z-depth-1-half">
+              <img src="img/trip5.jpg" class="img-fluid" alt="">
+              <a href="#!">
+                <div class="mask rgba-grey-light"></div>
+              </a>
+              <h4 class="my-4 font-weight-bold">Rudawy Janowickie</h4>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores n am, aperiam minima
+                assumenda deleniti hic.
+              </p>
+            </div>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="view overlay z-depth-1-half">
+              <img src="img/trip6.jpg" class="img-fluid" alt="">
+              <a href="#!">
+                <div class="mask rgba-grey-light"></div>
+              </a>
+              <h4 class="my-4 font-weight-bold">Pieniny</h4>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores n am, aperiam minima
+                assumenda deleniti hic.
+              </p>
+            </div>
+          </div>
+          <!--Grid column-->
+
+        </div>
+
+        <!--Grid row-->
+      </section>
+      <!--Section: LastTravels-->
+
+
+      <hr class="my-5">
+
+      <!--Google map-->
+      <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+        <iframe src="https://maps.google.com/maps?q=trzykorony&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+          style="border:0" allowfullscreen></iframe>
+      </div>
+
+      <!--Google Maps-->
+
+      <hr class="my-5">
+
+      <!-- Section: Quote-->
+      <section id="quotes">
+
+        <div class="container py-5 h-100">
+          <div class="row d-flex align-items-center h-100">
+            <div class="col col-lg-6 mb-4 mb-lg-0">
+              <figure class="bg-light p-4"
+                style="border-left: .35rem solid #fcdb5e; border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                <i class="fas fa-quote-left fa-2x mb-4" style="color: #fcdb5e;"></i>
+                <blockquote class="blockquote pb-2">
+                  <p>
+                    Świat wartości w górach jest prosty i przejrzysty dla każdego. Ale jest to absolut piękna i
+                    estetycznych doznań. Nie chcesz, nie jedziesz. Nie widzisz, nie przeżywasz. Wybór należy do Ciebie
+                  </p>
+                </blockquote>
+                <figcaption class="blockquote-footer mb-0">
+                  Piotr Pustelnik
+                </figcaption>
+              </figure>
+
+            </div>
+
+
+
+            <!-- <div class="row d-flex align-items-center h-100"> -->
+            <div class="col col-lg-6">
+              <figure class="bg-light p-4"
+                style="border-left: .35rem solid #fcdb5e; border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                <i class="fas fa-quote-left fa-2x mb-4" style="color: #fcdb5e;"></i>
+                <blockquote class="blockquote pb-2">
+                  <p>
+                    Kiedy jestem w górach nie istnieje świat zewnętrzny,
+                    zgiełk i pośpiech. Jest tylko natura i życie razem z jej rytmem. Ktoś może
+                    powiedzieć, że to tylko mój wymysł, bo przed życiem się nie ucieknie. Zależy kto
+                    co nazywa życiem.
+                  </p>
+                </blockquote>
+                <figcaption class="blockquote-footer mb-0">
+                  Piotr Morawski
+                </figcaption>
+              </figure>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Quote-->
+
+      <hr class="my-5">
+
+      <!-- Section: Charts -->
+      <section id=charts>
+        <div class="container py-5 h-100">
+          <h2 class="h1-responsive font-weight-bold text-center my-4">TOP 5 miejscowości turystycznych w polskich górach
+          </h2>
+          <!--Section description-->
+          <p class="text-center w-responsive mx-auto mb-5">Najpopularniejsze kierunki podróży turystów na podstawie
+            danych
+            zebranych przez GUS z 2018 roku.</p>
+          <!-- <canvas id="labelChart"></canvas> -->
+          <canvas id="doughnutChart"></canvas>
+        </div>
+      </section>
+      <!-- Section: Charts -->
+
+      <hr class="my-5">
+
+      <!-- Section: Courses -->
+      <section id="courses">
+        <div class="container py-5">
+          <div class="row justify-content-center">
+            <div class="col col-lg-9 row justify-content-center">
+              <img src="/img/course.jpg" alt="avalanche course" id="course-img"
+                class="rounded h-auto overlay z-depth-1-half">
+            </div>
+            <div class="col col-lg-3 d-flex flex-column justify-content-between">
+              <h2 class="h2-responsive font-weight-bold my-4">Bezpieczeństwo to podstawa!</h2>
+              <p class="text-justify">Zastanawiasz się nad zimową turystyką górską? Z nami to jest
+                bezpieczne! Wraz z rosnącą popularnością turystyki górskich w Polsce z każdym rokiem liczba interwencji
+                ratowniczych TOPR rośnie. Naucz się planować wyjścia na szlak. My ci w tym pomożemy.</p>
+              <button type="button" class="btn btn-outline-black">Dowiedz się wiecej </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section: Courses -->
+
+      <hr class="my-5">
+
+      <!-- Section: Carousel Card -->
+      <section id="carousel">
+        <div class="container py-5">
+          <h2 class="h2-responsive font-weight-bold my-4 text-center">Nasi przewodnicy</h2>
+          <div id="carouselExampleControls" class="carousel slide py-5" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="cards-wrapper">
+                  <div class="card">
+                    <img src="img/pt1.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Pan Tadeusz</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                  <div class="card d-none d-md-block">
+                    <img src="img/pt2.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Patryk Kośmider</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                  <div class="card d-none d-md-block">
+                    <img src="img/pt3.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Andrzej Soliński</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="cards-wrapper">
+                  <div class="card">
+                    <img src="img/pt4.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Maciej Mieszko</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                  <div class="card d-none d-md-block">
+                    <img src="img/pt5.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Adam Kowalski</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                  <div class="card d-none d-md-block">
+                    <img src="img/pt6.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Mateusz Kucharz</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="cards-wrapper">
+                  <div class="card">
+                    <img src="img/pt7.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Kamil Maleszka</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                  <div class="card d-none d-md-block">
+                    <img src="img/pt8.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Maciej Maciejak</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                  <div class="card d-none d-md-block">
+                    <img src="img/pt9.jpg" class="card-img-top" alt="Pan Tadeusz">
+                    <div class="card-body">
+                      <h5 class="card-title">Marcin Marciniak</h5>
+                      <p class="card-text">Przewodnik turystyczny górski mający uprawnienie do prowadzenia wycieczek na
+                        terenie Tatr, Pienin oraz Podtatrza</p>
+                      <a href="#" class="btn btn-primary">Więcej</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </section>
+      <!-- Section: Carousel Card -->
+
+      <hr class="my-5">
+
+      <!--Section: Contact -->
+      <section id="contact">
+
+        <div class="container py-5 h-20">
+
+          <!--Section heading-->
+          <h2 class="h1-responsive font-weight-bold text-center my-4">Skontaktuj się z nami!</h2>
+          <!--Section description-->
+          <p class="text-center w-responsive mx-auto mb-5">Masz jakieś pytanie? Nie wahaj się i bezpośrednio skontaktuj
+            się z nami. Nasz zespół odezwie się do ciebie jak tylko rozpali w kominku i zaparzy herbatkę po zdobyciu
+            kolejnego szczytu </p>
+
+          <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-9 mb-md-0 mb-5">
+              <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+                <!--Grid row-->
+                <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <input type="text" id="name" name="name" class="form-control">
+                      <label for="name" class="">Twoje imię</label>
+                    </div>
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <input type="text" id="email" name="email" class="form-control">
+                      <label for="email" class="">Twój adres e-mail</label>
+                    </div>
+                  </div>
+                  <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="md-form mb-0">
+                      <input type="text" id="subject" name="subject" class="form-control">
+                      <label for="subject" class="">Temat</label>
+                    </div>
+                  </div>
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-12">
+
+                    <div class="md-form">
+                      <textarea type="text" id="message" name="message" rows="2"
+                        class="form-control md-textarea"></textarea>
+                      <label for="message">Twoja wiadomość</label>
+                    </div>
+
+                  </div>
+                </div>
+                <!--Grid row-->
+
+              </form>
+
+              <div class="text-center text-md-left">
+                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Wyślij</a>
+              </div>
+              <div class="status"></div>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-3 text-center">
+              <ul class="list-unstyled mb-0">
+                <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                  <p>Wrocław, Plac Grunwaldzki, POLSKA</p>
+                </li>
+
+                <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                  <p>+48 123 456 789</p>
+                </li>
+
+                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                  <p>info@listek.pl</p>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
+
+          </div>
+        </div>
+      </section>
+      <!--Section: Contact -->
+
+      <hr class="my-3">
+
+      <!--Section: FAQ -->
+      <section id="faq">
+        <div class="container py-5 h-100">
+          <h2 class="h1-responsive font-weight-bold text-center my-4">Znajdź odpowiedź na twoje pytanie</h2>
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne">
+                    Gdzie można nas spotkać?
+                  </button>
+                </h5>
+              </div>
+
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                  moon
+                  officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                  Brunch
+                  3
+                  wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                  et.
+                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad
+                  vegan
+                  excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                  nesciunt
+                  you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
+                    Jakie góry na początek?
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                  moon
+                  officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                  Brunch
+                  3
+                  wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                  et.
+                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad
+                  vegan
+                  excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                  nesciunt
+                  you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="false" aria-controls="collapseThree">
+                    Chcę zdobyć koronę gór polski - od czego zacząć?
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                  moon
+                  officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                  Brunch
+                  3
+                  wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                  et.
+                  Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad
+                  vegan
+                  excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                  nesciunt
+                  you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Section: FQA -->
+    </div>
+  </main>
+
+
+
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>
