@@ -31,3 +31,8 @@ var myLineChart = new Chart(ctxD, {
         },
     }
 });
+
+setTimeout(function () {
+    $('#myModal').modal();
+}, 3000);
+

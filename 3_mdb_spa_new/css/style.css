@@ -9,12 +9,20 @@ html {
     scroll-behavior: smooth;
 }
 
-#intro {
-    background: url("../img/bg.jpg") no-repeat center center fixed;
+#intro,
+#popup {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+#intro {
+    background: url("../img/bg.jpg") no-repeat center center fixed;
+}
+
+#popup {
+    background: url("../img/popup.jpg") no-repeat center center fixed;
 }
 
 .map-container {
