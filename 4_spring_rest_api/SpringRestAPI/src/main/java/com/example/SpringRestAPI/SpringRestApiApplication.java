@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = { "com.example.SpringRestAPI.*" })
-//@EnableSwagger2
 @SpringBootApplication
 public class SpringRestApiApplication {
 
