@@ -2,20 +2,17 @@ package com.example.SpringRestAPI.Books;
 
 import com.example.SpringRestAPI.Author.Author;
 import com.example.SpringRestAPI.Author.AuthorService;
-import com.example.SpringRestAPI.Author.DTOAuthorOutput;
+import com.example.SpringRestAPI.Author.DTOAuthor;
 import com.example.SpringRestAPI.Author.IAuthorService;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 @Service
-@Configurable
 public class BooksService implements IBooksService {
-    private static List<Book> booksRepo = new ArrayList<>();
-    //@Autowired
-    private static IAuthorService authorService = new AuthorService();
+    private static final List<Book> booksRepo = new ArrayList<>();
+    private static final IAuthorService authorService = new AuthorService();
 
     static {
         Author author1 = authorService.getAuthorObj(1);
@@ -30,8 +27,13 @@ public class BooksService implements IBooksService {
                 new ArrayList<>(Arrays.asList(author3)), 292));
     }
     @Override
-    public Collection<Book> getBooks() {
-        return booksRepo;
+    public Collection<DTOBookWithAuthorOutput> getBooks() {
+        List<DTOBookWithAuthorOutput> books = new ArrayList<>();
+        for (Book b: booksRepo){
+            List<DTOAuthor> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
+            books.add(DTOBookWithAuthorOutput.fromBook(b, authors));
+        }
+        return books;
     }
 
     @Override
@@ -41,9 +43,9 @@ public class BooksService implements IBooksService {
                 .findAny()
                 .orElse(null);
         if (foundBook == null) return null;
-        List<DTOAuthorOutput> authorsDTO = new ArrayList<>();
+        List<DTOAuthor> authorsDTO = new ArrayList<>();
         for (Author a:foundBook.getAuthors())
-            authorsDTO.add(DTOAuthorOutput.fromAuthor(a));
+            authorsDTO.add(DTOAuthor.fromAuthor(a));
         return DTOBookWithAuthorOutput.fromBook(foundBook, authorsDTO);
     }
 

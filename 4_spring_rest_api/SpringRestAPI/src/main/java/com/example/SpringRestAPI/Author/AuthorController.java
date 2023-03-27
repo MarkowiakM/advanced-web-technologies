@@ -11,22 +11,22 @@ public class AuthorController {
     @Autowired
     IAuthorService authorService;
     @RequestMapping(value = "/get/authors", method = RequestMethod.GET)
-    public ResponseEntity<Object> getBooks(){
+    public ResponseEntity<Object> getAuthors(){
         return new ResponseEntity<>(authorService.getAuthors(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get/author/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getBook(@PathVariable int id) {
+    public ResponseEntity<Object> getAuthor(@PathVariable int id) {
         return new ResponseEntity<>(authorService.getAuthor(id), HttpStatus.OK);
     }
     @RequestMapping(value = "/add/author", method = RequestMethod.POST)
-    public ResponseEntity<Object> addBook(@RequestBody Author author) {
+    public ResponseEntity<Object> addAuthor(@RequestBody DTOAuthor author) {
         authorService.addAuthor(author);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update/author", method = RequestMethod.POST)
-    public ResponseEntity<Object> updateBook(@RequestBody Author author) {
+    public ResponseEntity<Object> updateAuthor(@RequestBody DTOAuthor author) {
         if (authorService.updateAuthor(author))
             return new ResponseEntity<>(HttpStatus.OK);
         else

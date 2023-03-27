@@ -1,11 +1,8 @@
 package com.example.SpringRestAPI.Books;
 
-import com.example.SpringRestAPI.Author.DTOAuthorOutput;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

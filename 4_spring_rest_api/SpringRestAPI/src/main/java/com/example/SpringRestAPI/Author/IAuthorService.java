@@ -1,12 +1,14 @@
 package com.example.SpringRestAPI.Author;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface IAuthorService {
-    Collection<Author> getAuthors();
+    Collection<DTOAuthor> getAuthors();
     DTOAuthorWithBooksOutput getAuthor(int id);
+    List<DTOAuthor> getAuthorsDTOOfBook(List<Author> authors);
     Author getAuthorObj(int id);
-    void addAuthor(Author author);
+    void addAuthor(DTOAuthor author);
     boolean removeAuthor(int id);
-    boolean updateAuthor(Author author);
+    boolean updateAuthor(DTOAuthor author);
 }

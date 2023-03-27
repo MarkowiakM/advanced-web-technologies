@@ -1,6 +1,6 @@
 package com.example.SpringRestAPI.Books;
 
-import com.example.SpringRestAPI.Author.DTOAuthorOutput;
+import com.example.SpringRestAPI.Author.DTOAuthor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,9 +14,9 @@ public class DTOBookWithAuthorOutput{
     private int id;
     private String title;
     private int pages;
-    List<DTOAuthorOutput> authors;
+    List<DTOAuthor> authors;
 
-    public static DTOBookWithAuthorOutput fromBook(Book b, List<DTOAuthorOutput> authors){
+    public static DTOBookWithAuthorOutput fromBook(Book b, List<DTOAuthor> authors){
         return new DTOBookWithAuthorOutput(b.getId(), b.getTitle(), b.getPages(), authors);
     }
 

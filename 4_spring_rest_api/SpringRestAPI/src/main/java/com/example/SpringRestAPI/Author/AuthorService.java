@@ -1,7 +1,6 @@
 package com.example.SpringRestAPI.Author;
 
-import com.example.SpringRestAPI.Books.Book;
-import com.example.SpringRestAPI.Books.DTOBookOutput;
+import com.example.SpringRestAPI.Books.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Service
 public class AuthorService implements IAuthorService{
-
     private static final List<Author> authorsRepo = new ArrayList<>();
 
     static {
@@ -19,8 +17,12 @@ public class AuthorService implements IAuthorService{
         authorsRepo.add(new Author(3,"Adam", "Mickiewicz"));
     }
     @Override
-    public Collection<Author> getAuthors() {
-        return authorsRepo;
+    public Collection<DTOAuthor> getAuthors() {
+        Collection<DTOAuthor> authors = new ArrayList<>();
+        for (Author a: authorsRepo){
+            authors.add(DTOAuthor.fromAuthor(a));
+        }
+        return authors;
     }
 
     @Override
@@ -37,6 +39,15 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
+    public List<DTOAuthor> getAuthorsDTOOfBook(List<Author> authors){
+        List<DTOAuthor> dtoAuthorList= new ArrayList<>();
+        for (Author a : authors){
+            dtoAuthorList.add(DTOAuthor.fromAuthor(a));
+        }
+        return dtoAuthorList;
+    }
+
+    @Override
     public Author getAuthorObj(int id) {
         return authorsRepo.stream()
                 .filter(a -> a.getId() == id)
@@ -45,7 +56,8 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public void addAuthor(Author author) {
+    public void addAuthor(DTOAuthor authorDTO) {
+        Author author = authorDTO.toAuthor();
         authorsRepo.add(author);
     }
 
@@ -61,7 +73,8 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public boolean updateAuthor(Author author) {
+    public boolean updateAuthor(DTOAuthor authorDTO) {
+        Author author = authorDTO.toAuthor();
         for (Author a : authorsRepo) {
             if (a.getId() == author.getId()) {
                 authorsRepo.remove(a);
