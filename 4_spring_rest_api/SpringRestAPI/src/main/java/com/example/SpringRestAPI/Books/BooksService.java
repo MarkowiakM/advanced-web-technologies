@@ -25,4 +25,34 @@ public class BooksService implements IBooksService {
                 .findAny()
                 .orElse(null);
     }
+
+    @Override
+    public void addBook(Book book) {
+        booksRepo.add(book);
+    }
+
+    @Override
+    public boolean removeBook(int id) {
+        for (Book b : booksRepo) {
+            if (b.getId() == id) {
+                booksRepo.remove(b);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateBook(Book book) {
+        for (Book b : booksRepo) {
+            if (b.getId() == book.getId()) {
+                booksRepo.remove(b);
+                booksRepo.add(book);
+                return true;
+            }
+        }
+        return true;
+    }
+
+
 }

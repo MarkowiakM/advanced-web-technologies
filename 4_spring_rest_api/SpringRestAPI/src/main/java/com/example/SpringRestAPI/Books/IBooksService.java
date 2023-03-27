@@ -3,6 +3,10 @@ package com.example.SpringRestAPI.Books;
 import java.util.Collection;
 
 public interface IBooksService {
-    public abstract Collection<Book> getBooks();
-    public abstract Book getBook(int id);
+    Collection<Book> getBooks();
+    Book getBook(int id);
+    void addBook(Book book);
+    boolean removeBook(int id);
+    boolean updateBook(Book book);
+
 }
