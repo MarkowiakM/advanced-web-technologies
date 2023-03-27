@@ -1,6 +1,6 @@
-package com.example.SpringRestAPI.Author;
+package com.example.SpringRestAPI.author;
 
-import com.example.SpringRestAPI.Books.Book;
+import com.example.SpringRestAPI.books.Book;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

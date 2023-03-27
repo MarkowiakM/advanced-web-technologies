@@ -1,9 +1,9 @@
-package com.example.SpringRestAPI.Books;
+package com.example.SpringRestAPI.books;
 
-import com.example.SpringRestAPI.Author.Author;
-import com.example.SpringRestAPI.Author.AuthorService;
-import com.example.SpringRestAPI.Author.DTOAuthor;
-import com.example.SpringRestAPI.Author.IAuthorService;
+import com.example.SpringRestAPI.author.Author;
+import com.example.SpringRestAPI.author.AuthorService;
+import com.example.SpringRestAPI.author.DTOAuthor;
+import com.example.SpringRestAPI.author.IAuthorService;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.example.SpringRestAPI.Author;
+package com.example.SpringRestAPI.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

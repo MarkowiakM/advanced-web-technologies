@@ -1,6 +1,6 @@
-package com.example.SpringRestAPI.Books;
+package com.example.SpringRestAPI.books;
 
-import com.example.SpringRestAPI.Author.DTOAuthor;
+import com.example.SpringRestAPI.author.DTOAuthor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

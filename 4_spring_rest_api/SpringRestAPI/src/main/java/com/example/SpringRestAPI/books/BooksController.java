@@ -1,4 +1,4 @@
-package com.example.SpringRestAPI.Books;
+package com.example.SpringRestAPI.books;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.SpringRestAPI.Author;
+package com.example.SpringRestAPI.author;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

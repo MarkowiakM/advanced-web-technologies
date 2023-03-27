@@ -1,4 +1,4 @@
-package com.example.SpringRestAPI.Author;
+package com.example.SpringRestAPI.author;
 
 import java.util.Collection;
 import java.util.List;

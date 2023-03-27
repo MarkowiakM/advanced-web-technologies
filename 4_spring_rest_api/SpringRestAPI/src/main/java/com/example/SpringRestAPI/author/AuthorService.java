@@ -1,6 +1,6 @@
-package com.example.SpringRestAPI.Author;
+package com.example.SpringRestAPI.author;
 
-import com.example.SpringRestAPI.Books.*;
+import com.example.SpringRestAPI.books.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

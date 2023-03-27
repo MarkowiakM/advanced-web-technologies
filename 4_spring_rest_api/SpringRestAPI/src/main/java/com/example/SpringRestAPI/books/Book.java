@@ -1,6 +1,6 @@
-package com.example.SpringRestAPI.Books;
+package com.example.SpringRestAPI.books;
 
-import com.example.SpringRestAPI.Author.Author;
+import com.example.SpringRestAPI.author.Author;
 import lombok.Getter;
 
 import java.util.ArrayList;
