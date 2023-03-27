@@ -20,13 +20,13 @@ public class BooksController {
         return new ResponseEntity<>(booksService.getBook(id), HttpStatus.OK);
     }
     @RequestMapping(value = "/add/book", method = RequestMethod.POST)
-    public ResponseEntity<Object> addBook(@RequestBody DTOBookInput book) {
+    public ResponseEntity<Object> addBook(@RequestBody BookInputDTO book) {
         booksService.addBook(book);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update/book", method = RequestMethod.POST)
-    public ResponseEntity<Object> updateBook(@RequestBody DTOBookInput book) {
+    public ResponseEntity<Object> updateBook(@RequestBody BookInputDTO book) {
         if (booksService.updateBook(book))
             return new ResponseEntity<>(HttpStatus.OK);
         else

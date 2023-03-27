@@ -10,6 +10,11 @@ import java.util.List;
 public class ReaderService implements IReaderService{
 
     private static final List<Reader> readersRepo = new ArrayList<>();
+
+    static{
+        readersRepo.add(new Reader(1, "Paulina", "Drzazga"));
+        readersRepo.add(new Reader(2, "Maria", "Markowiak"));
+    }
     @Override
     public Collection<Reader> getReaders() {
         return readersRepo;

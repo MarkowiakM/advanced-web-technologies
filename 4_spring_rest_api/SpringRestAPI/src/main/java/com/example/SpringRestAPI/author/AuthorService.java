@@ -17,32 +17,32 @@ public class AuthorService implements IAuthorService{
         authorsRepo.add(new Author(3,"Adam", "Mickiewicz"));
     }
     @Override
-    public Collection<DTOAuthor> getAuthors() {
-        Collection<DTOAuthor> authors = new ArrayList<>();
+    public Collection<AuthorDTO> getAuthors() {
+        Collection<AuthorDTO> authors = new ArrayList<>();
         for (Author a: authorsRepo){
-            authors.add(DTOAuthor.fromAuthor(a));
+            authors.add(AuthorDTO.fromAuthor(a));
         }
         return authors;
     }
 
     @Override
-    public DTOAuthorWithBooksOutput getAuthor(int id) {
+    public AuthorWithBooksOutputDTO getAuthor(int id) {
         Author foundAuthor = authorsRepo.stream()
                 .filter(a -> a.getId() == id)
                 .findAny()
                 .orElse(null);
         if (foundAuthor == null) return null;
-        List<DTOBookOutput> booksDTO = new ArrayList<>();
+        List<BookOutputDTO> booksDTO = new ArrayList<>();
         for (Book b:foundAuthor.getBooks())
-            booksDTO.add(DTOBookOutput.fromBook(b));
-        return DTOAuthorWithBooksOutput.fromAuthor(foundAuthor, booksDTO);
+            booksDTO.add(BookOutputDTO.fromBook(b));
+        return AuthorWithBooksOutputDTO.fromAuthor(foundAuthor, booksDTO);
     }
 
     @Override
-    public List<DTOAuthor> getAuthorsDTOOfBook(List<Author> authors){
-        List<DTOAuthor> dtoAuthorList= new ArrayList<>();
+    public List<AuthorDTO> getAuthorsDTOOfBook(List<Author> authors){
+        List<AuthorDTO> dtoAuthorList= new ArrayList<>();
         for (Author a : authors){
-            dtoAuthorList.add(DTOAuthor.fromAuthor(a));
+            dtoAuthorList.add(AuthorDTO.fromAuthor(a));
         }
         return dtoAuthorList;
     }
@@ -56,7 +56,7 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public void addAuthor(DTOAuthor authorDTO) {
+    public void addAuthor(AuthorDTO authorDTO) {
         Author author = authorDTO.toAuthor();
         authorsRepo.add(author);
     }
@@ -73,7 +73,7 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public boolean updateAuthor(DTOAuthor authorDTO) {
+    public boolean updateAuthor(AuthorDTO authorDTO) {
         Author author = authorDTO.toAuthor();
         for (Author a : authorsRepo) {
             if (a.getId() == author.getId()) {

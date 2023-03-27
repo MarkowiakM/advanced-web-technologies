@@ -20,13 +20,13 @@ public class AuthorController {
         return new ResponseEntity<>(authorService.getAuthor(id), HttpStatus.OK);
     }
     @RequestMapping(value = "/add/author", method = RequestMethod.POST)
-    public ResponseEntity<Object> addAuthor(@RequestBody DTOAuthor author) {
+    public ResponseEntity<Object> addAuthor(@RequestBody AuthorDTO author) {
         authorService.addAuthor(author);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update/author", method = RequestMethod.POST)
-    public ResponseEntity<Object> updateAuthor(@RequestBody DTOAuthor author) {
+    public ResponseEntity<Object> updateAuthor(@RequestBody AuthorDTO author) {
         if (authorService.updateAuthor(author))
             return new ResponseEntity<>(HttpStatus.OK);
         else

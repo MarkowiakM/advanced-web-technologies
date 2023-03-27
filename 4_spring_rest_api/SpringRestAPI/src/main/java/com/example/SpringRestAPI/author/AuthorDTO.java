@@ -7,13 +7,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class DTOAuthor {
+public class AuthorDTO {
     private int id;
     private String name;
     private String surname;
 
-    public static DTOAuthor fromAuthor(Author a){
-        return new DTOAuthor(a.getId(), a.getName(), a.getSurname());
+    public static AuthorDTO fromAuthor(Author a){
+        return new AuthorDTO(a.getId(), a.getName(), a.getSurname());
     }
     public Author toAuthor(){
         return new Author(this.id, this.name, this.surname);

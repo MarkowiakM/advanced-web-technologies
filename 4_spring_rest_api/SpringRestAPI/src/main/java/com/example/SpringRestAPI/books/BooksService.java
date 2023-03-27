@@ -2,7 +2,7 @@ package com.example.SpringRestAPI.books;
 
 import com.example.SpringRestAPI.author.Author;
 import com.example.SpringRestAPI.author.AuthorService;
-import com.example.SpringRestAPI.author.DTOAuthor;
+import com.example.SpringRestAPI.author.AuthorDTO;
 import com.example.SpringRestAPI.author.IAuthorService;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -27,30 +27,38 @@ public class BooksService implements IBooksService {
                 new ArrayList<>(Arrays.asList(author3)), 292));
     }
     @Override
-    public Collection<DTOBookWithAuthorOutput> getBooks() {
-        List<DTOBookWithAuthorOutput> books = new ArrayList<>();
+    public Collection<BookWithAuthorOutputDTO> getBooks() {
+        List<BookWithAuthorOutputDTO> books = new ArrayList<>();
         for (Book b: booksRepo){
-            List<DTOAuthor> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
-            books.add(DTOBookWithAuthorOutput.fromBook(b, authors));
+            List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
+            books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
         }
         return books;
     }
 
     @Override
-    public DTOBookWithAuthorOutput getBook(int id){
+    public BookWithAuthorOutputDTO getBook(int id){
         Book foundBook = booksRepo.stream()
                 .filter(b -> b.getId() == id)
                 .findAny()
                 .orElse(null);
         if (foundBook == null) return null;
-        List<DTOAuthor> authorsDTO = new ArrayList<>();
+        List<AuthorDTO> authorsDTO = new ArrayList<>();
         for (Author a:foundBook.getAuthors())
-            authorsDTO.add(DTOAuthor.fromAuthor(a));
-        return DTOBookWithAuthorOutput.fromBook(foundBook, authorsDTO);
+            authorsDTO.add(AuthorDTO.fromAuthor(a));
+        return BookWithAuthorOutputDTO.fromBook(foundBook, authorsDTO);
     }
 
     @Override
-    public void addBook(DTOBookInput book) {
+    public Book getBookObj(int id) {
+        return booksRepo.stream()
+                .filter(b -> b.getId() == id)
+                .findAny()
+                .orElse(null);
+    }
+
+    @Override
+    public void addBook(BookInputDTO book) {
         ArrayList<Author> authors = new ArrayList<>();
         for (int idA : book.getAuthorsIDs()){
             Author a = authorService.getAuthorObj(idA);
@@ -72,7 +80,7 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public boolean updateBook(DTOBookInput book) {
+    public boolean updateBook(BookInputDTO book) {
         for (Book b : booksRepo) {
             if (b.getId() == book.getId()) {
                 booksRepo.remove(b);
