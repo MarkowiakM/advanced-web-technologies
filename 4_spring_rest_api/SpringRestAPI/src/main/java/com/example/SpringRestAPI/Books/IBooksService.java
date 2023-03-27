@@ -4,9 +4,9 @@ import java.util.Collection;
 
 public interface IBooksService {
     Collection<Book> getBooks();
-    Book getBook(int id);
-    void addBook(Book book);
+    DTOBookWithAuthorOutput getBook(int id);
+    void addBook(DTOBookInput book);
     boolean removeBook(int id);
-    boolean updateBook(Book book);
+    boolean updateBook(DTOBookInput book);
 
 }

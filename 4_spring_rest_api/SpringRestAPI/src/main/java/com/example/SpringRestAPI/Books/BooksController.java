@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class BooksController {
     @Autowired
     IBooksService booksService;
+
     @RequestMapping(value = "/get/books", method = RequestMethod.GET)
     public ResponseEntity<Object> getBooks(){
         return new ResponseEntity<>(booksService.getBooks(), HttpStatus.OK);
@@ -19,13 +20,13 @@ public class BooksController {
         return new ResponseEntity<>(booksService.getBook(id), HttpStatus.OK);
     }
     @RequestMapping(value = "/add/book", method = RequestMethod.POST)
-    public ResponseEntity<Object> addBook(@RequestBody Book book) {
+    public ResponseEntity<Object> addBook(@RequestBody DTOBookInput book) {
         booksService.addBook(book);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update/book", method = RequestMethod.POST)
-    public ResponseEntity<Object> updateBook(@RequestBody Book book) {
+    public ResponseEntity<Object> updateBook(@RequestBody DTOBookInput book) {
         if (booksService.updateBook(book))
             return new ResponseEntity<>(HttpStatus.OK);
         else
