@@ -34,7 +34,7 @@ public class ReaderController {
     }
 
     @RequestMapping(value = "/delete/reader/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> delereReader(@PathVariable int id) {
+    public ResponseEntity<Object> deleteReader(@PathVariable int id) {
         if (readerService.removeReader(id))
             return new ResponseEntity<>(HttpStatus.OK);
         else

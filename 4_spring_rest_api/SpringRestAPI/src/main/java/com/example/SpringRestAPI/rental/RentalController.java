@@ -33,4 +33,9 @@ public class RentalController {
         }
     }
 
+    @RequestMapping(value = "/get/rentals/{readerID}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getReaderRentals(@PathVariable int readerID){
+        return new ResponseEntity<>(rentalService.getReaderRental(readerID), HttpStatus.OK);
+    }
+
 }
