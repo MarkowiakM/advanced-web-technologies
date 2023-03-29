@@ -10,7 +10,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class BookInputDTO {
-    private int id;
     private String title;
     private List<Integer> authorsIDs;
     private int pages;

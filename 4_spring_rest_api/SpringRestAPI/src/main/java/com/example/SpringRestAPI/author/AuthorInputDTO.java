@@ -7,12 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AuthorDTO {
-    private int id;
+public class AuthorInputDTO {
     private String name;
     private String surname;
 
-    public static AuthorDTO fromAuthor(Author a){
-        return new AuthorDTO(a.getId(), a.getName(), a.getSurname());
+    public Author toAuthor(){
+        return new Author(this.name, this.surname);
     }
 }

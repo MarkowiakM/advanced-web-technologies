@@ -1,5 +1,6 @@
 package com.example.SpringRestAPI.reader;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,51 +9,49 @@ import java.util.List;
 
 @Service
 public class ReaderService implements IReaderService{
+    @Autowired
+    IReaderRepository readerRepository;
 
-    private static final List<Reader> readersRepo = new ArrayList<>();
-
-    static{
-        readersRepo.add(new Reader(1, "Paulina", "Drzazga"));
-        readersRepo.add(new Reader(2, "Maria", "Markowiak"));
-    }
     @Override
     public Collection<Reader> getReaders() {
-        return readersRepo;
+        return readerRepository.findAll();
     }
 
     @Override
     public Reader getReader(int id) {
-        return readersRepo.stream()
-                .filter(r -> r.getId() == id)
-                .findAny()
+        return readerRepository.findById(id)
                 .orElse(null);
     }
 
     @Override
-    public void addReader(Reader reader) {
-        readersRepo.add(reader);
+    public void addReader(ReaderInputDTO readerDTO) {
+        Reader reader = readerDTO.toReader();
+        readerRepository.save(reader);
     }
 
     @Override
-    public boolean updateReader(Reader reader) {
-        for (Reader r : readersRepo) {
-            if (r.getId() == reader.getId()) {
-                readersRepo.remove(r);
-                readersRepo.add(reader);
-                return true;
-            }
+    public boolean updateReader(int id, ReaderInputDTO reader) {
+        Reader r = readerRepository.findById(id)
+                .orElse(null);
+        if (r != null){
+            r.setName(reader.getName());
+            r.setSurname(reader.getSurname());
+            readerRepository.save(r);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean removeReader(int id) {
-        for (Reader r : readersRepo) {
-            if (r.getId() == id) {
-                readersRepo.remove(r);
-                return true;
-            }
+        Reader r = readerRepository.findById(id).orElse(null);
+        if (r != null) {
+            readerRepository.delete(r);
+            return true;
+        } else {
+            return false;
         }
-        return false;
+
     }
 }

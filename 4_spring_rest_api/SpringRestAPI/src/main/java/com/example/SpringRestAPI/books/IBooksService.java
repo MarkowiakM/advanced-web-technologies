@@ -8,6 +8,6 @@ public interface IBooksService {
     Book getBookObj(int id);
     void addBook(BookInputDTO book);
     boolean removeBook(int id);
-    boolean updateBook(BookInputDTO book);
+    boolean updateBook(int id, BookInputDTO book);
 
 }
