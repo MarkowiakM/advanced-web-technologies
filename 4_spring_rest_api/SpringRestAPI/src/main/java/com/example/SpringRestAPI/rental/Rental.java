@@ -12,8 +12,14 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 public class Rental {
+    private int id;
     private Book book;
     private Reader reader;
     private Date rentingDate;
 
+    public Rental(Book book, Reader reader, Date rentingDate) {
+        this.book = book;
+        this.reader = reader;
+        this.rentingDate = rentingDate;
+    }
 }
