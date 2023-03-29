@@ -19,25 +19,28 @@ public class RentalService implements IRentalService{
     private static final IReaderService readerService = new ReaderService();
 
     @Override
-    public boolean rentBook(RentalDTO rentalDTO) {
-        if (isBookRented(rentalDTO.getBookID())) return false;
+    public int rentBook(RentalDTO rentalDTO) {
+        if (isBookRented(rentalDTO.getBookID())) return 1;
         Reader reader = readerService.getReader(rentalDTO.getReaderID());
         Book book = booksService.getBookObj(rentalDTO.getBookID());
+        if (reader == null) return 2;
+        if (book == null) return 3;
         Date rentDate;
         try {
             rentDate = Date.valueOf(rentalDTO.getSQLDate());
         } catch (Exception e){
-            return false;
+            return 4;
         }
         rentalsRepo.add(new Rental(book, reader,rentDate));
-        return true;
+        return 0;
     }
 
     @Override
-    public boolean returnBook(int bookID) {
-        if (!isBookRented(bookID)) return false;
+    public int returnBook(int bookID) {
+        if (booksService.getBook(bookID) == null) return 2;
+        if (!isBookRented(bookID)) return 1;
         rentalsRepo.removeIf(r -> r.getBook().getId() == bookID);
-        return true;
+        return 0;
 
     }
 
