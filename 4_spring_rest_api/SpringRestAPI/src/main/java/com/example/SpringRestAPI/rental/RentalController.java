@@ -12,7 +12,7 @@ public class RentalController {
     @Autowired
     IRentalService rentalService;
 
-    @RequestMapping(value = "/add/rental", method = RequestMethod.POST)
+    @RequestMapping(value = "/rentals", method = RequestMethod.POST)
     public ResponseEntity<Object> rentBook(@RequestBody RentalDTO rentalDTO){
         switch (rentalService.rentBook(rentalDTO)){
             case 0: {
@@ -32,7 +32,7 @@ public class RentalController {
         }
     }
 
-    @RequestMapping(value = "/delete/rental/{bookID}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/rentals/{bookID}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> returnBook(@PathVariable int bookID){
         switch (rentalService.returnBook(bookID)) {
             case 0: {
@@ -49,7 +49,7 @@ public class RentalController {
         }
     }
 
-    @RequestMapping(value = "/get/rentals/{readerID}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rentals/{readerID}", method = RequestMethod.GET)
     public ResponseEntity<Object> getReaderRentals(@PathVariable int readerID){
         RentedReaderDTO rentedReaderDTO = rentalService.getReaderRental(readerID);
         if (!rentedReaderDTO.getRentedBooks().isEmpty() && rentedReaderDTO.getReader() != null)

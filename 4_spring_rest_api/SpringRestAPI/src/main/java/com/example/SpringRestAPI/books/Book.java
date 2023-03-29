@@ -26,6 +26,18 @@ public class Book {
         }
     }
 
+    public Book(String title, List<Author> authors, int pages) {
+        this.title = title;
+        this.pages = pages;
+        if (authors == null)
+            this.authors = new ArrayList<>();
+        else {
+            this.authors = authors;
+            for (Author a : this.authors)
+                a.addBook(this);
+        }
+    }
+
     public void setTitle(String title) { this.title = title; }
     public void setPages(int pages) { this.pages = pages; }
     public void addAuthor(Author author){

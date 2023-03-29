@@ -13,7 +13,7 @@ public class BooksController {
     @Autowired
     IBooksService booksService;
 
-    @RequestMapping(value = "/get/books", method = RequestMethod.GET)
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
     public ResponseEntity<Object> getBooks(){
         Collection<BookWithAuthorOutputDTO> books = booksService.getBooks();
         if (!books.isEmpty())
@@ -22,7 +22,7 @@ public class BooksController {
             return new ResponseEntity<>(new ErrorDTO("No book found"), HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/get/book/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getBook(@PathVariable int id) {
         BookWithAuthorOutputDTO book = booksService.getBook(id);
         if (book != null)
@@ -30,21 +30,21 @@ public class BooksController {
         else
             return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
     }
-    @RequestMapping(value = "/add/book", method = RequestMethod.POST)
+    @RequestMapping(value = "/books", method = RequestMethod.POST)
     public ResponseEntity<Object> addBook(@RequestBody BookInputDTO book) {
         booksService.addBook(book);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/update/book", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateBook(@RequestBody BookInputDTO book) {
-        if (booksService.updateBook(book))
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateBook(@PathVariable int id, @RequestBody BookInputDTO book) {
+        if (booksService.updateBook(id, book))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/delete/book/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteBook(@PathVariable int id) {
         if (booksService.removeBook(id))
             return new ResponseEntity<>(HttpStatus.OK);

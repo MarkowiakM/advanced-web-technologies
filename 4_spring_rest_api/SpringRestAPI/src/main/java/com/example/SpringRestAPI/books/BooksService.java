@@ -65,7 +65,7 @@ public class BooksService implements IBooksService {
             if (a != null)
                 authors.add(a);
         }
-        booksRepo.add(new Book(book.getId(), book.getTitle(), authors, book.getPages()));
+        booksRepo.add(new Book(book.getTitle(), authors, book.getPages()));
     }
 
     @Override
@@ -80,19 +80,19 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public boolean updateBook(BookInputDTO book) {
+    public boolean updateBook(int id, BookInputDTO book) {
         for (Book b : booksRepo) {
-            if (b.getId() == book.getId()) {
-                booksRepo.remove(b);
-                ArrayList<Author> authors = new ArrayList<>();
+            if (b.getId() == id) {
+                b.setPages(book.getPages());
+                b.setTitle(book.getTitle());
+                b.getAuthors().removeAll(b.getAuthors());
                 for (int idA : book.getAuthorsIDs()){
-                    authors.add(authorService.getAuthorObj(idA));
+                    b.addAuthor(authorService.getAuthorObj(idA));
                 }
-                booksRepo.add(new Book(book.getId(), book.getTitle(), authors, book.getPages()));
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
 

@@ -13,7 +13,7 @@ public class ReaderController {
     @Autowired
     IReaderService readerService;
 
-    @RequestMapping(value = "/get/readers", method = RequestMethod.GET)
+    @RequestMapping(value = "/readers", method = RequestMethod.GET)
     public ResponseEntity<Object> getReaders(){
         Collection<Reader> readers = readerService.getReaders();
         if (!readers.isEmpty())
@@ -22,7 +22,7 @@ public class ReaderController {
             return new ResponseEntity<>(new ErrorDTO("No readers found"), HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/get/reader/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/readers/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getReader(@PathVariable int id) {
         Reader reader = readerService.getReader(id);
         if (reader != null)
@@ -30,21 +30,21 @@ public class ReaderController {
         else
             return new ResponseEntity<>(new ErrorDTO("The reader does not exist"), HttpStatus.NOT_FOUND);
     }
-    @RequestMapping(value = "/add/reader", method = RequestMethod.POST)
-    public ResponseEntity<Object> addReader(@RequestBody Reader reader) {
+    @RequestMapping(value = "/readers", method = RequestMethod.POST)
+    public ResponseEntity<Object> addReader(@RequestBody ReaderInputDTO reader) {
         readerService.addReader(reader);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/update/reader", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateReader(@RequestBody Reader reader) {
-        if (readerService.updateReader(reader))
+    @RequestMapping(value = "/readers/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateReader(@PathVariable int id, @RequestBody ReaderInputDTO reader) {
+        if (readerService.updateReader(id, reader))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(new ErrorDTO("The reader does not exist"), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/delete/reader/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/readers/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteReader(@PathVariable int id) {
         if (readerService.removeReader(id))
             return new ResponseEntity<>(HttpStatus.OK);

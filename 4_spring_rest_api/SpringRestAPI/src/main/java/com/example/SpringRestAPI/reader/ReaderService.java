@@ -29,16 +29,17 @@ public class ReaderService implements IReaderService{
     }
 
     @Override
-    public void addReader(Reader reader) {
+    public void addReader(ReaderInputDTO readerDTO) {
+        Reader reader = readerDTO.toReader();
         readersRepo.add(reader);
     }
 
     @Override
-    public boolean updateReader(Reader reader) {
+    public boolean updateReader(int id, ReaderInputDTO reader) {
         for (Reader r : readersRepo) {
-            if (r.getId() == reader.getId()) {
-                readersRepo.remove(r);
-                readersRepo.add(reader);
+            if (r.getId() == id) {
+                r.setName(reader.getName());
+                r.setSurname(reader.getSurname());
                 return true;
             }
         }

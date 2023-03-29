@@ -7,13 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Reader {
-    private int id;
+public class ReaderInputDTO {
     private String name;
     private String surname;
 
-    public Reader(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
+    public Reader toReader(){
+        return new Reader(name, surname);
     }
+
 }

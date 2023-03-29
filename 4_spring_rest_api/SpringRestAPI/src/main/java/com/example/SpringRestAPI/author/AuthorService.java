@@ -56,7 +56,7 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public void addAuthor(AuthorDTO authorDTO) {
+    public void addAuthor(AuthorInputDTO authorDTO) {
         Author author = authorDTO.toAuthor();
         authorsRepo.add(author);
     }
@@ -73,12 +73,11 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public boolean updateAuthor(AuthorDTO authorDTO) {
-        Author author = authorDTO.toAuthor();
+    public boolean updateAuthor(int id, AuthorInputDTO authorDTO) {
         for (Author a : authorsRepo) {
-            if (a.getId() == author.getId()) {
-                authorsRepo.remove(a);
-                authorsRepo.add(author);
+            if (a.getId() == id) {
+                a.setName(authorDTO.getName());
+                a.setSurname(authorDTO.getSurname());
                 return true;
             }
         }
