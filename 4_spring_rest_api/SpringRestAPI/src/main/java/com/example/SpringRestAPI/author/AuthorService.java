@@ -12,17 +12,11 @@ import java.util.List;
 public class AuthorService implements IAuthorService{
     @Autowired
     IAuthorRepository authorRepository;
-    private static final List<Author> authorsRepo = new ArrayList<>();
 
-    static {
-        authorsRepo.add(new Author(1,"Henryk", "Sienkiewicz"));
-        authorsRepo.add(new Author(2,"Stanisław", "Reymont"));
-        authorsRepo.add(new Author(3,"Adam", "Mickiewicz"));
-    }
     @Override
     public Collection<AuthorDTO> getAuthors() {
         Collection<AuthorDTO> authors = new ArrayList<>();
-        for (Author a: authorsRepo){
+        for (Author a: authorRepository.findAll()){
             authors.add(AuthorDTO.fromAuthor(a));
         }
         return authors;
@@ -30,10 +24,7 @@ public class AuthorService implements IAuthorService{
 
     @Override
     public AuthorWithBooksOutputDTO getAuthor(int id) {
-        Author foundAuthor = authorsRepo.stream()
-                .filter(a -> a.getId() == id)
-                .findAny()
-                .orElse(null);
+        Author foundAuthor = authorRepository.findById(id).orElse(null);
         if (foundAuthor == null) return null;
         List<BookOutputDTO> booksDTO = new ArrayList<>();
         for (Book b:foundAuthor.getBooks())
@@ -52,38 +43,36 @@ public class AuthorService implements IAuthorService{
 
     @Override
     public Author getAuthorObj(int id) {
-        return authorsRepo.stream()
-                .filter(a -> a.getId() == id)
-                .findAny()
-                .orElse(null);
+        return authorRepository.findById(id).orElse(null);
     }
 
     @Override
     public void addAuthor(AuthorInputDTO authorDTO) {
         Author author = authorDTO.toAuthor();
-        authorsRepo.add(author);
+        authorRepository.save(author);
     }
 
     @Override
     public boolean removeAuthor(int id) {
-        for (Author a : authorsRepo) {
-            if (a.getId() == id) {
-                authorsRepo.remove(a);
-                return true;
-            }
+        Author a = authorRepository.findById(id).orElse(null);
+        if (a != null) {
+            authorRepository.delete(a);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean updateAuthor(int id, AuthorInputDTO authorDTO) {
-        for (Author a : authorsRepo) {
-            if (a.getId() == id) {
-                a.setName(authorDTO.getName());
-                a.setSurname(authorDTO.getSurname());
-                return true;
-            }
+        Author a = authorRepository.findById(id).orElse(null);
+        if (a != null) {
+            a.setName(authorDTO.getName());
+            a.setSurname(authorDTO.getSurname());
+            authorRepository.save(a);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }

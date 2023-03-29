@@ -7,32 +7,19 @@ import com.example.SpringRestAPI.author.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 @Service
 public class BooksService implements IBooksService {
     @Autowired
     IBookRepository bookRepository;
-    private static final List<Book> booksRepo = new ArrayList<>();
-    private static final IAuthorService authorService = new AuthorService();
+    @Autowired
+    IAuthorService authorService;
 
-    static {
-        Author author1 = authorService.getAuthorObj(1);
-        Author author2 = authorService.getAuthorObj(2);
-        Author author3 = authorService.getAuthorObj(3);
-
-        booksRepo.add(new Book(1,"Potop",
-                new ArrayList<>(Arrays.asList(author1)), 578));
-        booksRepo.add(new Book(2,"Wesele",
-                new ArrayList<>(Arrays.asList(author2)), 150));
-        booksRepo.add(new Book(3,"Dziady",
-                new ArrayList<>(Arrays.asList(author3)), 292));
-    }
     @Override
     public Collection<BookWithAuthorOutputDTO> getBooks() {
         List<BookWithAuthorOutputDTO> books = new ArrayList<>();
-        for (Book b: booksRepo){
+        for (Book b: bookRepository.findAll()){
             List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
             books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
         }
@@ -41,10 +28,7 @@ public class BooksService implements IBooksService {
 
     @Override
     public BookWithAuthorOutputDTO getBook(int id){
-        Book foundBook = booksRepo.stream()
-                .filter(b -> b.getId() == id)
-                .findAny()
-                .orElse(null);
+        Book foundBook = bookRepository.findById(id).orElse(null);
         if (foundBook == null) return null;
         List<AuthorDTO> authorsDTO = new ArrayList<>();
         for (Author a:foundBook.getAuthors())
@@ -54,10 +38,7 @@ public class BooksService implements IBooksService {
 
     @Override
     public Book getBookObj(int id) {
-        return booksRepo.stream()
-                .filter(b -> b.getId() == id)
-                .findAny()
-                .orElse(null);
+        return bookRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -68,32 +49,32 @@ public class BooksService implements IBooksService {
             if (a != null)
                 authors.add(a);
         }
-        booksRepo.add(new Book(book.getTitle(), authors, book.getPages()));
+        bookRepository.save(new Book(book.getTitle(), authors, book.getPages()));
     }
 
     @Override
     public boolean removeBook(int id) {
-        for (Book b : booksRepo) {
-            if (b.getId() == id) {
-                booksRepo.remove(b);
-                return true;
-            }
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book != null){
+            bookRepository.delete(book);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     @Override
-    public boolean updateBook(int id, BookInputDTO book) {
-        for (Book b : booksRepo) {
-            if (b.getId() == id) {
-                b.setPages(book.getPages());
-                b.setTitle(book.getTitle());
-                b.getAuthors().removeAll(b.getAuthors());
-                for (int idA : book.getAuthorsIDs()){
-                    b.addAuthor(authorService.getAuthorObj(idA));
-                }
-                return true;
+    public boolean updateBook(int id, BookInputDTO bookDTO) {
+        Book b = bookRepository.findById(id).orElse(null);
+        if (b != null) {
+            b.setPages(bookDTO.getPages());
+            b.setTitle(bookDTO.getTitle());
+            b.getAuthors().removeAll(b.getAuthors());
+            for (int idA : bookDTO.getAuthorsIDs()){
+                b.addAuthor(authorService.getAuthorObj(idA));
             }
+            bookRepository.save(b);
+            return true;
         }
         return false;
     }

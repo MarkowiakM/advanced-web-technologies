@@ -16,10 +16,12 @@ public class RentalService implements IRentalService{
 
     @Autowired
     IRentalRepository rentalRepository;
-    private static final List<Rental> rentalsRepo = new ArrayList<>();
-    private static final IBooksService booksService = new BooksService();
-    private static final IAuthorService authorsService = new AuthorService();
-    private static final IReaderService readerService = new ReaderService();
+    @Autowired
+    IBooksService booksService;
+    @Autowired
+    IAuthorService authorsService;
+    @Autowired
+    IReaderService readerService;
 
     @Override
     public int rentBook(RentalDTO rentalDTO) {
@@ -34,34 +36,30 @@ public class RentalService implements IRentalService{
         } catch (Exception e){
             return 4;
         }
-        rentalsRepo.add(new Rental(book, reader,rentDate));
+        rentalRepository.save(new Rental(book, reader,rentDate));
         return 0;
     }
 
     @Override
     public int returnBook(int bookID) {
-        if (booksService.getBook(bookID) == null) return 2;
+        Book book = booksService.getBookObj(bookID);
+        if (book == null) return 2;
         if (!isBookRented(bookID)) return 1;
-        rentalsRepo.removeIf(r -> r.getBook().getId() == bookID);
+        rentalRepository.deleteByBook_Id(bookID);
         return 0;
 
     }
 
     @Override
     public boolean isBookRented(int bookID) {
-        for (Rental r : rentalsRepo){
-            if (r.getBook().getId() == bookID){
-                return true;
-            }
-        }
-        return false;
+        return rentalRepository.findByBookId(bookID).orElse(null) != null;
     }
 
     @Override
     public RentedReaderDTO getReaderRental(int readerID) {
         Reader reader = readerService.getReader(readerID);
         List<RentedBookDTO> bookRentalsDTO = new ArrayList<>();
-        for (Rental r :rentalsRepo){
+        for (Rental r : rentalRepository.findAll()){
             if (r.getReader().getId() == readerID){
                 Book b = r.getBook();
                 bookRentalsDTO.add(new RentedBookDTO(
