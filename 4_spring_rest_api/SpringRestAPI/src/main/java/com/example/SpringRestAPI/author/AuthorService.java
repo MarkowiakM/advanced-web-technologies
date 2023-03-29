@@ -1,6 +1,7 @@
 package com.example.SpringRestAPI.author;
 
 import com.example.SpringRestAPI.books.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Service
 public class AuthorService implements IAuthorService{
+    @Autowired
+    IAuthorRepository authorRepository;
     private static final List<Author> authorsRepo = new ArrayList<>();
 
     static {

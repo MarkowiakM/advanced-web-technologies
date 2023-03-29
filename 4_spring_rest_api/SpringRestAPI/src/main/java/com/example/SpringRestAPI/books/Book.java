@@ -2,14 +2,21 @@ package com.example.SpringRestAPI.books;
 
 import com.example.SpringRestAPI.author.Author;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Entity
+@NoArgsConstructor
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String title;
+    @ManyToMany(mappedBy = "books")
     private List<Author> authors;
     private int pages;
 

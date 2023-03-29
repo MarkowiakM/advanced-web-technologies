@@ -1,6 +1,8 @@
 package com.example.SpringRestAPI.rental;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IRentalRepository extends CrudRepository<Rental, Integer> {
+@Repository
+public interface IRentalRepository extends JpaRepository<Rental, Integer> {
 }

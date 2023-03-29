@@ -1,6 +1,9 @@
 package com.example.SpringRestAPI.author;
 
-import org.springframework.data.repository.CrudRepository;
 
-public interface IAuthorRepository extends CrudRepository<Author, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IAuthorRepository extends JpaRepository<Author, Integer> {
 }

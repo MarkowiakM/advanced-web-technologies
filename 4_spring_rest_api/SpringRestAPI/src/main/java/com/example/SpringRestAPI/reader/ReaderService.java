@@ -1,5 +1,6 @@
 package com.example.SpringRestAPI.reader;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,7 +9,8 @@ import java.util.List;
 
 @Service
 public class ReaderService implements IReaderService{
-
+    @Autowired
+    IReaderRepository readerRepository;
     private static final List<Reader> readersRepo = new ArrayList<>();
 
     static{

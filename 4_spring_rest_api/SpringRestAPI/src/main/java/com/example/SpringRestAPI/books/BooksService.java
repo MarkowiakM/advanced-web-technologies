@@ -4,6 +4,7 @@ import com.example.SpringRestAPI.author.Author;
 import com.example.SpringRestAPI.author.AuthorService;
 import com.example.SpringRestAPI.author.AuthorDTO;
 import com.example.SpringRestAPI.author.IAuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,8 @@ import java.util.Collection;
 import java.util.List;
 @Service
 public class BooksService implements IBooksService {
+    @Autowired
+    IBookRepository bookRepository;
     private static final List<Book> booksRepo = new ArrayList<>();
     private static final IAuthorService authorService = new AuthorService();
 

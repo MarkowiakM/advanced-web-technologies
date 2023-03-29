@@ -4,15 +4,18 @@ import com.example.SpringRestAPI.author.AuthorService;
 import com.example.SpringRestAPI.author.IAuthorService;
 import com.example.SpringRestAPI.books.*;
 import com.example.SpringRestAPI.reader.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Date;
 
 @Service
 public class RentalService implements IRentalService{
 
+    @Autowired
+    IRentalRepository rentalRepository;
     private static final List<Rental> rentalsRepo = new ArrayList<>();
     private static final IBooksService booksService = new BooksService();
     private static final IAuthorService authorsService = new AuthorService();
@@ -25,9 +28,9 @@ public class RentalService implements IRentalService{
         Book book = booksService.getBookObj(rentalDTO.getBookID());
         if (reader == null) return 2;
         if (book == null) return 3;
-        Date rentDate;
+        LocalDateTime rentDate;
         try {
-            rentDate = Date.valueOf(rentalDTO.getSQLDate());
+            rentDate = LocalDateTime.parse(rentalDTO.getDate());
         } catch (Exception e){
             return 4;
         }
