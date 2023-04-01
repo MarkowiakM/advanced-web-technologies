@@ -2,20 +2,24 @@ package com.example.SpringRestAPI.author;
 
 import com.example.SpringRestAPI.infoDTOs.ErrorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
 public class AuthorController {
 
     @Autowired
     IAuthorService authorService;
-    @RequestMapping(value = "/authors", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAuthors(){
-        Collection<AuthorDTO> authors = authorService.getAuthors();
+    @RequestMapping(value = "/authors/{page}/{size}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAuthors(@PathVariable(required = false) int page, @PathVariable(required = false) int size){
+        Pageable pagination = PageRequest.of(page, size);
+        Collection<AuthorDTO> authors = authorService.getAuthors(pagination);
         if (!authors.isEmpty())
             return new ResponseEntity<>(authors, HttpStatus.OK);
         else

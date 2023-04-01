@@ -2,6 +2,7 @@ package com.example.SpringRestAPI.author;
 
 import com.example.SpringRestAPI.books.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class AuthorService implements IAuthorService{
     IAuthorRepository authorRepository;
 
     @Override
-    public Collection<AuthorDTO> getAuthors() {
+    public Collection<AuthorDTO> getAuthors(Pageable pageable) {
         Collection<AuthorDTO> authors = new ArrayList<>();
         for (Author a: authorRepository.findAll()){
             authors.add(AuthorDTO.fromAuthor(a));
