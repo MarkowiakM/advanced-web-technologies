@@ -17,7 +17,7 @@ public class AuthorService implements IAuthorService{
     @Override
     public Collection<AuthorDTO> getAuthors(Pageable pageable) {
         Collection<AuthorDTO> authors = new ArrayList<>();
-        for (Author a: authorRepository.findAll()){
+        for (Author a: authorRepository.findAll(pageable)){
             authors.add(AuthorDTO.fromAuthor(a));
         }
         return authors;

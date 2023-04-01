@@ -1,10 +1,10 @@
 package com.example.SpringRestAPI.rental;
 
-import com.example.SpringRestAPI.author.AuthorService;
 import com.example.SpringRestAPI.author.IAuthorService;
 import com.example.SpringRestAPI.books.*;
 import com.example.SpringRestAPI.reader.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -56,10 +56,10 @@ public class RentalService implements IRentalService{
     }
 
     @Override
-    public RentedReaderDTO getReaderRental(int readerID) {
+    public RentedReaderDTO getReaderRental(int readerID, Pageable pageable) {
         Reader reader = readerService.getReader(readerID);
         List<RentedBookDTO> bookRentalsDTO = new ArrayList<>();
-        for (Rental r : rentalRepository.findAll()){
+        for (Rental r : rentalRepository.findAll(pageable)){
             if (r.getReader().getId() == readerID){
                 Book b = r.getBook();
                 bookRentalsDTO.add(new RentedBookDTO(

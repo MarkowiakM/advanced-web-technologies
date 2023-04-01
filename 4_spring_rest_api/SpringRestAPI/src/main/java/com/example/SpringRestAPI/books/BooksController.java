@@ -2,11 +2,14 @@ package com.example.SpringRestAPI.books;
 
 import com.example.SpringRestAPI.infoDTOs.ErrorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
@@ -15,8 +18,11 @@ public class BooksController {
     IBooksService booksService;
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public ResponseEntity<Object> getBooks(){
-        Collection<BookWithAuthorOutputDTO> books = booksService.getBooks();
+    public ResponseEntity<Object> getBooks(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
+        Integer pageParam = page.orElse(0);
+        Integer sizeParam = size.orElse(10);
+        Pageable pageable = PageRequest.of(pageParam, sizeParam);
+        Collection<BookWithAuthorOutputDTO> books = booksService.getBooks(pageable);
         if (!books.isEmpty())
             return new ResponseEntity<>(books, HttpStatus.OK);
         else

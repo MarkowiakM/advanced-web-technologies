@@ -1,11 +1,12 @@
 package com.example.SpringRestAPI.books;
 
 import com.example.SpringRestAPI.author.Author;
-import com.example.SpringRestAPI.author.AuthorService;
 import com.example.SpringRestAPI.author.AuthorDTO;
 import com.example.SpringRestAPI.author.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,9 +18,9 @@ public class BooksService implements IBooksService {
     IAuthorService authorService;
 
     @Override
-    public Collection<BookWithAuthorOutputDTO> getBooks() {
+    public Collection<BookWithAuthorOutputDTO> getBooks(Pageable pageable) {
         List<BookWithAuthorOutputDTO> books = new ArrayList<>();
-        for (Book b: bookRepository.findAll()){
+        for (Book b: bookRepository.findAll(pageable)){
             List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
             books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
         }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
@@ -16,9 +17,11 @@ public class AuthorController {
 
     @Autowired
     IAuthorService authorService;
-    @RequestMapping(value = "/authors/{page}/{size}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAuthors(@PathVariable(required = false) int page, @PathVariable(required = false) int size){
-        Pageable pagination = PageRequest.of(page, size);
+    @RequestMapping(value = "/authors", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAuthors(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
+        Integer pageParam = page.orElse(0);
+        Integer sizeParam = size.orElse(10);
+        Pageable pagination = PageRequest.of(pageParam, sizeParam);
         Collection<AuthorDTO> authors = authorService.getAuthors(pagination);
         if (!authors.isEmpty())
             return new ResponseEntity<>(authors, HttpStatus.OK);

@@ -1,11 +1,10 @@
 package com.example.SpringRestAPI.reader;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class ReaderService implements IReaderService{
@@ -13,8 +12,8 @@ public class ReaderService implements IReaderService{
     IReaderRepository readerRepository;
 
     @Override
-    public Collection<Reader> getReaders() {
-        return readerRepository.findAll();
+    public Collection<Reader> getReaders(Pageable pageable) {
+        return readerRepository.findAll(pageable).getContent();
     }
 
     @Override
