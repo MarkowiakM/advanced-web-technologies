@@ -43,41 +43,52 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public void addBook(BookInputDTO book) {
+    public int addBook(BookInputDTO book) {
         ArrayList<Author> authors = new ArrayList<>();
         for (int idA : book.getAuthorsIDs()){
             Author a = authorService.getAuthorObj(idA);
             if (a != null)
                 authors.add(a);
+            else
+                return -1;
         }
         bookRepository.save(new Book(book.getTitle(), authors, book.getPages()));
+        return 0;
     }
 
     @Override
-    public boolean removeBook(int id) {
+    public int removeBook(int id) {
         Book book = bookRepository.findById(id).orElse(null);
         if (book != null){
-            bookRepository.delete(book);
-            return true;
+            try {
+                bookRepository.delete(book);
+                return 0;
+            } catch (Exception e){
+                return 2;
+            }
         } else {
-            return false;
+            return 1;
         }
     }
 
     @Override
-    public boolean updateBook(int id, BookInputDTO bookDTO) {
+    public int updateBook(int id, BookInputDTO bookDTO) {
         Book b = bookRepository.findById(id).orElse(null);
         if (b != null) {
             b.setPages(bookDTO.getPages());
             b.setTitle(bookDTO.getTitle());
             b.getAuthors().removeAll(b.getAuthors());
             for (int idA : bookDTO.getAuthorsIDs()){
-                b.addAuthor(authorService.getAuthorObj(idA));
+                Author a = authorService.getAuthorObj(idA);
+                if (a != null)
+                    b.addAuthor(a);
+                else
+                    return 1;
             }
             bookRepository.save(b);
-            return true;
+            return 0;
         }
-        return false;
+        return 2;
     }
 
 

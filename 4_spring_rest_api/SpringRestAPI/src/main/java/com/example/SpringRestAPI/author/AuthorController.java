@@ -54,9 +54,19 @@ public class AuthorController {
 
     @RequestMapping(value = "/authors/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteAuthor(@PathVariable int id) {
-        if (authorService.removeAuthor(id))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new ErrorDTO("The Author does not exist."), HttpStatus.NOT_FOUND);
+        switch (authorService.removeAuthor(id)) {
+            case 0 -> {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            case 1 -> {
+                return new ResponseEntity<>(new ErrorDTO("The Author does not exist."), HttpStatus.NOT_FOUND);
+            }
+            case 2 -> {
+                return new ResponseEntity<>(new ErrorDTO("Cannot delete author of existing book."), HttpStatus.CONFLICT);
+            }
+            default -> {
+                return new ResponseEntity<>(new ErrorDTO("Unexpected error."), HttpStatus.NOT_FOUND);
+            }
+        }
     }
 }

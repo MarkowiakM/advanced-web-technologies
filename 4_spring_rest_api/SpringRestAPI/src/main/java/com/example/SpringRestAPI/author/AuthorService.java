@@ -54,13 +54,17 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public boolean removeAuthor(int id) {
+    public int removeAuthor(int id) {
         Author a = authorRepository.findById(id).orElse(null);
         if (a != null) {
-            authorRepository.delete(a);
-            return true;
+            try {
+                authorRepository.delete(a);
+            } catch (Exception e){
+                return 2;
+            }
+            return 0;
         } else {
-            return false;
+            return 1;
         }
     }
 

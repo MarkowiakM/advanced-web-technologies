@@ -43,13 +43,17 @@ public class ReaderService implements IReaderService{
     }
 
     @Override
-    public boolean removeReader(int id) {
+    public int removeReader(int id) {
         Reader r = readerRepository.findById(id).orElse(null);
         if (r != null) {
-            readerRepository.delete(r);
-            return true;
+            try {
+                readerRepository.delete(r);
+                return 0;
+            } catch (Exception e) {
+                return 2;
+            }
         } else {
-            return false;
+            return 1;
         }
 
     }

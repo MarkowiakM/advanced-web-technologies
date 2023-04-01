@@ -8,8 +8,8 @@ public interface IBooksService {
     Collection<BookWithAuthorOutputDTO> getBooks(Pageable pageable);
     BookWithAuthorOutputDTO getBook(int id);
     Book getBookObj(int id);
-    void addBook(BookInputDTO book);
-    boolean removeBook(int id);
-    boolean updateBook(int id, BookInputDTO book);
+    int addBook(BookInputDTO book);
+    int removeBook(int id);
+    int updateBook(int id, BookInputDTO book);
 
 }

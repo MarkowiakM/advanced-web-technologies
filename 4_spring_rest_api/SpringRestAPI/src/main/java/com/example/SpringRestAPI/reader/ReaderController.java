@@ -53,9 +53,19 @@ public class ReaderController {
 
     @RequestMapping(value = "/readers/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteReader(@PathVariable int id) {
-        if (readerService.removeReader(id))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new ErrorDTO("The reader does not exist"), HttpStatus.NOT_FOUND);
+        switch (readerService.removeReader(id)) {
+            case 0 -> {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            case 1 -> {
+                return new ResponseEntity<>(new ErrorDTO("The reader does not exist"), HttpStatus.NOT_FOUND);
+            }
+            case 2 -> {
+                return new ResponseEntity<>(new ErrorDTO("Cannot delete reader that has rented any books."), HttpStatus.CONFLICT);
+            }
+            default -> {
+                return new ResponseEntity<>(new ErrorDTO("Unexpected error"), HttpStatus.NOT_FOUND);
+            }
+        }
     }
 }

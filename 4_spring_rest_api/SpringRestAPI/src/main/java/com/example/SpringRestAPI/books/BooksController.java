@@ -39,23 +39,45 @@ public class BooksController {
     }
     @RequestMapping(value = "/books", method = RequestMethod.POST)
     public ResponseEntity<Object> addBook(@RequestBody BookInputDTO book) {
-        booksService.addBook(book);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        if (booksService.addBook(book) == 0)
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(new ErrorDTO("One of the authors does not exist."), HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateBook(@PathVariable int id, @RequestBody BookInputDTO book) {
-        if (booksService.updateBook(id, book))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
+        switch (booksService.updateBook(id, book)) {
+            case 0 -> {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            case 1 -> {
+                return new ResponseEntity<>(new ErrorDTO("One of the authors does not exist"), HttpStatus.NOT_FOUND);
+            }
+            case 2 -> {
+                return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
+            }
+            default -> {
+                return new ResponseEntity<>(new ErrorDTO("Unexpected error"), HttpStatus.NOT_FOUND);
+            }
+        }
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteBook(@PathVariable int id) {
-        if (booksService.removeBook(id))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new ErrorDTO("The book does not exist"),HttpStatus.NOT_FOUND);
+        switch (booksService.removeBook(id)) {
+            case 0 -> {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            case 1 -> {
+                return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
+            }
+            case 2 -> {
+                return new ResponseEntity<>(new ErrorDTO("Cannot delete rented book."), HttpStatus.CONFLICT);
+            }
+            default -> {
+                return new ResponseEntity<>(new ErrorDTO("Unexpected error"), HttpStatus.NOT_FOUND);
+            }
+        }
     }
 }

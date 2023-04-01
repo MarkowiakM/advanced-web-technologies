@@ -10,5 +10,5 @@ public interface IReaderService {
     Reader getReader(int id);
     void addReader(ReaderInputDTO reader);
     boolean updateReader(int id, ReaderInputDTO reader);
-    boolean removeReader(int id);
+    int removeReader(int id);
 }

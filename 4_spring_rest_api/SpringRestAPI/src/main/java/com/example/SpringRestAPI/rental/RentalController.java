@@ -68,13 +68,12 @@ public class RentalController {
         Integer sizeParam = size.orElse(10);
         Pageable pageable = PageRequest.of(pageParam, sizeParam);
         RentedReaderDTO rentedReaderDTO = rentalService.getReaderRental(readerID, pageable);
-        if (!rentedReaderDTO.getRentedBooks().isEmpty() && rentedReaderDTO.getReader() != null)
+        if (rentedReaderDTO.getReader() != null && !rentedReaderDTO.getRentedBooks().isEmpty())
             return new ResponseEntity<>(rentedReaderDTO, HttpStatus.OK);
-        else if (rentedReaderDTO.getRentedBooks().isEmpty()) {
-            return new ResponseEntity<>(new ErrorDTO("The reader has not rented any book."), HttpStatus.NO_CONTENT);
-        } else {
+        else if (rentedReaderDTO.getReader() == null)
             return new ResponseEntity<>(new ErrorDTO("The reader does not exist."), HttpStatus.NOT_FOUND);
-        }
+        else
+            return new ResponseEntity<>(new ErrorDTO("The reader has not rented any book."), HttpStatus.NO_CONTENT);
     }
 
 }
