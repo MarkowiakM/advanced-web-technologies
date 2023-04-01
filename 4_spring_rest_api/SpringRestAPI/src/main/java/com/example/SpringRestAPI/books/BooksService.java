@@ -1,11 +1,12 @@
 package com.example.SpringRestAPI.books;
 
 import com.example.SpringRestAPI.author.Author;
-import com.example.SpringRestAPI.author.AuthorService;
 import com.example.SpringRestAPI.author.AuthorDTO;
 import com.example.SpringRestAPI.author.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,9 +18,9 @@ public class BooksService implements IBooksService {
     IAuthorService authorService;
 
     @Override
-    public Collection<BookWithAuthorOutputDTO> getBooks() {
+    public Collection<BookWithAuthorOutputDTO> getBooks(Pageable pageable) {
         List<BookWithAuthorOutputDTO> books = new ArrayList<>();
-        for (Book b: bookRepository.findAll()){
+        for (Book b: bookRepository.findAll(pageable)){
             List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
             books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
         }
@@ -42,41 +43,52 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public void addBook(BookInputDTO book) {
+    public int addBook(BookInputDTO book) {
         ArrayList<Author> authors = new ArrayList<>();
         for (int idA : book.getAuthorsIDs()){
             Author a = authorService.getAuthorObj(idA);
             if (a != null)
                 authors.add(a);
+            else
+                return -1;
         }
         bookRepository.save(new Book(book.getTitle(), authors, book.getPages()));
+        return 0;
     }
 
     @Override
-    public boolean removeBook(int id) {
+    public int removeBook(int id) {
         Book book = bookRepository.findById(id).orElse(null);
         if (book != null){
-            bookRepository.delete(book);
-            return true;
+            try {
+                bookRepository.delete(book);
+                return 0;
+            } catch (Exception e){
+                return 2;
+            }
         } else {
-            return false;
+            return 1;
         }
     }
 
     @Override
-    public boolean updateBook(int id, BookInputDTO bookDTO) {
+    public int updateBook(int id, BookInputDTO bookDTO) {
         Book b = bookRepository.findById(id).orElse(null);
         if (b != null) {
             b.setPages(bookDTO.getPages());
             b.setTitle(bookDTO.getTitle());
             b.getAuthors().removeAll(b.getAuthors());
             for (int idA : bookDTO.getAuthorsIDs()){
-                b.addAuthor(authorService.getAuthorObj(idA));
+                Author a = authorService.getAuthorObj(idA);
+                if (a != null)
+                    b.addAuthor(a);
+                else
+                    return 1;
             }
             bookRepository.save(b);
-            return true;
+            return 0;
         }
-        return false;
+        return 2;
     }
 
 

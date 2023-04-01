@@ -2,20 +2,27 @@ package com.example.SpringRestAPI.author;
 
 import com.example.SpringRestAPI.infoDTOs.ErrorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
 public class AuthorController {
 
     @Autowired
     IAuthorService authorService;
     @RequestMapping(value = "/authors", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAuthors(){
-        Collection<AuthorDTO> authors = authorService.getAuthors();
+    public ResponseEntity<Object> getAuthors(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
+        Integer pageParam = page.orElse(0);
+        Integer sizeParam = size.orElse(10);
+        Pageable pagination = PageRequest.of(pageParam, sizeParam);
+        Collection<AuthorDTO> authors = authorService.getAuthors(pagination);
         if (!authors.isEmpty())
             return new ResponseEntity<>(authors, HttpStatus.OK);
         else
@@ -47,9 +54,19 @@ public class AuthorController {
 
     @RequestMapping(value = "/authors/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteAuthor(@PathVariable int id) {
-        if (authorService.removeAuthor(id))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new ErrorDTO("The Author does not exist."), HttpStatus.NOT_FOUND);
+        switch (authorService.removeAuthor(id)) {
+            case 0 -> {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            case 1 -> {
+                return new ResponseEntity<>(new ErrorDTO("The Author does not exist."), HttpStatus.NOT_FOUND);
+            }
+            case 2 -> {
+                return new ResponseEntity<>(new ErrorDTO("Cannot delete author of existing book."), HttpStatus.CONFLICT);
+            }
+            default -> {
+                return new ResponseEntity<>(new ErrorDTO("Unexpected error."), HttpStatus.NOT_FOUND);
+            }
+        }
     }
 }
