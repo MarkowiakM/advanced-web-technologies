@@ -3,11 +3,6 @@ import { defineComponent } from 'vue';
 import type { User } from '../store/index';
 
 export default defineComponent({
-  methods: {
-    setLayout(layout: string) {
-      this.$store.commit('setLayout', layout);
-    }
-  },
   props: {
     user: {
       type: Object as () => User
@@ -29,13 +24,7 @@ export default defineComponent({
     <v-divider></v-divider>
 
     <v-list density="compact" nav class="d-flex flex-column">
-      <v-list-item
-        prepend-icon="mdi-home"
-        title="Home"
-        value="home"
-        to="/"
-        @click="setLayout('home-layout')"
-      ></v-list-item>
+      <v-list-item prepend-icon="mdi-home" title="Home" value="home" to="/"></v-list-item>
       <v-list-item prepend-icon="mdi-book" title="Books" value="books" to="/books"></v-list-item>
       <v-list-item
         prepend-icon="mdi-account"

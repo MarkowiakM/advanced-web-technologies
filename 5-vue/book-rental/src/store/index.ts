@@ -15,7 +15,7 @@ const MOCK_USER: User = {
 export default createStore({
   state() {
     return {
-      layout: 'home-layout',
+      layout: 'app-layout',
       user: MOCK_USER,
     };
   },

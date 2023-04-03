@@ -18,10 +18,18 @@ fetchReaders();
 <script lang="ts">
 export default defineComponent({
   name: 'ReadersList',
-  components: { ItemsTable }
+  components: { ItemsTable },
+  methods: {
+    createReader() {},
+    editReader() {},
+    deleteReader() {}
+  }
 });
 </script>
 
 <template>
+  <h2 class="bg-teal-accent-4 text-white px-6 py-3 mb-6">
+    Readers <v-icon class="text-white float-right" @click="createReader()">mdi-plus</v-icon>
+  </h2>
   <items-table :table="{ headers: ['id', 'name', 'surname'], items: readers }"></items-table>
 </template>

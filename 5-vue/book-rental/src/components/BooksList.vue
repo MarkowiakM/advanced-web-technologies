@@ -31,12 +31,18 @@ export default defineComponent({
             .slice(1)
         };
       });
-    }
+    },
+    createBook() {},
+    editBook() {},
+    deleteBook() {}
   }
 });
 </script>
 
 <template>
+  <h2 class="bg-teal-accent-4 text-white px-6 py-3 mb-6">
+    Books <v-icon class="text-white float-right" @click="createBook()">mdi-plus</v-icon>
+  </h2>
   <items-table
     :table="{ headers: ['id', 'title', 'pages', 'authors'], items: parseJSONBooks(books) }"
   ></items-table>

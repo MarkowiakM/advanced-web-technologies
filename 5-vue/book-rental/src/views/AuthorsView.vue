@@ -9,7 +9,6 @@ export default defineComponent({
 
 <template>
   <v-container>
-    <h2 class="bg-teal-accent-4 text-white px-6 py-3">Authors</h2>
     <authors-list class="table"></authors-list>
   </v-container>
 </template>

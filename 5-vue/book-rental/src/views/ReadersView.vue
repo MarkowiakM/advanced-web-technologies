@@ -10,7 +10,6 @@ export default defineComponent({
 
 <template>
   <v-container>
-    <h2 class="bg-teal-accent-4 text-white px-6 py-3">Readers</h2>
     <readers-list class="table"></readers-list>
   </v-container>
 </template>
