@@ -1,39 +1,28 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-
-type User = {
-  avatar: string;
-  name: string;
-  mail: string;
-};
-
-const MOCK_USER: User = {
-  avatar: 'https://randomuser.me/api/portraits/women/11.jpg',
-  name: 'Maria Paulina',
-  mail: 'maria.paulina@gmail.com'
-};
+import type { User } from '../store/index';
 
 export default defineComponent({
-  data() {
-    return {
-      user: MOCK_USER
-    };
-  },
   methods: {
     setLayout(layout: string) {
       this.$store.commit('setLayout', layout);
+    }
+  },
+  props: {
+    user: {
+      type: Object as () => User
     }
   }
 });
 </script>
 
 <template>
-  <v-navigation-drawer expand-on-hover rail>
+  <v-navigation-drawer expand-on-hover rail class="bg-teal">
     <v-list>
       <v-list-item
-        v-bind:prepend-avatar="user.avatar"
-        v-bind:title="user.name"
-        v-bind:subtitle="user.mail"
+        v-bind:prepend-avatar="user!.avatar"
+        v-bind:title="user!.name"
+        v-bind:subtitle="user!.mail"
       ></v-list-item>
     </v-list>
 
@@ -45,7 +34,7 @@ export default defineComponent({
         title="Home"
         value="home"
         to="/"
-        @click="setLayout('simple-layout')"
+        @click="setLayout('home-layout')"
       ></v-list-item>
       <v-list-item prepend-icon="mdi-book" title="Books" value="books" to="/books"></v-list-item>
       <v-list-item
@@ -69,3 +58,5 @@ export default defineComponent({
     </v-list>
   </v-navigation-drawer>
 </template>
+
+<style lang="scss"></style>

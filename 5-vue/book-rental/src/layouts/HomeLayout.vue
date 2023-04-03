@@ -1,10 +1,10 @@
 <script lang="ts">
-import SideBar from '../components/SideBar.vue';
+import NavBar from '../components/NavBar.vue';
 import type { User } from '../store';
 
 export default {
-  components: { SideBar },
-  methods: {
+  components: { NavBar },
+    methods: {
     user(): User {
       return this.$store.getters.user;
     }
@@ -13,10 +13,10 @@ export default {
 </script>
 
 <template>
-  <v-layout class="d-flex">
-    <side-bar :user="user()"></side-bar>
+  <v-app>
+    <nav-bar :user="user()"></nav-bar>
     <v-main>
       <router-view />
     </v-main>
-  </v-layout>
+  </v-app>
 </template>

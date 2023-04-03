@@ -1,8 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
+import ImgGallery from '../components/ImgGallery.vue';
+
 export default defineComponent({
   name: 'HomeView',
-  components: {},
+  components: {ImgGallery},
   methods: {
     setLayout(layout: string) {
       this.$store.commit('setLayout', layout);
@@ -11,6 +13,7 @@ export default defineComponent({
 });
 </script>
 <template>
-  <div>home</div>
-  <v-btn color="secondary" @click="setLayout('app-layout')">App Layout</v-btn>
+  <img-gallery></img-gallery>
+  <!-- <v-btn color="secondary" @click="setLayout('app-layout')">App Layout</v-btn> -->
+  d
 </template>

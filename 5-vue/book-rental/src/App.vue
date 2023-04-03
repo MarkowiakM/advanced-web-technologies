@@ -1,6 +1,6 @@
 <script lang="ts">
 import AppLayout from './layouts/AppLayout.vue';
-import SimpleLayout from './layouts/SimpleLayout.vue';
+import HomeLayout from './layouts/HomeLayout.vue';
 export default {
   computed: {
     layout(): string {
@@ -9,7 +9,7 @@ export default {
   },
   components: {
     'app-layout': AppLayout,
-    'simple-layout': SimpleLayout
+    'home-layout': HomeLayout
   }
 };
 </script>
