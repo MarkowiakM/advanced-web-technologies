@@ -1,33 +1,21 @@
 <script lang="ts">
-import SideBar from './components/SideBar.vue';
-
+import AppLayout from './layouts/AppLayout.vue';
+import SimpleLayout from './layouts/SimpleLayout.vue';
 export default {
-  components: { SideBar },
-  name: 'App',
-  data: () => ({
-    items: [
-      { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-      { title: 'Account', icon: 'mdi-account-box' },
-      { title: 'Settings', icon: 'mdi-cog' }
-    ]
-  })
+  computed: {
+    layout(): string {
+      return this.$store.getters.layout;
+    }
+  },
+  components: {
+    'app-layout': AppLayout,
+    'simple-layout': SimpleLayout
+  }
 };
 </script>
 
 <template>
-  <VApp>
-    <v-layout>
-      <side-bar></side-bar>
-      <v-main>
-        <router-view />
-      </v-main>
-    </v-layout>
-  </VApp>
+  <v-app>
+    <component v-bind:is="layout"></component>
+  </v-app>
 </template>
-
-<style>
-  a {
-    text-decoration: none;
-    color: black;
-  }
-</style>

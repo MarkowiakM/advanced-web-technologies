@@ -12,7 +12,6 @@
 
     <v-list density="compact" nav class="d-flex flex-column">
       <v-list-item prepend-icon="mdi-home" title="Home" value="home" to="/"></v-list-item>
-      <v-divider></v-divider>
       <v-list-item prepend-icon="mdi-book" title="Books" value="books" to="/books"></v-list-item>
       <v-list-item
         prepend-icon="mdi-account"

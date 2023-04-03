@@ -7,6 +7,7 @@ import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
+import store from './store';
 
 const vuetify = createVuetify({
   components,
@@ -14,5 +15,6 @@ const vuetify = createVuetify({
 });
 
 loadFonts();
-
-createApp(App).use(router).use(vuetify).mount('#app');
+const app = createApp(App);
+app.config.globalProperties.$store = store;
+app.use(router).provide('$store', store).use(store).use(vuetify).mount('#app');
