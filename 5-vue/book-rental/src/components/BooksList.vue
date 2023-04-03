@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
+import type { Book } from '../types';
 
-const books: Ref<> = ref([]);
+const books: Ref<Book[]> = ref([]);
 const ENDPOINT = 'http://localhost:7070/books';
 
 async function fetchBooks() {
