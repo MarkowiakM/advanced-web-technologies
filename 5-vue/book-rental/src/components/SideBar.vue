@@ -45,9 +45,9 @@ export default defineComponent({
       ></v-list-item>
       <v-list-item
         prepend-icon="mdi-account-multiple"
-        title="Users"
-        value="users"
-        to="/users"
+        title="Readers"
+        value="Readers"
+        to="/readers"
       ></v-list-item>
       <v-list-item
         prepend-icon="mdi-view-dashboard"

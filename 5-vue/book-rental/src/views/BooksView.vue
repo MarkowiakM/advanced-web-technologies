@@ -9,6 +9,15 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>books</div>
-  <books-list></books-list>
+  <v-container>
+    <h2 class="bg-teal-accent-4 text-white px-6 py-3">Books</h2>
+    <books-list class="table"></books-list>
+  </v-container>
 </template>
+
+<style scoped>
+.table {
+  width: 90vw;
+  margin: 30px auto;
+}
+</style>
