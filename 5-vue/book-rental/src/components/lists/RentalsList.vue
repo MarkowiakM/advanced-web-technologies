@@ -17,11 +17,11 @@ const rentals: Ref<Rental[]> = ref([]);
 const parseBookData = ({ book, rentalDate }: RentedBook) => {
   return {
     id: book.id,
+    rentalDate: rentalDate,
     title: book.title,
     authors: book.authors
       .reduce((auth, author) => auth + ', ' + author.name + ' ' + author.surname, '')
       .slice(1),
-    rentalDate: rentalDate
   } as BookData;
 };
 const createRental = (): void => {};
@@ -43,12 +43,13 @@ async function readRental(reader: Reader): Promise<Rental> {
 
 async function readRentals(readers: Reader[]) {
   readers.forEach((reader) => {
-    readRental(reader).then((rental) => {
-      if (rental.reader.id === reader.id) {
+    readRental(reader).then(
+      (rental) => {
         rentals.value.find((rental) => rental.reader.id === reader.id)!.rentedBooks =
           rental.rentedBooks;
-      }
-    });
+      },
+      (err) => console.log(err)
+    );
   });
 }
 
@@ -82,7 +83,7 @@ export default defineComponent({
       <v-expansion-panel-text
         ><items-table
           :table="{
-            headers: ['book id', 'rentl date', 'book title', 'authors'],
+            headers: ['book id', 'rental date', 'book title', 'authors'],
             items: rental.rentedBooks.map(parseBookData)
           }"
           :delete-item="deleteRental"

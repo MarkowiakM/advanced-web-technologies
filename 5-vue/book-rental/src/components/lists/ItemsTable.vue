@@ -3,8 +3,10 @@ import { defineComponent } from 'vue';
 import type { Table } from '../../types';
 import AuthorsForm from '../forms/AuthorsForm.vue';
 import ReadersForm from '../forms/ReadersForm.vue';
+import BooksForm from '../forms/BooksForm.vue';
+
 export default defineComponent({
-  components: { AuthorsForm, ReadersForm },
+  components: { AuthorsForm, ReadersForm, BooksForm },
   props: {
     table: {
       type: Object as () => Table
