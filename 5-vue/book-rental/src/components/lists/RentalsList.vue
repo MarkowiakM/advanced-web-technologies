@@ -16,9 +16,10 @@ type BookData = {
 const rentals: Ref<Rental[]> = ref([]);
 
 const parseBookData = ({ book, rentalDate }: RentedBook) => {
+  const date = new Date(rentalDate);
   return {
     id: book.id,
-    rentalDate: rentalDate, //#TODO - format
+    rentalDate: `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`,
     title: book.title,
     authors: book.authors
       .reduce((auth, author) => auth + ', ' + author.name + ' ' + author.surname, '')
@@ -66,8 +67,6 @@ async function readRentals(readers: Reader[]) {
     );
   });
 }
-
-const updateRental = (): void => {};
 
 const deleteRental = (book: BookData): void => {
   fetch(ENDPOINT_RENTALS + '/' + book.id, { method: 'DELETE' }).then((res) => {
