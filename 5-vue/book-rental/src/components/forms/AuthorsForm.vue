@@ -10,39 +10,42 @@ export default {
       id: -1
     }
   }),
+  
   props: {
     mode: {
       type: Object as () => 'add' | 'edit'
     },
-    title: String,
     defaultValue: {
       type: Object as () => Author
     }
   },
   created() {
-    if (this.defaultValue) {
-      this.form.name = this.defaultValue.name;
-      this.form.surname = this.defaultValue.surname;
-      this.form.id = this.defaultValue.id;
-    }
+    this.setDefaultFormValue();
   },
   methods: {
-    clearInputs() {
-      this.form.name = '';
-      this.form.surname = '';
-      this.form.id = -1;
+    setDefaultFormValue() {
+      if (this.defaultValue) {
+        this.form.name = this.defaultValue.name;
+        this.form.surname = this.defaultValue.surname;
+        this.form.id = this.defaultValue.id;
+      }
+    },
+    normalizeInputs() {
+      if (this.mode === 'add') {
+        this.form.name = '';
+        this.form.surname = '';
+        this.form.id = -1;
+      } else {
+        this.setDefaultFormValue();
+      }
     },
     onSubmit() {
       this.dialog = false;
       this.$emit('onSubmit', this.form);
-      if (this.mode === 'add') {
-        this.clearInputs();
-      }
+      this.normalizeInputs();
     },
     onCancel() {
-      if (this.mode === 'add') {
-        this.clearInputs();
-      }
+      this.normalizeInputs();
       this.dialog = false;
     }
   }
@@ -60,7 +63,7 @@ export default {
       <v-card>
         <form v-on:submit.prevent="">
           <v-card-title class="mt-6 ml-6">
-            <span class="text-h5">{{ title }}</span>
+            <span class="text-h5">{{ mode === 'add' ? 'Add new author' : 'Edit author' }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>

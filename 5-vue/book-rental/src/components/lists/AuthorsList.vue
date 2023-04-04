@@ -55,7 +55,6 @@ export default defineComponent({
     <span>Authors</span>
     <authors-form
       class="float-right my-auto"
-      title="Add new author"
       mode="add"
       @onSubmit="createAuthor"
     ></authors-form>
@@ -65,6 +64,5 @@ export default defineComponent({
     :edit-item="updateAuthor"
     :delete-item="deleteAuthor"
     edit-form="authors-form"
-    form-title="Edit author"
   ></items-table>
 </template>

@@ -2,8 +2,9 @@
 import { defineComponent } from 'vue';
 import type { Table } from '../../types';
 import AuthorsForm from '../forms/AuthorsForm.vue';
+import ReadersForm from '../forms/ReadersForm.vue';
 export default defineComponent({
-  components: { AuthorsForm },
+  components: { AuthorsForm, ReadersForm },
   props: {
     table: {
       type: Object as () => Table
@@ -15,7 +16,6 @@ export default defineComponent({
       type: Function
     },
     editForm: String,
-    formTitle: String
   },
   created() {
     console.log(this.editItem);
@@ -46,7 +46,6 @@ export default defineComponent({
             :is="editForm"
             class="float-left my-auto"
             mode="edit"
-            :title="formTitle"
             @onSubmit="editItem"
             :defaultValue="item"
           ></component>
