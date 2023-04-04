@@ -24,9 +24,8 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
     private int pages;
-    @Transient
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Rental> rentals;
+    @OneToOne()
+    private Rental rental;
 
 
     public Book(String title, List<Author> authors, int pages) {
@@ -43,7 +42,12 @@ public class Book {
 
     public void setTitle(String title) { this.title = title; }
     public void setPages(int pages) { this.pages = pages; }
-    public void addAuthor(Author author){
+
+    public void setRental(Rental rental) {
+        this.rental = rental;
+    }
+
+    public void addAuthor(Author author) {
         this.authors.add(author);
     }
 
