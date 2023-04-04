@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.SpringRestAPI.rental.RentalStatus.*;
+
 @Service
 public class RentalService implements IRentalService{
 
@@ -24,29 +26,29 @@ public class RentalService implements IRentalService{
     IReaderService readerService;
 
     @Override
-    public int rentBook(RentalDTO rentalDTO) {
-        if (isBookRented(rentalDTO.getBookID())) return 1;
+    public RentalStatus rentBook(RentalDTO rentalDTO) {
+        if (isBookRented(rentalDTO.getBookID())) return BOOK_ALREADY_RENTED;
         Reader reader = readerService.getReader(rentalDTO.getReaderID());
         Book book = booksService.getBookObj(rentalDTO.getBookID());
-        if (reader == null) return 2;
-        if (book == null) return 3;
+        if (reader == null) return READER_DOES_NOT_EXIST;
+        if (book == null) return BOOK_DOES_NOT_EXIST;
         LocalDateTime rentDate;
         try {
             rentDate = LocalDateTime.parse(rentalDTO.getDate());
         } catch (Exception e){
-            return 4;
+            return WRONG_DATE_FORMAT;
         }
         rentalRepository.save(new Rental(book, reader,rentDate));
-        return 0;
+        return OK;
     }
 
     @Override
-    public int returnBook(int bookID) {
+    public RentalStatus returnBook(int bookID) {
         Book book = booksService.getBookObj(bookID);
-        if (book == null) return 2;
-        if (!isBookRented(bookID)) return 1;
+        if (book == null) return BOOK_DOES_NOT_EXIST;
+        if (!isBookRented(bookID)) return BOOK_NOT_RENTED;
         rentalRepository.deleteByBook_Id(bookID);
-        return 0;
+        return OK;
 
     }
 

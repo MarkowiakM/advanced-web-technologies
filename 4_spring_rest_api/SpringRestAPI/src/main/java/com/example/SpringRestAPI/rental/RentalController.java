@@ -20,20 +20,20 @@ public class RentalController {
     @RequestMapping(value = "/rentals", method = RequestMethod.POST)
     public ResponseEntity<Object> rentBook(@RequestBody RentalDTO rentalDTO){
         switch (rentalService.rentBook(rentalDTO)) {
-            case 0 -> {
+            case OK -> {
                 System.out.println("The book has been rented");
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            case 1 -> {
+            case BOOK_ALREADY_RENTED -> {
                 return new ResponseEntity<>(new ErrorDTO("The book is already rented"), HttpStatus.NOT_FOUND);
             }
-            case 2 -> {
+            case READER_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("The reader does not exist"), HttpStatus.NOT_FOUND);
             }
-            case 3 -> {
+            case BOOK_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
             }
-            case 4 -> {
+            case WRONG_DATE_FORMAT -> {
                 return new ResponseEntity<>(new ErrorDTO("Incorrect date format"), HttpStatus.NOT_FOUND);
             }
             default -> {
@@ -45,15 +45,15 @@ public class RentalController {
     @RequestMapping(value = "/rentals/{bookID}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> returnBook(@PathVariable int bookID){
         switch (rentalService.returnBook(bookID)) {
-            case 0 -> {
+            case OK -> {
                 System.out.println("The book has been returned");
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            case 1 -> {
+            case READER_DOES_NOT_EXIST -> {
                 System.out.println("Cannot return the book");
                 return new ResponseEntity<>(new ErrorDTO("The rental does not exist"), HttpStatus.NOT_FOUND);
             }
-            case 2 -> {
+            case BOOK_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
             }
             default -> {
@@ -68,12 +68,10 @@ public class RentalController {
         Integer sizeParam = size.orElse(10);
         Pageable pageable = PageRequest.of(pageParam, sizeParam);
         RentedReaderDTO rentedReaderDTO = rentalService.getReaderRental(readerID, pageable);
-        if (rentedReaderDTO.getReader() != null && !rentedReaderDTO.getRentedBooks().isEmpty())
+        if (rentedReaderDTO.getReader() != null )
             return new ResponseEntity<>(rentedReaderDTO, HttpStatus.OK);
-        else if (rentedReaderDTO.getReader() == null)
-            return new ResponseEntity<>(new ErrorDTO("The reader does not exist."), HttpStatus.NOT_FOUND);
         else
-            return new ResponseEntity<>(new ErrorDTO("The reader has not rented any book."), HttpStatus.NO_CONTENT);
-    }
+            return new ResponseEntity<>(new ErrorDTO("The reader does not exist."), HttpStatus.NOT_FOUND);
+        }
 
 }
