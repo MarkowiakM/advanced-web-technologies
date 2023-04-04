@@ -1,54 +1,18 @@
-<script setup lang="ts">
-const ENDPOINT_READERS = 'http://localhost:7070/readers';
-const ENDPOINT_BOOKS = 'http://localhost:7070/books';
-
-const readers: Ref<Reader[]> = ref([]);
-const books: Ref<Book[]> = ref([]);
-
-async function readAuthors() {
-  const res = (await fetch(`${ENDPOINT_READERS}page=0&size=1000`)) as any;
-  readers.value = await res.json();
-}
-
-async function readBooks() {
-  const res = (await fetch(`${ENDPOINT_BOOKS}page=0&size=1000`)) as any;
-  books.value = await res.json();
-}
-
-const parseReaders = () => {
-  return readers.value
-    .map((reader) => reader.surname + ' ' + reader.name + ' - ' + reader.id)
-    .sort();
-};
-const parseAuthors = (authors: Author[]) => {
-  return authors
-    .reduce((auth, author) => auth + ', ' + author.name + ' ' + author.surname, '')
-    .slice(1);
-};
-const parseBooks = () => {
-  return books.value
-    .map((book) => book.title + ' ' + parseAuthors(book.authors) + ' - ' + book.id)
-    .sort();
-};
-
-readAuthors();
-</script>
-
 <script lang="ts">
 import type { Author, Book, Reader } from '@/src/types';
-import { parse } from '@vue/compiler-dom';
 import { type Ref, ref } from 'vue';
 
 export default {
   data: () => ({
-    ENDPOINT_BOOK: 'http://localhost:7070/books',
-    book: { title: '', authors: [] as Author[], pages: 0, id: -1 },
+    ENDPOINT_READERS: 'http://localhost:7070/readers',
+    ENDPOINT_BOOKS: 'http://localhost:7070/books/notRented',
+    readers: ref([]) as Ref<Reader[]>,
+    books: ref([]) as Ref<Book[]>,
     dialog: false,
     form: {
-      title: '',
-      authors: [] as string[],
-      pages: 0,
-      id: -1
+      reader: '',
+      book: '',
+      date: ''
     }
   }),
   props: {
@@ -60,41 +24,54 @@ export default {
     }
   },
   created() {
+    this.readAuthors();
+    this.readBooks();
     this.setDefaultFormValue();
     if (this.mode === 'edit' && this.defaultValue) {
-      this.readBook(this.defaultValue.id);
+      // this.readBook(this.defaultValue.id);
     }
   },
   methods: {
-    async readBook(id: number) {
-      const res = (await fetch(this.ENDPOINT_BOOK + '/' + id)) as any;
-      this.book = await res.json();
-      this.form.authors = this.book.authors
-        .map((author) => author.surname + ' ' + author.name + ' - ' + author.id)
-        .sort();
-      this.form.pages = this.book.pages;
-      this.form.title = this.book.title;
-      this.form.id = this.book.id;
+    async readAuthors() {
+      const res = (await fetch(`${this.ENDPOINT_READERS}?page=0&size=1000`)) as any;
+      this.readers = await res.json();
     },
-    getIdFromString(author: string) {
-      return author.split(' - ').pop();
+    async readBooks() {
+      const res = (await fetch(`${this.ENDPOINT_BOOKS}?page=0&size=1000`)) as any;
+      this.books = await res.json();
+    },
+    getIdFromString(item: string) {
+      return item.split(' - ').pop();
+    },
+    parseReaders() {
+      return this.readers
+        .map((reader) => reader.surname + ' ' + reader.name + ' - ' + reader.id)
+        .sort();
+    },
+    parseAuthors(authors: Author[]) {
+      return authors
+        .reduce((auth, author) => auth + ', ' + author.name + ' ' + author.surname, '')
+        .slice(1);
+    },
+    parseBooks() {
+      return this.books
+        .map((book) => book.title + ' ' + this.parseAuthors(book.authors) + ' - ' + book.id)
+        .sort();
     },
     setDefaultFormValue() {
-      if (this.book) {
-        this.form.title = this.book.title;
-        this.form.authors = this.book.authors
-          .map((author) => author.surname + ' ' + author.name + ' - ' + author.id)
-          .sort();
-        this.form.pages = this.book.pages;
-        this.form.id = this.book.id;
-      }
+      // if (this.book) {
+      //   this.form.book = this.book.title;
+      //   this.form.authors = this.book.authors
+      //     .map((author) => author.surname + ' ' + author.name + ' - ' + author.id)
+      //     .sort();
+      //   this.form.pages = this.book.pages;
+      //   this.form.id = this.book.id;
+      // }
     },
     normalizeInputs() {
       if (this.mode === 'add') {
-        this.form.title = '';
-        this.form.authors = [];
-        this.form.pages = 0;
-        this.form.id = -1;
+        this.form.reader = '';
+        this.form.book = '';
       } else {
         this.setDefaultFormValue();
       }
@@ -102,13 +79,10 @@ export default {
     onSubmit() {
       this.dialog = false;
       this.$emit('onSubmit', {
-        title: this.form.title,
-        authorIDs: this.form.authors.map((author) => Number(this.getIdFromString(author))),
-
-        pages: this.form.pages,
-        id: this.form.id
+        bookID: this.getIdFromString(this.form.book),
+        readerID: this.getIdFromString(this.form.reader),
+        date: (new Date()).toISOString(),
       });
-      console.log(this.form.authors.map((author) => Number(this.getIdFromString(author))));
       this.normalizeInputs();
     },
     onCancel() {
@@ -134,29 +108,18 @@ export default {
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Book Title*"
-                    hint="full title"
-                    persistent-hint
-                    v-model="form.title"
-                    required
-                  ></v-text-field>
-                </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="form.pages"
-                    type="number"
-                    label="Pages*"
-                    required
-                  ></v-text-field>
+                  <v-autocomplete
+                    :items="parseReaders()"
+                    label="Readers"
+                    v-model="form.reader"
+                  ></v-autocomplete>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-autocomplete
-                    :items="parseAuthors()"
-                    label="Authors"
-                    v-model="form.authors"
-                    multiple
+                    :items="parseBooks()"
+                    label="Books"
+                    v-model="form.book"
                   ></v-autocomplete>
                 </v-col>
               </v-row>
