@@ -11,7 +11,8 @@ export default defineComponent({
     pages: 1,
     size: 10,
     booksAmount: 0,
-    books: ref([]) as Ref<Book[]>
+    books: ref([]) as Ref<Book[]>,
+    showAlert: false
   }),
   name: 'BooksList',
   components: { ItemsTable, BooksForm },
@@ -54,7 +55,11 @@ export default defineComponent({
     },
     deleteBook(book: Book) {
       fetch(this.ENDPOINT + '/' + book.id, { method: 'DELETE' }).then((res) => {
-        console.log(res), this.readBooks(), this.readBooksAmount();
+        if (res.status === 409) {
+          this.showAlert = true;
+        } else {
+          console.log(res), this.readBooks(), this.readBooksAmount();
+        }
       });
     },
     parseJSONBooks(books: Book[]) {
@@ -86,4 +91,11 @@ export default defineComponent({
     class="mb-6"
   ></items-table>
   <v-pagination v-model="currentPage" v-model:length="pages" class="mt-6"></v-pagination>
+  <v-alert
+    v-if="showAlert"
+    closable
+    type="error"
+    title="Error"
+    text="This book is rented"
+  ></v-alert>
 </template>

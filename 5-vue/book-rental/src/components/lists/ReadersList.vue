@@ -11,7 +11,8 @@ export default defineComponent({
     pages: 1,
     readersAmount: 0,
     size: 10,
-    readers: ref([]) as Ref<Reader[]>
+    readers: ref([]) as Ref<Reader[]>,
+    showAlert: false
   }),
   watch: {
     currentPage: function () {
@@ -59,7 +60,12 @@ export default defineComponent({
     },
     deleteReader(reader: Reader) {
       fetch(this.ENDPOINT + '/' + reader.id, { method: 'DELETE' }).then((res) => {
-        console.log(res), this.readReaders(), this.readReadersAmount();
+        if (res.status === 409) {
+          this.showAlert = true;
+        } else {
+          this.readReaders(), this.readReadersAmount();
+        }
+        console.log(res);
       });
     }
   }
@@ -79,4 +85,11 @@ export default defineComponent({
     class="mb-6"
   ></items-table>
   <v-pagination v-model="currentPage" :length="pages" class="mt-6"></v-pagination>
+  <v-alert
+    v-if="showAlert"
+    closable
+    type="error"
+    title="WRR"
+    text="Nie mozna usunac czytelnika!"
+  ></v-alert>
 </template>
