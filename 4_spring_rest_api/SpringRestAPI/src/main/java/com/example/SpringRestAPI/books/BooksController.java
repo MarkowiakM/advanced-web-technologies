@@ -1,5 +1,6 @@
 package com.example.SpringRestAPI.books;
 
+import com.example.SpringRestAPI.infoDTOs.AmountDTO;
 import com.example.SpringRestAPI.infoDTOs.ErrorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.SpringRestAPI.books.BookStatus.OK;
@@ -65,18 +67,32 @@ public class BooksController {
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteBook(@PathVariable int id) {
         switch (booksService.removeBook(id)) {
-            case 0 -> {
+            case OK -> {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            case 1 -> {
+            case BOOK_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
             }
-            case 2 -> {
+            case BOOK_IS_RENTED -> {
                 return new ResponseEntity<>(new ErrorDTO("Cannot delete rented book."), HttpStatus.CONFLICT);
             }
             default -> {
                 return new ResponseEntity<>(new ErrorDTO("Unexpected error"), HttpStatus.NOT_FOUND);
             }
         }
+    }
+
+    @RequestMapping(value = "/books/amount", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAmountOfBook() {
+        return new ResponseEntity<>(new AmountDTO(booksService.getAmountOfBooks()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/books/notRented", method = RequestMethod.GET)
+    public ResponseEntity<Object> getNotRentedBooks(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
+        Integer pageParam = page.orElse(0);
+        Integer sizeParam = size.orElse(10);
+        Pageable pageable = PageRequest.of(pageParam, sizeParam);
+        List<BookWithAuthorOutputDTO> books = booksService.getNotRentedBooks(pageable);
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 }

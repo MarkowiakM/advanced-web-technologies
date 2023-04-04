@@ -59,4 +59,9 @@ public class ReaderService implements IReaderService{
         }
 
     }
+
+    @Override
+    public long getAmountOfReaders(){
+        return readerRepository.count();
+    }
 }

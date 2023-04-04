@@ -13,4 +13,5 @@ public interface IAuthorService {
     void addAuthor(AuthorInputDTO author);
     AuthorStatus removeAuthor(int id);
     AuthorStatus updateAuthor(int id, AuthorInputDTO author);
+    long getAmountOfAuthors();
 }
