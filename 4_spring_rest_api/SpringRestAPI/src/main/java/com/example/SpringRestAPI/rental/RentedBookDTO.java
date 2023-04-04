@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class RentedBookDTO {
     private BookWithAuthorOutputDTO book;
-    private LocalDateTime rentalDate;
+    private OffsetDateTime rentalDate;
 }
