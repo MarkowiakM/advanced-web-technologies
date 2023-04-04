@@ -74,6 +74,7 @@ export default defineComponent({
     :edit-item="updateBook"
     :delete-item="deleteBook"
     edit-form="books-form"
+     class="mb-6"
   ></items-table>
-  <v-pagination v-model="currentPage" :length="pages"></v-pagination>
+  <v-pagination v-model="currentPage" :length="pages"  class="mt-6"></v-pagination>
 </template>

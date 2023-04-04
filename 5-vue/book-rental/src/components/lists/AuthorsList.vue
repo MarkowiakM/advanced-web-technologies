@@ -67,6 +67,7 @@ export default defineComponent({
     :edit-item="updateAuthor"
     :delete-item="deleteAuthor"
     edit-form="authors-form"
+     class="mb-6"
   ></items-table>
-  <v-pagination v-model="currentPage" :length="pages"></v-pagination>
+  <v-pagination v-model="currentPage" :length="pages"  class="mt-6"></v-pagination>
 </template>

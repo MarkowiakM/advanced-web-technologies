@@ -1,52 +1,57 @@
-<script setup lang="ts">
+<script lang="ts">
 import { defineComponent, ref, type Ref } from 'vue';
 import type { Reader } from '../../types';
 import ItemsTable from './ItemsTable.vue';
 import ReadersForm from '../forms/ReadersForm.vue';
 
-const ENDPOINT = 'http://localhost:7070/readers';
-
-const readers: Ref<Reader[]> = ref([]);
-
-const createReader = (form: { name: string; surname: string }): void => {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: form.name, surname: form.surname })
-  };
-  console.log(form);
-  fetch(ENDPOINT, requestOptions).then((res) => readReaders());
-};
-
-async function readReaders() {
-  const res = (await fetch(ENDPOINT)) as any;
-  readers.value = await res.json();
-}
-
-const updateReader = (form: { name: string; surname: string; id: number }): void => {
-  console.log('putting');
-  const requestOptions = {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: form.name, surname: form.surname })
-  };
-  console.log(form);
-  fetch(ENDPOINT + '/' + form.id, requestOptions).then((res) => readReaders());
-};
-
-const deleteReader = (reader: Reader): void => {
-  fetch(ENDPOINT + '/' + reader.id, { method: 'DELETE' }).then((res) => {
-    console.log(res), readReaders();
-  });
-};
-
-readReaders();
-</script>
-
-<script lang="ts">
 export default defineComponent({
+  data: () => ({
+    ENDPOINT: 'http://localhost:7070/readers',
+    currentPage: 1,
+    pages: 2,
+    size: 10,
+    readers: ref([]) as Ref<Reader[]>
+  }),
+  watch: {
+    currentPage: function () {
+      this.readReaders();
+    }
+  },
+  created() {
+    this.readReaders();
+  },
   name: 'ReadersList',
-  components: { ItemsTable, ReadersForm }
+  components: { ItemsTable, ReadersForm },
+  methods: {
+    createReader(form: { name: string; surname: string }) {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, surname: form.surname })
+      };
+      console.log(form);
+      fetch(this.ENDPOINT, requestOptions).then((res) => this.readReaders());
+    },
+    async readReaders() {
+      const res = (await fetch(this.ENDPOINT)) as any;
+      this.readers = await res.json();
+    },
+    updateReader(form: { name: string; surname: string; id: number }) {
+      console.log('putting');
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, surname: form.surname })
+      };
+      console.log(form);
+      fetch(this.ENDPOINT + '/' + form.id, requestOptions).then((res) => this.readReaders());
+    },
+    deleteReader(reader: Reader) {
+      fetch(this.ENDPOINT + '/' + reader.id, { method: 'DELETE' }).then((res) => {
+        console.log(res), this.readReaders();
+      });
+    }
+  }
 });
 </script>
 
@@ -60,5 +65,7 @@ export default defineComponent({
     :edit-item="updateReader"
     :delete-item="deleteReader"
     edit-form="readers-form"
+    class="mb-6"
   ></items-table>
+  <v-pagination v-model="currentPage" :length="pages" class="mt-6"></v-pagination>
 </template>
