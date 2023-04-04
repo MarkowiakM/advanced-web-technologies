@@ -18,15 +18,15 @@ export default defineComponent({
       type: Function
     },
     editForm: String,
+    readNextRecords: {
+      type: Function
+    }
   },
   created() {
     console.log(this.editItem);
     console.log('from created');
-    
-    
   }
 });
-
 </script>
 
 <template>
@@ -39,7 +39,7 @@ export default defineComponent({
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, itemIdx) in [...table!.items]" :key="itemIdx">
+      <tr v-for="(item, itemIdx) in table!.items" :key="itemIdx">
         <td v-for="([, value], valueIdx) in Object.entries(item)" :key="itemIdx + valueIdx">
           {{ value }}
         </td>

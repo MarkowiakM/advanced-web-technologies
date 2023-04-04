@@ -1,55 +1,53 @@
-<script setup lang="ts">
+<script lang="ts">
 import { defineComponent, ref, type Ref } from 'vue';
 import type { Book } from '../../types';
 import ItemsTable from './ItemsTable.vue';
 import BooksForm from '../forms/BooksForm.vue';
 
-const ENDPOINT = 'http://localhost:7070/books';
-
-const books: Ref<Book[]> = ref([]);
-
-const createBook = (form: { title: string; authorIDs: number[]; pages: number }): void => {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title: form.title, authorsIDs: form.authorIDs, pages: form.pages })
-  };
-  fetch(ENDPOINT, requestOptions).then((res) => readBooks());
-};
-
-async function readBooks() {
-  const res = (await fetch(ENDPOINT)) as any;
-  books.value = await res.json();
-}
-
-const updateBook = (form: {
-  title: string;
-  authorIDs: number[];
-  pages: number;
-  id: number;
-}): void => {
-  const requestOptions = {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title: form.title, authorsIDs: form.authorIDs, pages: form.pages })
-  };
-  fetch(ENDPOINT + '/' + form.id, requestOptions).then((res) => readBooks());
-};
-
-const deleteBook = (book: Book): void => {
-  fetch(ENDPOINT + '/' + book.id, { method: 'DELETE' }).then((res) => {
-    console.log(res), readBooks();
-  });
-};
-
-readBooks();
-</script>
-
-<script lang="ts">
 export default defineComponent({
+  data: () => ({
+    ENDPOINT: 'http://localhost:7070/books',
+    currentPage: 1,
+    pages: 2,
+    size: 10,
+    books: ref([]) as Ref<Book[]>
+  }),
   name: 'BooksList',
   components: { ItemsTable, BooksForm },
+  watch: {
+    currentPage: function () {
+      this.readBooks();
+    }
+  },
+  created() {
+    this.readBooks();
+  },
   methods: {
+    createBook(form: { title: string; authorIDs: number[]; pages: number }) {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: form.title, authorsIDs: form.authorIDs, pages: form.pages })
+      };
+      fetch(this.ENDPOINT, requestOptions).then(() => this.readBooks());
+    },
+    async readBooks() {
+      const res = (await fetch(this.ENDPOINT)) as any;
+      this.books = await res.json();
+    },
+    updateBook(form: { title: string; authorIDs: number[]; pages: number; id: number }) {
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: form.title, authorsIDs: form.authorIDs, pages: form.pages })
+      };
+      fetch(this.ENDPOINT + '/' + form.id, requestOptions).then(() => this.readBooks());
+    },
+    deleteBook(book: Book) {
+      fetch(this.ENDPOINT + '/' + book.id, { method: 'DELETE' }).then((res) => {
+        console.log(res), this.readBooks();
+      });
+    },
     parseJSONBooks(books: Book[]) {
       return books.map((book) => {
         return {
@@ -77,4 +75,5 @@ export default defineComponent({
     :delete-item="deleteBook"
     edit-form="books-form"
   ></items-table>
+  <v-pagination v-model="currentPage" :length="pages"></v-pagination>
 </template>

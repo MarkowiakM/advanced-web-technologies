@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineComponent, ref, type Ref } from 'vue';
-import type { Book, Reader, Rental, RentedBook } from '../../types';
+import type { Reader, Rental, RentedBook } from '../../types';
 import ItemsTable from './ItemsTable.vue';
 
 const ENDPOINT_RENTALS = 'http://localhost:7070/rentals';
