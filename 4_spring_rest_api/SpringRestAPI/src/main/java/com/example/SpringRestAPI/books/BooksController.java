@@ -65,13 +65,13 @@ public class BooksController {
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteBook(@PathVariable int id) {
         switch (booksService.removeBook(id)) {
-            case 0 -> {
+            case OK -> {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            case 1 -> {
+            case BOOK_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
             }
-            case 2 -> {
+            case BOOK_IS_RENTED -> {
                 return new ResponseEntity<>(new ErrorDTO("Cannot delete rented book."), HttpStatus.CONFLICT);
             }
             default -> {
