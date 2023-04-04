@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Optional;
 
+import static com.example.SpringRestAPI.reader.ReaderStatus.*;
+
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
 public class ReaderController {
@@ -23,10 +25,7 @@ public class ReaderController {
         Integer sizeParam = size.orElse(10);
         Pageable pageable = PageRequest.of(pageParam, sizeParam);
         Collection<Reader> readers = readerService.getReaders(pageable);
-        if (!readers.isEmpty())
-            return new ResponseEntity<>(readers, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new ErrorDTO("No readers found"), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(readers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/readers/{id}", method = RequestMethod.GET)
@@ -45,7 +44,7 @@ public class ReaderController {
 
     @RequestMapping(value = "/readers/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateReader(@PathVariable int id, @RequestBody ReaderInputDTO reader) {
-        if (readerService.updateReader(id, reader))
+        if (readerService.updateReader(id, reader) == OK)
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(new ErrorDTO("The reader does not exist"), HttpStatus.NOT_FOUND);
@@ -54,13 +53,13 @@ public class ReaderController {
     @RequestMapping(value = "/readers/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteReader(@PathVariable int id) {
         switch (readerService.removeReader(id)) {
-            case 0 -> {
+            case OK -> {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            case 1 -> {
+            case READER_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("The reader does not exist"), HttpStatus.NOT_FOUND);
             }
-            case 2 -> {
+            case READER_HAS_RENTED_BOOKS -> {
                 return new ResponseEntity<>(new ErrorDTO("Cannot delete reader that has rented any books."), HttpStatus.CONFLICT);
             }
             default -> {
