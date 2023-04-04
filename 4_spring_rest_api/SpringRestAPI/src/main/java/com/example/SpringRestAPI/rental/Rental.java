@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 
 @Getter
@@ -20,13 +21,13 @@ public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @ManyToOne
+    @OneToOne(optional = false)
     private Book book;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Reader reader;
-    private LocalDateTime rentingDate;
+    private OffsetDateTime rentingDate;
 
-    public Rental(Book book, Reader reader, LocalDateTime rentingDate) {
+    public Rental(Book book, Reader reader, OffsetDateTime rentingDate) {
         this.book = book;
         this.reader = reader;
         this.rentingDate = rentingDate;
