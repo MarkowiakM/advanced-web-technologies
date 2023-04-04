@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import AuthorsList from '../components/AuthorsList.vue';
+import AuthorsList from '../components/lists/AuthorsList.vue';
 export default defineComponent({
   name: 'AuthorsView',
   components: { AuthorsList }

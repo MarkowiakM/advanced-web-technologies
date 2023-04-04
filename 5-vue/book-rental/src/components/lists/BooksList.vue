@@ -1,18 +1,28 @@
 <script setup lang="ts">
 import { defineComponent, ref, type Ref } from 'vue';
-import type { Book } from '../types';
+import type { Book } from '../../types';
 import ItemsTable from './ItemsTable.vue';
 
 const ENDPOINT = 'http://localhost:7070/books';
 
 const books: Ref<Book[]> = ref([]);
 
-async function fetchBooks() {
+const createBook = (): void => {};
+
+async function readBooks() {
   const res = (await fetch(ENDPOINT)) as any;
   books.value = await res.json();
 }
 
-fetchBooks();
+const updateBook = (): void => {};
+
+const deleteBook = (book: Book): void => {
+  fetch(ENDPOINT + '/' + book.id, { method: 'DELETE' }).then((res) => {
+    console.log(res), readBooks();
+  });
+};
+
+readBooks();
 </script>
 
 <script lang="ts">
@@ -31,10 +41,7 @@ export default defineComponent({
             .slice(1)
         };
       });
-    },
-    createBook() {},
-    editBook() {},
-    deleteBook() {}
+    }
   }
 });
 </script>
@@ -45,5 +52,6 @@ export default defineComponent({
   </h2>
   <items-table
     :table="{ headers: ['id', 'title', 'pages', 'authors'], items: parseJSONBooks(books) }"
+    :delete-item="deleteBook"
   ></items-table>
 </template>

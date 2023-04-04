@@ -1,11 +1,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
+import RentalsList from '../components/lists/RentalsList.vue';
 export default defineComponent({
   name: 'RentalsView',
-  components: {}
+  components: { RentalsList }
 });
 </script>
 
 <template>
-  <div>rentals</div>
+  <v-container>
+    <rentals-list class="table"></rentals-list>
+  </v-container>
 </template>
+
+<style>
+.table {
+  width: 90vw;
+  margin: 30px auto;
+}
+</style>

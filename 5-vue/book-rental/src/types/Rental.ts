@@ -3,7 +3,7 @@ import type { Reader } from './Reader';
 
 export type RentedBook = {
   book: Book;
-  rentalDate: Date;
+  rentalDate: string;
 };
 
 export type Rental = {

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ReadersList from '../components/ReadersList.vue';
+import ReadersList from '../components/lists/ReadersList.vue';
 
 export default defineComponent({
   name: 'ReadersView',

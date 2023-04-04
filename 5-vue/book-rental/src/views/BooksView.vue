@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import BooksList from '../components/BooksList.vue';
+import BooksList from '../components/lists/BooksList.vue';
 
 export default defineComponent({
   name: 'BooksView',

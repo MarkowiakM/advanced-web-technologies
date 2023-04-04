@@ -1,5 +1,5 @@
 <script lang="ts">
-import NavBar from '../components/NavBar.vue';
+import NavBar from '../components/bars/NavBar.vue';
 import type { User } from '../store';
 
 export default {

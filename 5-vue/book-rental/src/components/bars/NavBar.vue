@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import type { User } from '../store';
+import type { User } from '../../store';
 
 export default defineComponent({
   methods: {

@@ -1,5 +1,5 @@
 <script lang="ts">
-import SideBar from '../components/SideBar.vue';
+import SideBar from '../components/bars/SideBar.vue';
 import type { User } from '../store';
 
 export default {

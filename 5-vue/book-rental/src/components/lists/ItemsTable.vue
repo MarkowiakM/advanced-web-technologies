@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import type { Table } from '../types';
+import type { Table } from '../../types';
 
 export default defineComponent({
   props: {
@@ -8,10 +8,10 @@ export default defineComponent({
       type: Object as () => Table
     },
     editItem: {
-      type: Object as () => (item: Object) => void
+      type: Function
     },
     deleteItem: {
-      type: Object as () => (item: Object) => void
+      type: Function
     }
   }
 });
