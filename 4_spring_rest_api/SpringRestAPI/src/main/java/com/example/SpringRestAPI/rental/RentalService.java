@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +33,9 @@ public class RentalService implements IRentalService{
         Book book = booksService.getBookObj(rentalDTO.getBookID());
         if (reader == null) return READER_DOES_NOT_EXIST;
         if (book == null) return BOOK_DOES_NOT_EXIST;
-        LocalDateTime rentDate;
+        OffsetDateTime rentDate;
         try {
-            rentDate = LocalDateTime.parse(rentalDTO.getDate());
+            rentDate = OffsetDateTime.parse(rentalDTO.getDate());
         } catch (Exception e){
             return WRONG_DATE_FORMAT;
         }
