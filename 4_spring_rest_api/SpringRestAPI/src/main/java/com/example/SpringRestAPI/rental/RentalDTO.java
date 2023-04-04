@@ -10,5 +10,5 @@ import lombok.Setter;
 public class RentalDTO {
     private int bookID;
     private int readerID;
-    private String SQLDate;
+    private String date;
 }

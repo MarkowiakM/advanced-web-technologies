@@ -1,30 +1,32 @@
 package com.example.SpringRestAPI.books;
 
 import com.example.SpringRestAPI.author.Author;
+import com.example.SpringRestAPI.rental.Rental;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Entity
+@NoArgsConstructor
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String title;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "books_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
     private int pages;
+    @OneToOne()
+    private Rental rental;
 
-    public Book(int id, String title, List<Author> authors, int pages) {
-        this.id = id;
-        this.title = title;
-        this.pages = pages;
-        if (authors == null)
-            this.authors = new ArrayList<>();
-        else {
-            this.authors = authors;
-            for (Author a : this.authors)
-                a.addBook(this);
-        }
-    }
 
     public Book(String title, List<Author> authors, int pages) {
         this.title = title;
@@ -40,7 +42,12 @@ public class Book {
 
     public void setTitle(String title) { this.title = title; }
     public void setPages(int pages) { this.pages = pages; }
-    public void addAuthor(Author author){
+
+    public void setRental(Rental rental) {
+        this.rental = rental;
+    }
+
+    public void addAuthor(Author author) {
         this.authors.add(author);
     }
 

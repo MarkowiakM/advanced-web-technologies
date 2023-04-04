@@ -1,64 +1,70 @@
 package com.example.SpringRestAPI.rental;
 
-import com.example.SpringRestAPI.author.AuthorService;
 import com.example.SpringRestAPI.author.IAuthorService;
 import com.example.SpringRestAPI.books.*;
 import com.example.SpringRestAPI.reader.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Date;
+
+import static com.example.SpringRestAPI.rental.RentalStatus.*;
 
 @Service
 public class RentalService implements IRentalService{
 
-    private static final List<Rental> rentalsRepo = new ArrayList<>();
-    private static final IBooksService booksService = new BooksService();
-    private static final IAuthorService authorsService = new AuthorService();
-    private static final IReaderService readerService = new ReaderService();
+    @Autowired
+    IRentalRepository rentalRepository;
+    @Autowired
+    IBooksService booksService;
+    @Autowired
+    IAuthorService authorsService;
+    @Autowired
+    IReaderService readerService;
 
     @Override
-    public int rentBook(RentalDTO rentalDTO) {
-        if (isBookRented(rentalDTO.getBookID())) return 1;
+    public RentalStatus rentBook(RentalDTO rentalDTO) {
+        if (isBookRented(rentalDTO.getBookID())) return BOOK_ALREADY_RENTED;
         Reader reader = readerService.getReader(rentalDTO.getReaderID());
         Book book = booksService.getBookObj(rentalDTO.getBookID());
-        if (reader == null) return 2;
-        if (book == null) return 3;
-        Date rentDate;
+        if (reader == null) return READER_DOES_NOT_EXIST;
+        if (book == null) return BOOK_DOES_NOT_EXIST;
+        OffsetDateTime rentDate;
         try {
-            rentDate = Date.valueOf(rentalDTO.getSQLDate());
+            rentDate = OffsetDateTime.parse(rentalDTO.getDate());
         } catch (Exception e){
-            return 4;
+            return WRONG_DATE_FORMAT;
         }
-        rentalsRepo.add(new Rental(book, reader,rentDate));
-        return 0;
+        Rental rental = new Rental(book, reader,rentDate);
+        book.setRental(rental);
+        rentalRepository.save(rental);
+        return OK;
     }
 
     @Override
-    public int returnBook(int bookID) {
-        if (booksService.getBook(bookID) == null) return 2;
-        if (!isBookRented(bookID)) return 1;
-        rentalsRepo.removeIf(r -> r.getBook().getId() == bookID);
-        return 0;
+    public RentalStatus returnBook(int bookID) {
+        Book book = booksService.getBookObj(bookID);
+        if (book == null) return BOOK_DOES_NOT_EXIST;
+        if (!isBookRented(bookID)) return BOOK_NOT_RENTED;
+        rentalRepository.deleteByBook_Id(bookID);
+        return OK;
 
     }
 
     @Override
     public boolean isBookRented(int bookID) {
-        for (Rental r : rentalsRepo){
-            if (r.getBook().getId() == bookID){
-                return true;
-            }
-        }
-        return false;
+        return rentalRepository.findByBookId(bookID).orElse(null) != null;
     }
 
     @Override
-    public RentedReaderDTO getReaderRental(int readerID) {
+    public RentedReaderDTO getReaderRental(int readerID, Pageable pageable) {
         Reader reader = readerService.getReader(readerID);
         List<RentedBookDTO> bookRentalsDTO = new ArrayList<>();
-        for (Rental r :rentalsRepo){
+        for (Rental r : rentalRepository.findAll(pageable)){
             if (r.getReader().getId() == readerID){
                 Book b = r.getBook();
                 bookRentalsDTO.add(new RentedBookDTO(

@@ -1,35 +1,30 @@
 package com.example.SpringRestAPI.books;
 
 import com.example.SpringRestAPI.author.Author;
-import com.example.SpringRestAPI.author.AuthorService;
 import com.example.SpringRestAPI.author.AuthorDTO;
 import com.example.SpringRestAPI.author.IAuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
+import static com.example.SpringRestAPI.books.BookStatus.*;
+
 @Service
 public class BooksService implements IBooksService {
-    private static final List<Book> booksRepo = new ArrayList<>();
-    private static final IAuthorService authorService = new AuthorService();
+    @Autowired
+    IBookRepository bookRepository;
+    @Autowired
+    IAuthorService authorService;
 
-    static {
-        Author author1 = authorService.getAuthorObj(1);
-        Author author2 = authorService.getAuthorObj(2);
-        Author author3 = authorService.getAuthorObj(3);
-
-        booksRepo.add(new Book(1,"Potop",
-                new ArrayList<>(Arrays.asList(author1)), 578));
-        booksRepo.add(new Book(2,"Wesele",
-                new ArrayList<>(Arrays.asList(author2)), 150));
-        booksRepo.add(new Book(3,"Dziady",
-                new ArrayList<>(Arrays.asList(author3)), 292));
-    }
     @Override
-    public Collection<BookWithAuthorOutputDTO> getBooks() {
+    public Collection<BookWithAuthorOutputDTO> getBooks(Pageable pageable) {
         List<BookWithAuthorOutputDTO> books = new ArrayList<>();
-        for (Book b: booksRepo){
+        for (Book b: bookRepository.findAll(pageable)){
             List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
             books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
         }
@@ -38,10 +33,7 @@ public class BooksService implements IBooksService {
 
     @Override
     public BookWithAuthorOutputDTO getBook(int id){
-        Book foundBook = booksRepo.stream()
-                .filter(b -> b.getId() == id)
-                .findAny()
-                .orElse(null);
+        Book foundBook = bookRepository.findById(id).orElse(null);
         if (foundBook == null) return null;
         List<AuthorDTO> authorsDTO = new ArrayList<>();
         for (Author a:foundBook.getAuthors())
@@ -51,49 +43,73 @@ public class BooksService implements IBooksService {
 
     @Override
     public Book getBookObj(int id) {
-        return booksRepo.stream()
-                .filter(b -> b.getId() == id)
-                .findAny()
-                .orElse(null);
+        return bookRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void addBook(BookInputDTO book) {
+    public BookStatus addBook(BookInputDTO book) {
         ArrayList<Author> authors = new ArrayList<>();
         for (int idA : book.getAuthorsIDs()){
             Author a = authorService.getAuthorObj(idA);
             if (a != null)
                 authors.add(a);
+            else
+                return AUTHOR_DOES_NOT_EXIST;
         }
-        booksRepo.add(new Book(book.getTitle(), authors, book.getPages()));
+        bookRepository.save(new Book(book.getTitle(), authors, book.getPages()));
+        return OK;
     }
 
     @Override
-    public boolean removeBook(int id) {
-        for (Book b : booksRepo) {
-            if (b.getId() == id) {
-                booksRepo.remove(b);
-                return true;
+    public BookStatus removeBook(int id) {
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book != null){
+            try {
+                bookRepository.delete(book);
+                return OK;
+            } catch (Exception e){
+                return BOOK_IS_RENTED;
             }
+        } else {
+            return BOOK_DOES_NOT_EXIST;
         }
-        return false;
     }
 
     @Override
-    public boolean updateBook(int id, BookInputDTO book) {
-        for (Book b : booksRepo) {
-            if (b.getId() == id) {
-                b.setPages(book.getPages());
-                b.setTitle(book.getTitle());
-                b.getAuthors().removeAll(b.getAuthors());
-                for (int idA : book.getAuthorsIDs()){
-                    b.addAuthor(authorService.getAuthorObj(idA));
-                }
-                return true;
+    public BookStatus updateBook(int id, BookInputDTO bookDTO) {
+        Book b = bookRepository.findById(id).orElse(null);
+        if (b != null) {
+            b.setPages(bookDTO.getPages());
+            b.setTitle(bookDTO.getTitle());
+            b.getAuthors().removeAll(b.getAuthors());
+            for (int idA : bookDTO.getAuthorsIDs()){
+                Author a = authorService.getAuthorObj(idA);
+                if (a != null)
+                    b.addAuthor(a);
+                else
+                    return AUTHOR_DOES_NOT_EXIST;
             }
+            bookRepository.save(b);
+            return OK;
         }
-        return false;
+        return BOOK_DOES_NOT_EXIST;
     }
 
+    @Override
+    public long getAmountOfBooks(){
+        return bookRepository.count();
+    }
+
+    @Override
+    public List<BookWithAuthorOutputDTO> getNotRentedBooks(Pageable pageable) {
+        List<BookWithAuthorOutputDTO> books = new ArrayList<>();
+        Page<Book> booksPage = bookRepository.findBooksByRentalIsNull(pageable);
+
+        for (Book b : booksPage) {
+            List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
+            books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
+        }
+        return books;
+    }
 
 }

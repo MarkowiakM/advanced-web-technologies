@@ -5,12 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class RentedBookDTO {
     private BookWithAuthorOutputDTO book;
-    private Date rentalDate;
+    private OffsetDateTime rentalDate;
 }
