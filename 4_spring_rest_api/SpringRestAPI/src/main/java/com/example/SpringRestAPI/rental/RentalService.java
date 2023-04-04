@@ -38,7 +38,9 @@ public class RentalService implements IRentalService{
         } catch (Exception e){
             return WRONG_DATE_FORMAT;
         }
-        rentalRepository.save(new Rental(book, reader,rentDate));
+        Rental rental = new Rental(book, reader,rentDate);
+        book.setRental(rental);
+        rentalRepository.save(rental);
         return OK;
     }
 

@@ -20,9 +20,9 @@ public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @ManyToOne
+    @OneToOne(optional = false)
     private Book book;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Reader reader;
     private LocalDateTime rentingDate;
 
