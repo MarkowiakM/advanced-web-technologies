@@ -11,5 +11,6 @@ public interface IBooksService {
     BookStatus addBook(BookInputDTO book);
     BookStatus removeBook(int id);
     BookStatus updateBook(int id, BookInputDTO book);
-
+//    List<Book> getNotRentedBooks(Pageable pageable);
+    long getAmountOfBooks();
 }

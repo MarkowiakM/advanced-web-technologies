@@ -94,5 +94,31 @@ public class BooksService implements IBooksService {
         return BOOK_DOES_NOT_EXIST;
     }
 
+    @Override
+    public long getAmountOfBooks(){
+        return bookRepository.count();
+    }
 
+//    @Override
+//    public Collection<BookWithAuthorOutputDTO> getNotRentedBooks(Pageable pageable) {
+//        List<BookWithAuthorOutputDTO> books = new ArrayList<>();
+//        Page<Book> booksPage = bookRepository.findNotRented(pageable);
+//
+//        for (Book b : booksPage) {
+//            List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
+//            books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
+//        }
+//        return books;
+//    }
+
+//    @Override
+//    public List<Book> getNotRentedBooks(Pageable pageable) {
+//        List<BookWithAuthorOutputDTO> books = new ArrayList<>();
+//        Page<Book> booksPage = bookRepository.findNotRented(pageable);
+//        for (Book b : booksPage) {
+//            List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
+//            books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
+//        }
+//        return booksPage.get().toList();
+//    }
 }
