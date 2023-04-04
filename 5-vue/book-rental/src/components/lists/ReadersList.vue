@@ -8,7 +8,8 @@ export default defineComponent({
   data: () => ({
     ENDPOINT: 'http://localhost:7070/readers',
     currentPage: 1,
-    pages: 2,
+    pages: 1,
+    readersAmount: 0,
     size: 10,
     readers: ref([]) as Ref<Reader[]>
   }),
@@ -19,6 +20,7 @@ export default defineComponent({
   },
   created() {
     this.readReaders();
+    this.readReadersAmount();
   },
   name: 'ReadersList',
   components: { ItemsTable, ReadersForm },
@@ -30,11 +32,20 @@ export default defineComponent({
         body: JSON.stringify({ name: form.name, surname: form.surname })
       };
       console.log(form);
-      fetch(this.ENDPOINT, requestOptions).then((res) => this.readReaders());
+      fetch(this.ENDPOINT, requestOptions).then(
+        () => (this.readReaders(), this.readReadersAmount())
+      );
     },
     async readReaders() {
-      const res = (await fetch(this.ENDPOINT)) as any;
+      const res = (await fetch(
+        `${this.ENDPOINT}?page=${this.currentPage - 1}&size=${this.size}`
+      )) as any;
       this.readers = await res.json();
+    },
+    async readReadersAmount() {
+      const res = (await fetch(`${this.ENDPOINT}/amount`)) as any;
+      this.readersAmount = (await res.json()).amount;
+      this.pages = this.readersAmount / this.size + (this.readersAmount % this.size === 0 ? 0 : 1);
     },
     updateReader(form: { name: string; surname: string; id: number }) {
       console.log('putting');
@@ -44,11 +55,11 @@ export default defineComponent({
         body: JSON.stringify({ name: form.name, surname: form.surname })
       };
       console.log(form);
-      fetch(this.ENDPOINT + '/' + form.id, requestOptions).then((res) => this.readReaders());
+      fetch(this.ENDPOINT + '/' + form.id, requestOptions).then(() => this.readReaders());
     },
     deleteReader(reader: Reader) {
       fetch(this.ENDPOINT + '/' + reader.id, { method: 'DELETE' }).then((res) => {
-        console.log(res), this.readReaders();
+        console.log(res), this.readReaders(), this.readReadersAmount();
       });
     }
   }

@@ -8,8 +8,9 @@ export default defineComponent({
   data: () => ({
     ENDPOINT: 'http://localhost:7070/books',
     currentPage: 1,
-    pages: 2,
+    pages: 1,
     size: 10,
+    booksAmount: 0,
     books: ref([]) as Ref<Book[]>
   }),
   name: 'BooksList',
@@ -21,6 +22,7 @@ export default defineComponent({
   },
   created() {
     this.readBooks();
+    this.readBooksAmount();
   },
   methods: {
     createBook(form: { title: string; authorIDs: number[]; pages: number }) {
@@ -29,11 +31,18 @@ export default defineComponent({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: form.title, authorsIDs: form.authorIDs, pages: form.pages })
       };
-      fetch(this.ENDPOINT, requestOptions).then(() => this.readBooks());
+      fetch(this.ENDPOINT, requestOptions).then(() => (this.readBooks(), this.readBooksAmount()));
     },
     async readBooks() {
-      const res = (await fetch(this.ENDPOINT)) as any;
+       const res = (await fetch(
+        `${this.ENDPOINT}?page=${this.currentPage - 1}&size=${this.size}`
+      )) as any;
       this.books = await res.json();
+    },
+    async readBooksAmount() {
+      const res = (await fetch(`${this.ENDPOINT}/amount`)) as any;
+      this.booksAmount = (await res.json()).amount;
+      this.pages = this.booksAmount / this.size + (this.booksAmount % this.size === 0 ? 0 : 1) ;
     },
     updateBook(form: { title: string; authorIDs: number[]; pages: number; id: number }) {
       const requestOptions = {
@@ -45,7 +54,7 @@ export default defineComponent({
     },
     deleteBook(book: Book) {
       fetch(this.ENDPOINT + '/' + book.id, { method: 'DELETE' }).then((res) => {
-        console.log(res), this.readBooks();
+        console.log(res), this.readBooks(), this.readBooksAmount();
       });
     },
     parseJSONBooks(books: Book[]) {
@@ -74,7 +83,7 @@ export default defineComponent({
     :edit-item="updateBook"
     :delete-item="deleteBook"
     edit-form="books-form"
-     class="mb-6"
+    class="mb-6"
   ></items-table>
-  <v-pagination v-model="currentPage" :length="pages"  class="mt-6"></v-pagination>
+  <v-pagination v-model="currentPage" v-model:length="pages" class="mt-6"></v-pagination>
 </template>
