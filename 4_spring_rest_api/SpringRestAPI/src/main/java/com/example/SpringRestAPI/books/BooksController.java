@@ -87,12 +87,12 @@ public class BooksController {
         return new ResponseEntity<>(new AmountDTO(booksService.getAmountOfBooks()), HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/books/notRented", method = RequestMethod.GET)
-//    public ResponseEntity<Object> getNotRentedBooks(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
-//        Integer pageParam = page.orElse(0);
-//        Integer sizeParam = size.orElse(10);
-//        Pageable pageable = PageRequest.of(pageParam, sizeParam);
-//        List<Book> books = booksService.getNotRentedBooks(pageable);
-//        return new ResponseEntity<>(books, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/books/notRented", method = RequestMethod.GET)
+    public ResponseEntity<Object> getNotRentedBooks(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
+        Integer pageParam = page.orElse(0);
+        Integer sizeParam = size.orElse(10);
+        Pageable pageable = PageRequest.of(pageParam, sizeParam);
+        List<BookWithAuthorOutputDTO> books = booksService.getNotRentedBooks(pageable);
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
 }

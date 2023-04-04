@@ -4,6 +4,7 @@ import com.example.SpringRestAPI.author.Author;
 import com.example.SpringRestAPI.author.AuthorDTO;
 import com.example.SpringRestAPI.author.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -99,17 +100,17 @@ public class BooksService implements IBooksService {
         return bookRepository.count();
     }
 
-//    @Override
-//    public Collection<BookWithAuthorOutputDTO> getNotRentedBooks(Pageable pageable) {
-//        List<BookWithAuthorOutputDTO> books = new ArrayList<>();
-//        Page<Book> booksPage = bookRepository.findNotRented(pageable);
-//
-//        for (Book b : booksPage) {
-//            List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
-//            books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
-//        }
-//        return books;
-//    }
+    @Override
+    public List<BookWithAuthorOutputDTO> getNotRentedBooks(Pageable pageable) {
+        List<BookWithAuthorOutputDTO> books = new ArrayList<>();
+        Page<Book> booksPage = bookRepository.findBooksByRentalsEmpty(pageable);
+
+        for (Book b : booksPage) {
+            List<AuthorDTO> authors = authorService.getAuthorsDTOOfBook(b.getAuthors());
+            books.add(BookWithAuthorOutputDTO.fromBook(b, authors));
+        }
+        return books;
+    }
 
 //    @Override
 //    public List<Book> getNotRentedBooks(Pageable pageable) {

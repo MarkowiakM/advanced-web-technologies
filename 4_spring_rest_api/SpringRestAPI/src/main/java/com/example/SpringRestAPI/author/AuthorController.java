@@ -1,5 +1,6 @@
 package com.example.SpringRestAPI.author;
 
+import com.example.SpringRestAPI.infoDTOs.AmountDTO;
 import com.example.SpringRestAPI.infoDTOs.ErrorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -67,5 +68,10 @@ public class AuthorController {
                 return new ResponseEntity<>(new ErrorDTO("Unexpected error."), HttpStatus.NOT_FOUND);
             }
         }
+    }
+
+    @RequestMapping(value = "/authors/amount", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAmountOfBook() {
+        return new ResponseEntity<>(new AmountDTO(authorService.getAmountOfAuthors()), HttpStatus.OK);
     }
 }

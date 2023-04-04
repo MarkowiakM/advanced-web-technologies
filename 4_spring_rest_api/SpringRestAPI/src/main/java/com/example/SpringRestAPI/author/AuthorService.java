@@ -82,4 +82,9 @@ public class AuthorService implements IAuthorService{
             return AUTHOR_DOES_NOT_EXIST;
         }
     }
+
+    @Override
+    public long getAmountOfAuthors(){
+        return authorRepository.count();
+    }
 }

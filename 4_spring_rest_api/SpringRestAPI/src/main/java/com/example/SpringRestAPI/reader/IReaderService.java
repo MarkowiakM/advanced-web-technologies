@@ -11,4 +11,5 @@ public interface IReaderService {
     void addReader(ReaderInputDTO reader);
     ReaderStatus updateReader(int id, ReaderInputDTO reader);
     ReaderStatus removeReader(int id);
+    long getAmountOfReaders();
 }
