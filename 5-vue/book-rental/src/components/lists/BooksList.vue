@@ -34,7 +34,7 @@ export default defineComponent({
       fetch(this.ENDPOINT, requestOptions).then(() => (this.readBooks(), this.readBooksAmount()));
     },
     async readBooks() {
-       const res = (await fetch(
+      const res = (await fetch(
         `${this.ENDPOINT}?page=${this.currentPage - 1}&size=${this.size}`
       )) as any;
       this.books = await res.json();
@@ -42,7 +42,7 @@ export default defineComponent({
     async readBooksAmount() {
       const res = (await fetch(`${this.ENDPOINT}/amount`)) as any;
       this.booksAmount = (await res.json()).amount;
-      this.pages = this.booksAmount / this.size + (this.booksAmount % this.size === 0 ? 0 : 1) ;
+      this.pages = this.booksAmount / this.size + (this.booksAmount % this.size === 0 ? 0 : 1);
     },
     updateBook(form: { title: string; authorIDs: number[]; pages: number; id: number }) {
       const requestOptions = {

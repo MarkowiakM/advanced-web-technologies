@@ -26,10 +26,6 @@ export default {
   created() {
     this.readAuthors();
     this.readBooks();
-    this.setDefaultFormValue();
-    if (this.mode === 'edit' && this.defaultValue) {
-      // this.readBook(this.defaultValue.id);
-    }
   },
   methods: {
     async readAuthors() {
@@ -58,30 +54,16 @@ export default {
         .map((book) => book.title + ' ' + this.parseAuthors(book.authors) + ' - ' + book.id)
         .sort();
     },
-    setDefaultFormValue() {
-      // if (this.book) {
-      //   this.form.book = this.book.title;
-      //   this.form.authors = this.book.authors
-      //     .map((author) => author.surname + ' ' + author.name + ' - ' + author.id)
-      //     .sort();
-      //   this.form.pages = this.book.pages;
-      //   this.form.id = this.book.id;
-      // }
-    },
     normalizeInputs() {
-      if (this.mode === 'add') {
-        this.form.reader = '';
-        this.form.book = '';
-      } else {
-        this.setDefaultFormValue();
-      }
+      this.form.reader = '';
+      this.form.book = '';
     },
     onSubmit() {
       this.dialog = false;
       this.$emit('onSubmit', {
         bookID: this.getIdFromString(this.form.book),
         readerID: this.getIdFromString(this.form.reader),
-        date: (new Date()).toISOString(),
+        date: new Date().toISOString()
       });
       this.normalizeInputs();
     },

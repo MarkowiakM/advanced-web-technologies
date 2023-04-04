@@ -10,7 +10,7 @@ export default {
       id: -1
     }
   }),
-  
+
   props: {
     mode: {
       type: Object as () => 'add' | 'edit'

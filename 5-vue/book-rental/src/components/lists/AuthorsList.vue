@@ -41,7 +41,7 @@ export default defineComponent({
     async readAauthorsAmount() {
       const res = (await fetch(`${this.ENDPOINT}/amount`)) as any;
       this.authorsAmount = (await res.json()).amount;
-      this.pages = this.authorsAmount / this.size + (this.authorsAmount % this.size === 0 ? 0 : 1) ;
+      this.pages = this.authorsAmount / this.size + (this.authorsAmount % this.size === 0 ? 0 : 1);
     },
     async updateAuthor(form: { name: string; surname: string; id: number }) {
       console.log('putting');

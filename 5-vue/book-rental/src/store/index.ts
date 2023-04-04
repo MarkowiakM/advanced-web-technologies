@@ -16,7 +16,7 @@ export default createStore({
   state() {
     return {
       layout: 'app-layout',
-      user: MOCK_USER,
+      user: MOCK_USER
     };
   },
   mutations: {

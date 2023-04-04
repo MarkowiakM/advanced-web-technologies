@@ -4,7 +4,7 @@ import type { User } from '../store';
 
 export default {
   components: { NavBar },
-    methods: {
+  methods: {
     user(): User {
       return this.$store.getters.user;
     }
