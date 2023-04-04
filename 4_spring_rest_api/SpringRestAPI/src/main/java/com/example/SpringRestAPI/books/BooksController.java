@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Optional;
 
+import static com.example.SpringRestAPI.books.BookStatus.OK;
+
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
 public class BooksController {
@@ -23,10 +25,7 @@ public class BooksController {
         Integer sizeParam = size.orElse(10);
         Pageable pageable = PageRequest.of(pageParam, sizeParam);
         Collection<BookWithAuthorOutputDTO> books = booksService.getBooks(pageable);
-        if (!books.isEmpty())
-            return new ResponseEntity<>(books, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new ErrorDTO("No book found"), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
@@ -39,7 +38,7 @@ public class BooksController {
     }
     @RequestMapping(value = "/books", method = RequestMethod.POST)
     public ResponseEntity<Object> addBook(@RequestBody BookInputDTO book) {
-        if (booksService.addBook(book) == 0)
+        if (booksService.addBook(book) == OK)
             return new ResponseEntity<>(HttpStatus.CREATED);
         else
             return new ResponseEntity<>(new ErrorDTO("One of the authors does not exist."), HttpStatus.NOT_FOUND);
@@ -48,13 +47,13 @@ public class BooksController {
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateBook(@PathVariable int id, @RequestBody BookInputDTO book) {
         switch (booksService.updateBook(id, book)) {
-            case 0 -> {
+            case OK -> {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            case 1 -> {
+            case AUTHOR_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("One of the authors does not exist"), HttpStatus.NOT_FOUND);
             }
-            case 2 -> {
+            case BOOK_DOES_NOT_EXIST -> {
                 return new ResponseEntity<>(new ErrorDTO("The book does not exist"), HttpStatus.NOT_FOUND);
             }
             default -> {

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static com.example.SpringRestAPI.books.BookStatus.*;
+
 @Service
 public class BooksService implements IBooksService {
     @Autowired
@@ -43,36 +46,36 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public int addBook(BookInputDTO book) {
+    public BookStatus addBook(BookInputDTO book) {
         ArrayList<Author> authors = new ArrayList<>();
         for (int idA : book.getAuthorsIDs()){
             Author a = authorService.getAuthorObj(idA);
             if (a != null)
                 authors.add(a);
             else
-                return -1;
+                return AUTHOR_DOES_NOT_EXIST;
         }
         bookRepository.save(new Book(book.getTitle(), authors, book.getPages()));
-        return 0;
+        return OK;
     }
 
     @Override
-    public int removeBook(int id) {
+    public BookStatus removeBook(int id) {
         Book book = bookRepository.findById(id).orElse(null);
         if (book != null){
             try {
                 bookRepository.delete(book);
-                return 0;
+                return OK;
             } catch (Exception e){
-                return 2;
+                return BOOK_IS_RENTED;
             }
         } else {
-            return 1;
+            return BOOK_DOES_NOT_EXIST;
         }
     }
 
     @Override
-    public int updateBook(int id, BookInputDTO bookDTO) {
+    public BookStatus updateBook(int id, BookInputDTO bookDTO) {
         Book b = bookRepository.findById(id).orElse(null);
         if (b != null) {
             b.setPages(bookDTO.getPages());
@@ -83,12 +86,12 @@ public class BooksService implements IBooksService {
                 if (a != null)
                     b.addAuthor(a);
                 else
-                    return 1;
+                    return AUTHOR_DOES_NOT_EXIST;
             }
             bookRepository.save(b);
-            return 0;
+            return OK;
         }
-        return 2;
+        return BOOK_DOES_NOT_EXIST;
     }
 
 

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.example.SpringRestAPI.author.AuthorStatus.*;
+
 @Service
 public class AuthorService implements IAuthorService{
     @Autowired
@@ -54,30 +56,30 @@ public class AuthorService implements IAuthorService{
     }
 
     @Override
-    public int removeAuthor(int id) {
+    public AuthorStatus removeAuthor(int id) {
         Author a = authorRepository.findById(id).orElse(null);
         if (a != null) {
             try {
                 authorRepository.delete(a);
             } catch (Exception e){
-                return 2;
+                return AUTHOR_HAS_BOOKS;
             }
-            return 0;
+            return OK;
         } else {
-            return 1;
+            return AUTHOR_DOES_NOT_EXIST;
         }
     }
 
     @Override
-    public boolean updateAuthor(int id, AuthorInputDTO authorDTO) {
+    public AuthorStatus updateAuthor(int id, AuthorInputDTO authorDTO) {
         Author a = authorRepository.findById(id).orElse(null);
         if (a != null) {
             a.setName(authorDTO.getName());
             a.setSurname(authorDTO.getSurname());
             authorRepository.save(a);
-            return true;
+            return OK;
         } else {
-            return false;
+            return AUTHOR_DOES_NOT_EXIST;
         }
     }
 }

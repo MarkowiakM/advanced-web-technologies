@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+import static com.example.SpringRestAPI.reader.ReaderStatus.*;
+
 @Service
 public class ReaderService implements IReaderService{
     @Autowired
@@ -29,31 +31,31 @@ public class ReaderService implements IReaderService{
     }
 
     @Override
-    public boolean updateReader(int id, ReaderInputDTO reader) {
+    public ReaderStatus updateReader(int id, ReaderInputDTO reader) {
         Reader r = readerRepository.findById(id)
                 .orElse(null);
         if (r != null){
             r.setName(reader.getName());
             r.setSurname(reader.getSurname());
             readerRepository.save(r);
-            return true;
+            return OK;
         } else {
-            return false;
+            return READER_DOES_NOT_EXIST;
         }
     }
 
     @Override
-    public int removeReader(int id) {
+    public ReaderStatus removeReader(int id) {
         Reader r = readerRepository.findById(id).orElse(null);
         if (r != null) {
             try {
                 readerRepository.delete(r);
-                return 0;
+                return OK;
             } catch (Exception e) {
-                return 2;
+                return READER_HAS_RENTED_BOOKS;
             }
         } else {
-            return 1;
+            return READER_DOES_NOT_EXIST;
         }
 
     }

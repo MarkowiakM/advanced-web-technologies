@@ -11,6 +11,6 @@ public interface IAuthorService {
     List<AuthorDTO> getAuthorsDTOOfBook(List<Author> authors);
     Author getAuthorObj(int id);
     void addAuthor(AuthorInputDTO author);
-    int removeAuthor(int id);
-    boolean updateAuthor(int id, AuthorInputDTO author);
+    AuthorStatus removeAuthor(int id);
+    AuthorStatus updateAuthor(int id, AuthorInputDTO author);
 }
