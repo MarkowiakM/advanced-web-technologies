@@ -1,0 +1,31 @@
+type ToDoItem{
+    id: ID!
+    title: String!
+    completed: Boolean!
+    user: User!
+}
+
+type ToDoItemREST{
+    id: ID!
+    title: String!
+    completed: Boolean!
+    userId: Int
+}
+
+type User{
+    id: ID!
+    name: String!
+    email: String!
+    login: String!
+    todos: [ToDoItem!]!
+}
+
+type Query {
+    demo: String!
+    todos: [ToDoItem!]
+    todo(id: ID!): ToDoItem
+    users: [User!]
+    user(id: ID!): User
+    usersREST: [User!]
+    todosREST: [ToDoItemREST!]
+}
