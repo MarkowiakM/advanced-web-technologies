@@ -1,4 +1,4 @@
----------- StaticApp.js ---------- 
+---------- WSZYSTKIE ---------- 
 
 query {
   users{
@@ -11,8 +11,6 @@ query {
     }
   }
 }
-
-#TODO NIE DZIAŁA W DatabaseApp !!!!!
 
 query {
   user(id:1){
@@ -27,8 +25,6 @@ query {
   }
 }
 
-#TODO NIE DZIAŁA W DatabaseApp !!!!!
-
 query {
   todos{
     id
@@ -41,8 +37,6 @@ query {
   }
 }
 
-#TODO NIE DZIAŁA W DatabaseApp !!!!!
-
 query {
   todo(id:1){
     id
@@ -54,13 +48,6 @@ query {
     }
   }
 }
-
-
-
----------- App.js ---------- 
-
-
-
 
 
 ---------- DatabaseApp.js ---------- 

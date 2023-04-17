@@ -26,33 +26,43 @@ function query(sql, args) {
     });
 }
 
-function geTodosByUserId(id) {
+function getToDosByUserId(id) {
     return query(`select * from ToDos where userId = ?`, [id])
 }
 
-function geTodoById(id) {
-    return query(`select * from ToDos where id = `, [id])
+function getTodoById(id) {
+    return query(`select * from ToDos where id = ?`, [id])
 }
 
-function geUserById(id) {
-    return query(`select * from Users where id = `, [id])
+function getUserById(id) {
+    return query(`select * from Users where id = ?`, [id])
 }
 
 const resolvers = {
     Query: {
         users: async () => query('select * from Users'),
         todos: async () => query('select * from ToDos'),
-        todo: async (parent, args, context, info) => geTodoById(args.id),
-        user: async (parent, args, context, info) => geUserById(args.id),
+        todo: async (parent, args, context, info) =>{
+            const responce = await getTodoById(args.id);
+            return responce[0];
+        },
+        user: async (parent, args, context, info) => {
+            const responce = await getUserById(args.id)
+            return responce[0];
+        },
     },
     User: {
-        todos: (parent, args, context, info) => {
-            return geTodosByUserId(parent.id);
+        todos: async (parent, args, context, info) => {
+            // Not optimal - a lot of requests
+            const responce = getToDosByUserId(parent.id);
+            return responce;
         }
     },
     ToDoItem: {
-        user: (parent, args, context, info) => {
-            return geUserById(parent.userId);
+        user: async (parent, args, context, info) => {
+            // Not optimal - a lot of requests
+            const responce = await getUserById(parent.id)
+            return responce[0];
         }
     },
     Mutation: {

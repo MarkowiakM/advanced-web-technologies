@@ -2,7 +2,8 @@ type ToDoItem{
     id: ID!
     title: String!
     completed: Boolean!
-    user: User!
+    user: User
+    userId: ID!
 }
 
 type User{
@@ -17,7 +18,7 @@ type Query {
     demo: String!
     todos: [ToDoItem!]
     todo(id: ID!): ToDoItem
-    users: [User!]
+    users: [User]
     user(id: ID!): User
 }
 
