@@ -1,6 +1,6 @@
 const { GraphQLServer } = require('graphql-yoga');
 
-PORT = 4001
+PORT = 4000
 
 const usersList = [
   { id: 1, name: "Jan Konieczny", email: "jan.konieczny@wonet.pl", login: "jkonieczny"},

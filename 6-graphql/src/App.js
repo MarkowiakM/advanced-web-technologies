@@ -1,7 +1,7 @@
 const { GraphQLServer } = require('graphql-yoga');
 const axios = require("axios");
 
-PORT = 4001
+PORT = 5000
 
 async function getRestUsersList() {
   try {
