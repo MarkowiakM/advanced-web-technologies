@@ -5,13 +5,6 @@ type ToDoItem{
     user: User!
 }
 
-type ToDoItemREST{
-    id: ID!
-    title: String!
-    completed: Boolean!
-    userId: Int
-}
-
 type User{
     id: ID!
     name: String!
@@ -26,6 +19,4 @@ type Query {
     todo(id: ID!): ToDoItem
     users: [User!]
     user(id: ID!): User
-    usersREST: [User!]
-    todosREST: [ToDoItemREST!]
 }
