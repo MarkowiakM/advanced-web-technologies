@@ -30,7 +30,17 @@ const resolvers = {
       todos: () => todosList,
       todo: (parent, args, context, info) => todoById(parent, args, context, info),
       user: (parent, args, context, info) => userById(parent, args, context, info),
-  }
+  },
+  User:{
+    todos: (parent, args, context, info) => {
+        return todosList.filter(t => t.user_id == parent.id);
+    }
+  },
+  ToDoItem:{
+    user: (parent, args, context, info) => {
+        return usersList.find(u => u.id == parent.user_id);
+    }
+  } 
 }
 
 const server = new GraphQLServer({

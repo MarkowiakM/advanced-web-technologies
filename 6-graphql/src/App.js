@@ -41,9 +41,7 @@ async function getRestTodosList() {
       id: id,
       title: title,
       completed: completed,
-      user: {
-        id: userId,
-      }
+      user: user
     }));
   } catch (error) {
     throw error;
@@ -58,10 +56,25 @@ async function getRestTodoById(id) {
       id: todo.data.id,
       title: todo.data.title,
       completed: todo.data.completed,
-      user: {
-        id: todo.data.userId,
-      }
+      user: todo.data.userId
     };
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getRestTodoByUserId(userId) {
+  try {
+    const todos = await axios.get(`https://jsonplaceholder.typicode.com/todos/?userId=${userId}`);
+    console.log(todos);
+    return todos.data.map(({ id, title, completed, userId}) => ({
+      id: id,
+      title: title,
+      completed: completed,
+      user: {
+        id: userId,
+      }
+    }));
   } catch (error) {
     throw error;
   }
@@ -74,7 +87,17 @@ const resolvers = {
       todos: async () => getRestTodosList(),
       todo: async (parent, args, context, info) => getRestTodoById(args.id),
       user: async (parent, args, context, info) => getRestUserById(args.id),
-  }
+  },
+  User:{
+    todos: (parent, args, context, info) => {
+        return getRestTodoByUserId(parent.id);
+    }
+  },
+  ToDoItem:{
+    user: (parent, args, context, info) => {
+        return getRestUserById(parent.id);
+    }
+  } 
 }
 
 const server = new GraphQLServer({
