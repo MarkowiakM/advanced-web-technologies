@@ -3,27 +3,6 @@ const axios = require("axios");
 
 PORT = 4001
 
-const usersList = [
-  { id: 1, name: "Jan Konieczny", email: "jan.konieczny@wonet.pl", login: "jkonieczny"},
-  { id: 2, name: "Anna Wesołowska", email: "anna.w@sad.gov.pl", login: "anna.wesolowska" },
-  { id: 3, name: "Piotr Waleczny", email: "piotr.waleczny@gp.pl", login: "p.waleczny" } ];
-
-const todosList = [
-  { id: 1, title: "Naprawić samochód",completed: false, user_id: 3 },
-  { id: 2, title:"Posprzątać garaż",completed: true,  user_id: 3 },
-  { id: 3, title:"Napisać e-mail",completed: false, user_id: 3 },
-  { id: 4, title:"Odebrać buty",completed: false, user_id: 2 },
-  { id: 5, title: "Wysłać paczkę",  completed: true,  user_id: 2 },
-  { id: 6, title: "Zamówic kuriera",  completed: false, user_id: 3 }
-];
-
-function todoById(parent, args, context, info) {
-  return todosList.find(t => t.id == args.id);
-}
-function userById(parent, args, context, info) {
-  return usersList.find(u => u.id == args.id);
-}
-
 async function getRestUsersList() {
   try {
     const users = await axios.get("https://jsonplaceholder.typicode.com/users");
@@ -39,6 +18,21 @@ async function getRestUsersList() {
   }
 }
 
+async function getRestUserById(id) {
+  try {
+    const user = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+    console.log(user);
+    return {
+      id: user.data.id,
+      name: user.data.name,
+      email: user.data.email,
+      login: user.data.username,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getRestTodosList() {
   try {
     const todos = await axios.get("https://jsonplaceholder.typicode.com/todos");
@@ -47,8 +41,27 @@ async function getRestTodosList() {
       id: id,
       title: title,
       completed: completed,
-      userId: userId,
+      user: {
+        id: userId,
+      }
     }));
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getRestTodoById(id) {
+  try {
+    const todo = await axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    console.log(todo);
+    return {
+      id: todo.data.id,
+      title: todo.data.title,
+      completed: todo.data.completed,
+      user: {
+        id: todo.data.userId,
+      }
+    };
   } catch (error) {
     throw error;
   }
@@ -57,24 +70,11 @@ async function getRestTodosList() {
 
 const resolvers = {
   Query: {
-      demo: () => 'Witaj, GraphQL działa',
-      users: () => usersList,
-      usersREST: async() => getRestUsersList(),
-      todosREST: async() => getRestTodosList(),
-      todos: () => todosList,
-      todo: (parent, args, context, info) => todoById(parent, args, context, info),
-      user: (parent, args, context, info) => userById(parent, args, context, info),
-  },
-  User: {
-      todos: (parent, args, context, info) => {
-          return todosList.filter(t => t.user_id == parent.id);
-      }
-  },
-  ToDoItem: {
-      user: (parent, args, context, info) => {
-          return usersList.find(u => u.id == parent.user_id);
-      }
-  },
+      users: async () => getRestUsersList(),
+      todos: async () => getRestTodosList(),
+      todo: async (parent, args, context, info) => getRestTodoById(args.id),
+      user: async (parent, args, context, info) => getRestUserById(args.id),
+  }
 }
 
 const server = new GraphQLServer({
