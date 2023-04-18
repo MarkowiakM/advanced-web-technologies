@@ -1,0 +1,108 @@
+---------- WSZYSTKIE ---------- 
+
+query {
+  users{
+    id
+    name
+    email
+    login
+    todos {
+      title
+    }
+  }
+}
+
+query {
+  user(id:1){
+    id
+    name
+    email
+    login
+    todos {
+      id
+      title
+    }
+  }
+}
+
+query {
+  todos{
+    id
+    title
+    completed
+    user {
+      id
+      name
+    }
+  }
+}
+
+query {
+  todo(id:1){
+    id
+    title
+    completed
+    user {
+      id
+      name
+    }
+  }
+}
+
+
+---------- DatabaseApp.js ---------- 
+
+ ----- USERS -----
+
+mutation {
+  createUser(input: {name: "Maciej Madry", 
+    email:"m.madry@op.pl", login: "LunaticZebra"})
+  {
+    id
+    name
+    email
+    login
+  }
+}
+
+mutation {
+  updateUser(id: 30, input: {name: "Marcin Drutko", 
+    email:"m.drutko@nana.pl", login: "marcin4113"})
+  {
+    id
+    name
+    email
+    login
+  }
+}
+
+mutation {
+  deleteUser(id:20)
+}
+
+----- TODOS -----
+
+mutation {
+  createToDo(input: {title: "Zrobic obiad", 
+  completed: false, userId: 11})
+  {
+    id
+    title
+    completed
+  }
+}
+
+mutation {
+  updateToDo(id: 25, input: {title: "Zrobic kolacje", 
+  completed: true, userId: 11})
+  {
+    id
+    title
+    completed
+  }
+}
+
+mutation {
+  deleteToDo(id: 206)
+}
+
