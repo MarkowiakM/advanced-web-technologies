@@ -3,14 +3,13 @@ import React from 'react';
 import Sidebar from './Sidebar';
 import './Dashboard.scss';
 import OpenConversation from './OpenConversation';
-// import { useConversations } from '../contexts/ConversationsProvider';
 
-export default function Dashboard({ login }) {
-  // const { selectedConversation } = useConversations();
+export default function Dashboard({ login, chosenOption }) {
   return (
     <div className="d-flex dashboard-wrapper">
-      <Sidebar login={login} />
+      <Sidebar login={login} chosenOption={chosenOption} />
       <OpenConversation />
+      {chosenOption}
     </div>
   );
 }

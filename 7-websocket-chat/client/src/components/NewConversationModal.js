@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useContacts } from '../contexts/ContactsProvider';
 import { useConversations } from '../contexts/ConversationsProvider';
@@ -7,10 +7,10 @@ export default function NewConversationModal({ closeModal }) {
   const { contacts } = useContacts();
   const [selectedContacts, setSelectedContacts] = useState([]);
   const { createConversation } = useConversations();
-
+  const nameRef = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
-    createConversation(selectedContacts);
+    createConversation(nameRef.current.value, selectedContacts);
     closeModal();
   };
 
@@ -38,7 +38,8 @@ export default function NewConversationModal({ closeModal }) {
                 onChange={() => handleCheckboxChange(contact.login)}></Form.Check>
             </Form.Group>
           ))}
-
+          <Form.Label>Conversation name</Form.Label>
+          <Form.Control type="text" ref={nameRef} required></Form.Control>
           <Button type="submit" className="mt-2">
             Create
           </Button>

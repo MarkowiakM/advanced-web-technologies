@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useSocket } from './SocketProvider';
 
 const ConversationsContext = React.createContext();
 
@@ -11,26 +12,49 @@ export function useConversations() {
 export function ConversationsProvider({ login, children }) {
   const [conversations, setConversations] = useLocalStorage('conversations', []);
   const [selectedConversation, setSelectedConversation] = useState(0);
+  const socket = useSocket();
 
-  function createConversation(logins) {
+  function createConversation(name, logins) {
     setConversations((prevConversations) => [
       ...prevConversations,
-      { users: [...logins, login], messages: [] }
+      { name: name, users: [...logins, login], messages: [] }
     ]);
   }
 
-  function addMessageToConversation(conversationId, message) {
-    const newConversations = [...conversations];
-    newConversations[conversationId].messages.push(message);
-    setConversations(newConversations);
-  }
+  const addMessageToConversation = useCallback(
+    ({ recipients, text, date, conversationId, sender }) => {
+      console.log(conversationId);
+      console.log(conversations);
+      console.log(conversations[conversationId].messages);
+      const newConversations = [...conversations];
+      newConversations[conversationId].messages.push({ recipients, sender, text, date });
+      setConversations(newConversations);
+    },
+    [setConversations]
+  );
+
+  useEffect(() => {
+    if (!socket) return;
+    socket.on('receive-message', addMessageToConversation);
+
+    return () => socket.off('receive-message');
+  }, [socket, addMessageToConversation]);
 
   function sendMessage(conversationId, text) {
-    addMessageToConversation(conversationId, {
+    const date = new Date();
+    socket.emit('send-message', {
       recipients: getRecipients(conversationId),
       text: text,
-      sender: login,
-      date: new Date()
+      date: date,
+      conversationId: conversationId,
+      sender: login
+    });
+    addMessageToConversation({
+      recipients: getRecipients(conversationId),
+      text: text,
+      date: date,
+      conversationId: conversationId,
+      sender: login
     });
     console.log(conversations[conversationId]);
   }
@@ -39,7 +63,7 @@ export function ConversationsProvider({ login, children }) {
     return conversations[conversationId].users.filter((user) => user !== login);
   };
 
-  const isMessageFromMe = (message) => message.sender === login;
+  const isMessageFromMe = (sender) => sender === login;
 
   return (
     <ConversationsContext.Provider

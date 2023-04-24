@@ -9,9 +9,10 @@ import NewContactModal from './NewContactModal';
 
 const CONVERSATIONS_KEY = 'conversations';
 const CONTACTS_KEY = 'contacts';
-const ROOMS_KEY = 'rooms';
+const ROOMS_KEY = 'room';
+const CONVERSATION_OPTION = 'my conversations';
 
-export default function Sidebar({ login }) {
+export default function Sidebar({ login, chosenOption }) {
   const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -19,15 +20,20 @@ export default function Sidebar({ login }) {
     <div className="sidebar-wrapper d-flex flex-column">
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
         <Nav variant="tabs" className="justify-content-center">
-          <Nav.Item>
-            <Nav.Link eventKey={CONVERSATIONS_KEY}>Conversations</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={ROOMS_KEY}>Rooms</Nav.Link>
-          </Nav.Item>
+          {chosenOption === CONVERSATION_OPTION ? (
+            <>
+              <Nav.Item>
+                <Nav.Link eventKey={CONVERSATIONS_KEY}>Conversations</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
+              </Nav.Item>
+            </>
+          ) : (
+            <Nav.Item>
+              <Nav.Link eventKey={ROOMS_KEY}>{chosenOption}</Nav.Link>
+            </Nav.Item>
+          )}
         </Nav>
         <Tab.Content className="border border-top-0 overflow-auto flex-grow-1">
           <Tab.Pane eventKey={CONVERSATIONS_KEY}>

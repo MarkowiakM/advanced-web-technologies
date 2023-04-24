@@ -4,20 +4,29 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import Dashboard from './Dashboard';
 import { ContactsProvider } from '../contexts/ContactsProvider';
 import { ConversationsProvider } from '../contexts/ConversationsProvider';
+import { SocketProvider } from '../contexts/SocketProvider';
 
 function App() {
   const [login, setLogin] = useLocalStorage();
   const [showDashboard, setShowDashboard] = useState(false);
+  const [chosenOption, setChosenOption] = useState('');
   return (
     <>
       {showDashboard ? (
-        <ContactsProvider>
-          <ConversationsProvider login={login}>
-            <Dashboard login={login} />
-          </ConversationsProvider>
-        </ContactsProvider>
+        <SocketProvider login={login}>
+          <ContactsProvider>
+            <ConversationsProvider login={login}>
+              <Dashboard login={login} chosenOption={chosenOption} />
+            </ConversationsProvider>
+          </ContactsProvider>
+        </SocketProvider>
       ) : (
-        <Login login={login} onLoginSubmit={setLogin} setShowDashboard={setShowDashboard} />
+        <Login
+          login={login}
+          onLoginSubmit={setLogin}
+          setShowDashboard={setShowDashboard}
+          setChosenOption={setChosenOption}
+        />
       )}
     </>
   );
