@@ -1,0 +1,21 @@
+.openroom-wrapper {
+  width: 100vw;
+}
+
+#message-control {
+  height: 75px;
+  resize: none;
+}
+
+.server-message {
+  width: 100%;
+  text-align: center;
+
+  &-inner {
+     color: rgb(105, 23, 199);
+  }
+}
+
+#image-control {
+    max-width: 200px;
+}
