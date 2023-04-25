@@ -5,6 +5,9 @@ import Dashboard from './Dashboard';
 import { ContactsProvider } from '../contexts/ContactsProvider';
 import { ConversationsProvider } from '../contexts/ConversationsProvider';
 import { SocketProvider } from '../contexts/SocketProvider';
+import { RoomProvider } from '../contexts/RoomProvider';
+
+const CONVERSATION_OPTION = 'my conversations';
 
 function App() {
   const [login, setLogin] = useLocalStorage();
@@ -13,11 +16,21 @@ function App() {
   return (
     <>
       {showDashboard ? (
-        <SocketProvider login={login}>
+        <SocketProvider login={login} option={chosenOption}>
           <ContactsProvider>
-            <ConversationsProvider login={login}>
-              <Dashboard login={login} chosenOption={chosenOption} />
-            </ConversationsProvider>
+            {chosenOption === CONVERSATION_OPTION ? (
+              <ConversationsProvider login={login}>
+                <Dashboard login={login} chosenOption={chosenOption} />
+              </ConversationsProvider>
+            ) : (
+              <RoomProvider login={login}>
+                <Dashboard
+                  login={login}
+                  chosenOption={chosenOption}
+                  returnToLogin={() => setShowDashboard(false)}
+                />
+              </RoomProvider>
+            )}
           </ContactsProvider>
         </SocketProvider>
       ) : (

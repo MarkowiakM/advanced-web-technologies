@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -39,6 +40,13 @@ export function ConversationsProvider({ login, children }) {
 
     return () => socket.off('receive-message');
   }, [socket, addMessageToConversation]);
+
+  // useEffect(() => {
+  //   if (!socket) return;
+  //   socket.on('receive-server-message', addMessageToConversation);
+
+  //   return () => socket.off('receive-server-message');
+  // }, [socket, addMessageToConversation]);
 
   function sendMessage(conversationId, text) {
     const date = new Date();
