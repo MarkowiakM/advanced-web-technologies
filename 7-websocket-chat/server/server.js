@@ -55,9 +55,6 @@ io.on("connection", (socket) => {
     socket.on(
       "send-message",
       ({ recipients, text, date, conversationId, sender }) => {
-        console.log(recipients);
-        console.log(text);
-        console.log(sender);
         recipients.forEach((recipient) => {
           socket.broadcast.to(recipient).emit("receive-message", {
             recipients: recipients,
@@ -70,20 +67,19 @@ io.on("connection", (socket) => {
       }
     );
   } else {
-    socket.on("send-message", ({ text, date, sender }) => {
-      socket.broadcast.to(room).emit("receive-message", { text, date, sender });
-      MESSAGES[room].push({ text, date, sender });
+    socket.on("send-message", (message) => {
+      socket.broadcast.to(room).emit("receive-message", message);
+      MESSAGES[room].push(message);
     });
 
     socket.on("typing", ({ sender }) => {
-        const senderIndex = USERS[room].findIndex(({ user }) => user === sender);
-        USERS[room][senderIndex].typing = true;
+      const senderIndex = USERS[room].findIndex(({ user }) => user === sender);
+      USERS[room][senderIndex].typing = true;
 
       const message = {
         sender: SERVER_SENDER,
         users: USERS[room],
-        };
-        console.log(message.users[0].typing, message.users[1].typing);
+      };
       socket.broadcast.to(room).emit("receive-message", message);
     });
 

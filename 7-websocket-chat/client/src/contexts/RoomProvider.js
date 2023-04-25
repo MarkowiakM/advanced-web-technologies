@@ -16,18 +16,16 @@ export function RoomProvider({ login, children }) {
   const [messages, setMessages] = useState([]);
   const [roomUsers, setRoomUsers] = useState([]);
 
-  const addMessageToConversation = ({ sender, text, date, prevMessages, users }) => {
+  const addMessageToConversation = ({ sender, text, date, prevMessages, users, file }) => {
     let newMessages = [...messages];
     if (users) {
-      console.log('users changed');
-      console.log(users);
       setRoomUsers([...users]);
     }
     if (prevMessages) {
       newMessages = [...newMessages, ...prevMessages];
     }
     if (sender && text && date) {
-      newMessages.push({ sender, text, date });
+      newMessages.push({ sender, text, date, file });
     }
     setMessages(newMessages);
   };
@@ -39,17 +37,29 @@ export function RoomProvider({ login, children }) {
     return () => socket.off('receive-message');
   }, [socket, addMessageToConversation]);
 
-  function sendMessage(text) {
+  function sendMessage({ text, file }) {
     const date = new Date();
-    socket.emit('send-message', {
-      text: text,
-      date: date,
-      sender: login
-    });
+    if (file) {
+      socket.emit('send-message', {
+        file: file,
+        mimeType: file.type,
+        fileName: file.name,
+        date: date,
+        sender: login
+      });
+    }
+    if (text) {
+      socket.emit('send-message', {
+        text: text,
+        date: date,
+        sender: login
+      });
+    }
     addMessageToConversation({
       text: text,
       date: date,
-      sender: login
+      sender: login,
+      file: file
     });
   }
 

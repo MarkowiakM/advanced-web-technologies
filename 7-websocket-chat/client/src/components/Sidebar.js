@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Tab, Nav, Button, Modal } from 'react-bootstrap';
+import { Tab, Nav, Button, Modal, ListGroup } from 'react-bootstrap';
 import './Sidebar.scss';
 import Conversations from './Conversations';
 import Contacts from './Contacts';
@@ -16,7 +17,7 @@ const CONVERSATION_OPTION = 'my conversations';
 export default function Sidebar({ login, chosenOption, returnToLogin }) {
   const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
   const [modalOpen, setModalOpen] = useState(false);
-  const { leaveRoom } = useRooms();
+  const { leaveRoom, roomUsers } = useRooms();
 
   const onLeftClick = () => {
     console.log(returnToLogin);
@@ -53,7 +54,13 @@ export default function Sidebar({ login, chosenOption, returnToLogin }) {
                 <Nav.Link eventKey={ROOMS_KEY}>{chosenOption}</Nav.Link>
               </Nav.Item>
             </Nav>
-            <Tab.Content className="border border-top-0 overflow-auto flex-grow-1"></Tab.Content>
+            <Tab.Content className="border border-top-0 overflow-auto flex-grow-1">
+              <ListGroup>
+                {roomUsers.map(({ user }, id) => {
+                  return <ListGroup.Item key={id}>{user}</ListGroup.Item>;
+                })}
+              </ListGroup>
+            </Tab.Content>
           </>
         )}
 
