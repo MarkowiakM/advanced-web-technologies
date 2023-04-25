@@ -18,6 +18,13 @@ const MESSAGES = {
   holidays: [],
 };
 
+const USERS = {
+  work: [],
+  hobbys: [],
+  animals: [],
+  holidays: [],
+};
+
 io.on("connection", (socket) => {
   const login = socket.handshake.query.login;
   const room = socket.handshake.query.option;
@@ -25,10 +32,14 @@ io.on("connection", (socket) => {
     socket.join(login);
   } else {
     socket.join(room);
+    if (!USERS[room].includes(login)) {
+      USERS[room].push({ user: login, typing: false });
+    }
     const message = {
       sender: SERVER_SENDER,
       text: `${login} has joined the ${room} chat!`,
       date: new Date(),
+      users: USERS[room],
     };
     MESSAGES[room].push(message);
     socket.emit("receive-message", {
@@ -38,10 +49,7 @@ io.on("connection", (socket) => {
       prevMessages: MESSAGES[room],
     });
     socket.broadcast.to(room).emit("receive-message", message);
-    console.log(MESSAGES[room]);
   }
-
-  // dodac mozliwosc opuszczenia czatu
 
   if (room === CONVERSATION_OPTION) {
     socket.on(
@@ -63,28 +71,39 @@ io.on("connection", (socket) => {
     );
   } else {
     socket.on("send-message", ({ text, date, sender }) => {
-      console.log(text);
-      console.log(sender);
       socket.broadcast.to(room).emit("receive-message", { text, date, sender });
       MESSAGES[room].push({ text, date, sender });
     });
 
     socket.on("typing", ({ sender }) => {
+        const senderIndex = USERS[room].findIndex(({ user }) => user === sender);
+        USERS[room][senderIndex].typing = true;
+
       const message = {
         sender: SERVER_SENDER,
-        text: `${sender} is typing`,
-        date: new Date(),
-        typing: true,
+        users: USERS[room],
+        };
+        console.log(message.users[0].typing, message.users[1].typing);
+      socket.broadcast.to(room).emit("receive-message", message);
+    });
+
+    socket.on("stop-typing", ({ sender }) => {
+      const senderIndex = USERS[room].findIndex(({ user }) => user === sender);
+      USERS[room][senderIndex].typing = false;
+      const message = {
+        sender: SERVER_SENDER,
+        users: USERS[room],
       };
-      console.log(sender + " is typing");
       socket.broadcast.to(room).emit("receive-message", message);
     });
 
     socket.on("disconnect", () => {
+      USERS[room] = USERS[room].filter(({ user }) => user !== login);
       const message = {
         sender: SERVER_SENDER,
         text: `${login} has left the ${room} chat!`,
         date: new Date(),
+        users: USERS[room],
       };
       io.to(room).emit("receive-message", message);
       MESSAGES[room].push(message);

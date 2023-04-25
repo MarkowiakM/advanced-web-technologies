@@ -3,16 +3,26 @@ import React, { useState, useCallback } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import './OpenRoom.scss';
 import { useRooms } from '../contexts/RoomProvider';
+import { debounce } from 'lodash';
 
 export default function OpenRoom() {
   const [text, setText] = useState('');
+
   const setRef = useCallback((node) => {
     if (node) {
       node.scrollIntoView({ smooth: true }, []);
     }
   });
-  const { sendMessage, isMessageFromMe, isMessageFromServer, filteredMessages, emitTyping } =
-    useRooms();
+
+  const {
+    sendMessage,
+    isMessageFromMe,
+    isMessageFromServer,
+    filteredMessages,
+    emitTyping,
+    emitStopTyping,
+    typingUsers
+  } = useRooms();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,11 +30,17 @@ export default function OpenRoom() {
     setText('');
   };
 
-  const handleKeyDown = (e) => {
-    console.log('user is typing');
+  const handleKeyDown = debounce(() => {
     emitTyping();
-  };
+  }, 500); // wait for 500 milliseconds
+
+  const handleKeyUp = debounce(() => {
+    emitStopTyping();
+  }, 3000); // wait for 1 second
+
   const messages = filteredMessages();
+
+  const usersTyping = typingUsers();
 
   return (
     <div className="d-flex flex-column flex-grow-1 openroom-wrapper">
@@ -64,6 +80,15 @@ export default function OpenRoom() {
               </div>
             );
           })}
+          {usersTyping.length ? (
+            usersTyping.map(({ user }) => (
+              <div className="text-muted small" key={user}>
+                {user} is typing...
+              </div>
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <Form onSubmit={handleSubmit}>
@@ -76,6 +101,7 @@ export default function OpenRoom() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               onKeyDown={handleKeyDown}
+              onKeyUp={handleKeyUp}
             />
             <Button type="submit">Send</Button>
           </InputGroup>

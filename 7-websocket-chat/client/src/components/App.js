@@ -18,19 +18,19 @@ function App() {
       {showDashboard ? (
         <SocketProvider login={login} option={chosenOption}>
           <ContactsProvider>
-            {chosenOption === CONVERSATION_OPTION ? (
-              <ConversationsProvider login={login}>
-                <Dashboard login={login} chosenOption={chosenOption} />
-              </ConversationsProvider>
-            ) : (
-              <RoomProvider login={login}>
+            <RoomProvider login={login}>
+              {chosenOption === CONVERSATION_OPTION ? (
+                <ConversationsProvider login={login}>
+                  <Dashboard login={login} chosenOption={chosenOption} />
+                </ConversationsProvider>
+              ) : (
                 <Dashboard
                   login={login}
                   chosenOption={chosenOption}
                   returnToLogin={() => setShowDashboard(false)}
                 />
-              </RoomProvider>
-            )}
+              )}
+            </RoomProvider>
           </ContactsProvider>
         </SocketProvider>
       ) : (

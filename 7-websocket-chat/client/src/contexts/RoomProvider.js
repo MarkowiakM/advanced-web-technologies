@@ -14,16 +14,21 @@ export function useRooms() {
 export function RoomProvider({ login, children }) {
   const socket = useSocket();
   const [messages, setMessages] = useState([]);
+  const [roomUsers, setRoomUsers] = useState([]);
 
-  const addMessageToConversation = ({ sender, text, date, prevMessages, typing }) => {
+  const addMessageToConversation = ({ sender, text, date, prevMessages, users }) => {
     let newMessages = [...messages];
-    if (typing) {
-      console.log('typing from server');
+    if (users) {
+      console.log('users changed');
+      console.log(users);
+      setRoomUsers([...users]);
     }
     if (prevMessages) {
       newMessages = [...newMessages, ...prevMessages];
     }
-    newMessages.push({ sender, text, date });
+    if (sender && text && date) {
+      newMessages.push({ sender, text, date });
+    }
     setMessages(newMessages);
   };
 
@@ -66,6 +71,9 @@ export function RoomProvider({ login, children }) {
   const isMessageFromMe = (sender) => sender === login;
   const isMessageFromServer = (sender) => sender === SERVER_SENDER;
 
+  const typingUsers = () =>
+    roomUsers.filter(({ user, typing }) => typing === true && user !== login) ?? [];
+
   return (
     <RoomContext.Provider
       value={{
@@ -76,7 +84,9 @@ export function RoomProvider({ login, children }) {
         filteredMessages,
         leaveRoom,
         emitTyping,
-        emitStopTyping
+        emitStopTyping,
+        roomUsers,
+        typingUsers
       }}>
       {children}
     </RoomContext.Provider>
